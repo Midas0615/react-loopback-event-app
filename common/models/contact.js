@@ -1,16 +1,21 @@
 'use strict';
-const Mustache = require('mustache');
+const renderEmailBody = require('./../../server/utils/renderEmailBody');
 
 module.exports = function(Contact) {
-  Contact.greet = async function(contactId) {
-    const { email } = await Contact.findById(contactId);
-    console.log(email);
-    const data = {
-      stuff: 'Jebote'
+  // Send Email to single Contact
+  Contact.sendEmail = async (contactId, emailTemplateId, next) => {
+    try {
+      const emailTemplate = await Contact.app.models.EmailTemplate.findById(emailTemplateId);
+      if (!emailTemplate || emailTemplate.type !== 'common') throw EmailTypeException
+      const contact = await Contact.findById(contactId);
+      const email = renderEmailBody(emailTemplate, contact);
+      Contact.app.models.Mailer.sendEmail(email);
     }
-    const string = `{{stuff}} ovo je do jaja`
-    const output = Mustache.render(string,data)
-
-    return output
+    catch(e) {
+      console.log(e)
+      const error = new Error('Email Not Sent. Email must be of type = common');
+      error.status = 500;
+      next(error);
+    }
   };
 };

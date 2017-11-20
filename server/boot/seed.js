@@ -93,8 +93,46 @@ module.exports = (app, next) => ds.automigrate('Account', async (err) => {
   var emailTemplates = [
     {
       name: 'USER_INVITED',
-      subject: '{{firstName}} You are Invited to Event: {{eventName}} on {{eventDate}}',
-      html: `<a href="{{attendingUrl}}">Attending</a> or <a href="{{notAttendingUrl}}">Not Attending</a>`
+      type: 'system',
+      subject: 'You are Invited to Event: {{eventName}} on {{eventDate}}',
+      html: `
+        <h2>Hello {{firstName}},
+        <br/><br/>
+        You are invited to {{eventName}}, please respond by clicking on links: <br/><br/>
+        <a href="{{attendingUrl}}">Attending</a> or <a href="{{notAttendingUrl}}">Not Attending</a>.
+        <p>
+          Best, <br />
+          EventApp
+        </p>
+        `
+    },
+    {
+      name: 'EVENT REMINDER',
+      type: 'event',
+      subject: 'Event Reminder: {{eventName}} on {{eventDate}}',
+      html: `
+        <h2>Hello {{firstName}},
+        <br/><br/>
+        You are invited to {{eventName}}, just to remind you that event will occur on {{eventDate}}, and you are welcome!
+        <p>
+          Best, <br />
+          EventApp
+        </p>
+        `
+    },
+    {
+      name: 'COMMON MESSAGE',
+      type: 'common',
+      subject: 'Hi {{firstName}}',
+      html: `
+        <h2>Hello {{firstName}} {{lastName}},
+        <br/><br/>
+        This is just a common message.
+        <p>
+          Best, <br />
+          EventApp
+        </p>
+        `
     }
   ];
   createData('EmailTemplate', emailTemplates);

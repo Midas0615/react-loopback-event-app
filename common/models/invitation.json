@@ -34,17 +34,30 @@
       "foreignKey": "eventId"
     }
   },
+  "indexes": {
+    "contactEventIdx": {
+      "keys": {
+         "contactId": 1,
+         "eventId": 1
+       },
+       "options": {
+         "unique": true
+       }
+    }
+  },
   "acls": [],
   "methods": {
     "confirm": {
       "accepts": [
         {
           "arg": "inviteId",
-          "type": "string"
+          "type": "string",
+          "required": true
         },
         {
           "arg": "status",
-          "type": "string"
+          "type": "string",
+          "required": true
         }
       ],
       "returns": {

@@ -23,6 +23,27 @@
     },
     "comment": {
       "type": "string"
+    },
+    "address1": {
+      "type": "string"
+    },
+    "address2": {
+      "type": "string"
+    },
+    "address3": {
+      "type": "string"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "zip": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
     }
   },
   "validations": [],
@@ -41,21 +62,25 @@
   },
   "acls": [],
   "methods": {
-    "greet": {
+    "sendEmail": {
+      "description": "Send emails to a contact",
       "accepts": [
         {
-          "arg": "contactId",
+          "arg": "id",
           "type": "number"
+        },
+        {
+          "arg": "emailTemplateId",
+          "type": "string",
+          "required": true
         }
       ],
       "returns": {
-        "arg": "data",
-        "type": "string",
         "root": true
       },
       "http": {
-        "verb": "get",
-        "path": "/greet"
+        "verb": "post",
+        "path": "/:id/send-email"
       }
     }
   }

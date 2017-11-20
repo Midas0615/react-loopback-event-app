@@ -64,7 +64,9 @@
           "findById": true,
           "create": true,
           "prototype.patchAttributes": true,
-          "deleteById": true
+          "deleteById": true,
+          "sendEmail": true,
+          "prototype.__get__events": true
         }
       }
     }
@@ -84,7 +86,10 @@
           "findById": true,
           "create": true,
           "prototype.patchAttributes": true,
-          "deleteById": true
+          "deleteById": true,
+          "sendEmails": true,
+          "sendEmail": true,
+          "prototype.__get__contacts": true
         }
       }
     }
@@ -117,7 +122,8 @@
           "create": true,
           "prototype.patchAttributes": true,
           "deleteById": true,
-          "prototype.__get__contacts": true
+          "prototype.__get__contacts": true,
+          "sendEmails": true
         }
       }
     }

@@ -12,8 +12,8 @@ import Login from 'routes/Login'
 import Docs from 'routes/Docs'
 
 
-export default () =>
-<Provider store={this.props.store}>
+export default ({ store }) =>
+<Provider store={store}>
   <ThemeProvider theme={themeConfig}>
     <Router>
       <div>

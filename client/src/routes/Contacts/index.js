@@ -11,11 +11,11 @@ import { Button } from 'components/Styled'
 
 
 const Row = ({ resource }) =>
-  <div>
-    ROW <br/>
-    {resource.firstName} {resource.lastName}
-    <hr/>
-  </div>
+<div>
+  ROW <br/>
+  {resource.firstName} {resource.lastName}
+  <hr/>
+</div>
 
 
 const Contacts = (props) =>

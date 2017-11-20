@@ -2,10 +2,10 @@
 
 Setup:
 
-- `yarn install`
-- `node .` -- Server (terminal 1)
-- `cd app && yarn install`
-- `npm start` -- Client (terminal 2)
+- `yarn install` -- Server (terminal 1)
+- `node .`
+- `cd client && yarn install` -- Client (in terminal 2)
+- `npm start`
 
 Frontend runs on http://localhost:3000
 

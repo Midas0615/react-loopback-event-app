@@ -40,5 +40,23 @@
     }
   },
   "acls": [],
-  "methods": {}
+  "methods": {
+    "greet": {
+      "accepts": [
+        {
+          "arg": "contactId",
+          "type": "number"
+        }
+      ],
+      "returns": {
+        "arg": "data",
+        "type": "string",
+        "root": true
+      },
+      "http": {
+        "verb": "get",
+        "path": "/greet"
+      }
+    }
+  }
 }

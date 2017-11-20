@@ -44,6 +44,8 @@ module.exports = (app, next) => ds.automigrate('Account', async (err) => {
     },
   ];
   createData('Account', accounts);
+  console.log(`User account created: bogdan.radenkovic@gmail.com, password: 123456`.green);
+  console.log(`User account created: txen89@gmail.com, password: 123456`.green);
   var contactGroups = [
     {
       name: 'Ahmedovski',
@@ -54,7 +56,7 @@ module.exports = (app, next) => ds.automigrate('Account', async (err) => {
     {
       'firstName': 'Jasar',
       'lastName': 'Ahmedovski',
-      'email': 'jasar@ahmedovski.com',
+      'email': 'bogdan.radenkovic@gmail.com',
       'title': 'Mr.',
       'comment': '',
       'accountId': 1,
@@ -63,7 +65,7 @@ module.exports = (app, next) => ds.automigrate('Account', async (err) => {
     {
       'firstName': 'Ipce',
       'lastName': 'Ahmedovski',
-      'email': 'ipce@ahmedovski.com',
+      'email': 'txen89@gmail.com',
       'title': 'Mr.',
       'comment': '',
       'accountId': 1,
@@ -86,7 +88,16 @@ module.exports = (app, next) => ds.automigrate('Account', async (err) => {
     {contactId: 1, eventId: 1},
     {contactId: 2, eventId: 1},
   ];
-
   createData('Invitation', invitations);
+
+  var emailTemplates = [
+    {
+      name: 'USER_INVITED',
+      subject: 'You are Invited to Event',
+      html: `<a href="{{attendingLink}}"">Attending</a> or <a href="{{notAttendingLink}}"">Not Attending</a>"`
+    }
+  ];
+  createData('EmailTemplate', emailTemplates);
+
   next();
 });

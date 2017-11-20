@@ -2,11 +2,25 @@
   "name": "Invitation",
   "plural": "invites",
   "base": "Base",
-  "idInjection": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
-  "properties": {},
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "defaultFn": "uuidv4"
+    },
+    "status": {
+      "type": "string",
+      "default": "unconfirmed"
+    },
+    "emailConfirmation": {
+      "type": "boolean",
+      "default": false
+    }
+  },
   "validations": [],
   "relations": {
     "contact": {
@@ -21,5 +35,28 @@
     }
   },
   "acls": [],
-  "methods": {}
+  "methods": {
+    "confirm": {
+      "accepts": [
+        {
+          "arg": "inviteId",
+          "type": "string"
+        },
+        {
+          "arg": "status",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "arg": "data",
+        "type": "string",
+        "root": true
+      },
+      "http": {
+        "verb": "get",
+        "path": "/confirm",
+        "errorStatus": "404"
+      }
+    }
+  }
 }

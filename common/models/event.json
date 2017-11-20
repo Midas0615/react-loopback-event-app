@@ -1,0 +1,36 @@
+{
+  "name": "Event",
+  "plural": "events",
+  "base": "Base",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "geolocation": {
+      "type": "geopoint"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "eventDate": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "contacts": {
+      "type": "hasMany",
+      "model": "Contact",
+      "foreignKey": "eventId",
+      "through": "Invitation"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

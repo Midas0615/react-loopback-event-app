@@ -1,0 +1,25 @@
+{
+  "name": "ContactGroup",
+  "plural": "contact-groups",
+  "base": "Base",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "contacts": {
+      "type": "hasMany",
+      "model": "Contact",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

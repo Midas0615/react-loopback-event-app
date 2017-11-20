@@ -1,0 +1,25 @@
+{
+  "name": "Invitation",
+  "plural": "invites",
+  "base": "Base",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "contact": {
+      "type": "belongsTo",
+      "model": "Contact",
+      "foreignKey": "contactId"
+    },
+    "event": {
+      "type": "belongsTo",
+      "model": "Event",
+      "foreignKey": "eventId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

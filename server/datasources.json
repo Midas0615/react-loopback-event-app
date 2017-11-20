@@ -1,0 +1,11 @@
+{
+  "db": {
+    "port": "5432",
+    "database": "event_app",
+    "username": "postgres",
+    "password": "",
+    "name": "db",
+    "connector": "memory",
+    "debug": true
+  }
+}

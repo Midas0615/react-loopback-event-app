@@ -93,8 +93,8 @@ module.exports = (app, next) => ds.automigrate('Account', async (err) => {
   var emailTemplates = [
     {
       name: 'USER_INVITED',
-      subject: 'You are Invited to Event',
-      html: `<a href="{{attendingLink}}"">Attending</a> or <a href="{{notAttendingLink}}"">Not Attending</a>"`
+      subject: '{{firstName}} You are Invited to Event: {{eventName}} on {{eventDate}}',
+      html: `<a href="{{attendingUrl}}">Attending</a> or <a href="{{notAttendingUrl}}">Not Attending</a>`
     }
   ];
   createData('EmailTemplate', emailTemplates);

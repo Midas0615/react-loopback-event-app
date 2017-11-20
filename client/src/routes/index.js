@@ -10,6 +10,8 @@ import Contacts from 'routes/Contacts'
 import Confirm from 'routes/Confirm'
 import Login from 'routes/Login'
 import Docs from 'routes/Docs'
+import Event from 'routes/Event'
+import EmailTemplates from 'routes/EmailTemplates'
 
 
 export default ({ store }) =>
@@ -22,6 +24,8 @@ export default ({ store }) =>
         <Route path='/confirm' component={Confirm} />
         <Route path='/login' component={Login} />
         <Route path='/docs' component={Docs} />
+        <Route path='/event/:eventId' component={Event} />
+        <Route path='/email-templates' component={EmailTemplates} />
       </div>
     </Router>
   </ThemeProvider>

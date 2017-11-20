@@ -6,11 +6,10 @@ import DataTable from 'components/DataTable'
 import Filters from 'components/Filters'
 import AppLayout from 'layout/AppLayout'
 
-const Row = ({ resource }) => {
-  const contact = resource.contact;
+const Row = ({ resource: event }) => {
   return (
     <div>
-      {contact.firstName} {contact.lastName}
+      {event.name}
     </div>
   )
 }
@@ -26,8 +25,8 @@ const Contacts = (props) =>
 
 export default compose(
   withProps({
-    resource: 'invites',
-    params: { limit: 2, include: 'contact' },
+    resource: 'events',
+    params: { limit: 2, include: 'account' },
   }),
   withPaginate,
   pure

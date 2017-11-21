@@ -18,6 +18,9 @@
     "html": {
       "type": "string",
       "required": true
+    },
+    "type": {
+      "type": "string"
     }
   },
   "validations": [],

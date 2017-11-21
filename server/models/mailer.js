@@ -1,22 +1,21 @@
 'use strict';
-module.exports = function(Mailer) {
-  Mailer.sendEmail = async (config) => {
-    try {
-    const res = Mailer.app.models.Contact.findById(1);
-      console.log(res)
-    } catch(e) {
-      console.log(e)
-    }
+const fs = require('fs');
 
-    // Mailer.send({
-    //   to: config.to,
-    //   from: 'Dan Radenkovic <dan@radenkovic.org>',
-    //   subject: 'Sample Subject',
-    //   text: 'Text',
-    //   html: 'HTML',
-    // }, function(err, mail) {
-    //   console.log(err);
-    //   console.log(mail);
-    // });
+module.exports = function(Mailer) {
+  Mailer.sendEmail = (config) => {
+    try {
+      const folder = process.cwd() + '/server/email-templates/';
+      const emailHeader = fs.readFileSync(folder + 'header.html', 'utf8');
+      const emailFooter = fs.readFileSync(folder + 'footer.html', 'utf8');
+      const messageBody = emailHeader + config.html + emailFooter;
+      Mailer.send({
+        to: config.to,
+        from: 'Dan Radenkovic <dan@radenkovic.org>',
+        subject: config.subject,
+        html: messageBody,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 };

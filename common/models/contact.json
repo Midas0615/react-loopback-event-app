@@ -23,6 +23,27 @@
     },
     "comment": {
       "type": "string"
+    },
+    "address1": {
+      "type": "string"
+    },
+    "address2": {
+      "type": "string"
+    },
+    "address3": {
+      "type": "string"
+    },
+    "zip": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "organization": {
+      "type": "string"
     }
   },
   "validations": [],
@@ -40,23 +61,5 @@
     }
   },
   "acls": [],
-  "methods": {
-    "greet": {
-      "accepts": [
-        {
-          "arg": "contactId",
-          "type": "number"
-        }
-      ],
-      "returns": {
-        "arg": "data",
-        "type": "string",
-        "root": true
-      },
-      "http": {
-        "verb": "get",
-        "path": "/greet"
-      }
-    }
-  }
+  "methods": {}
 }

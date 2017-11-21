@@ -32,5 +32,53 @@
     }
   },
   "acls": [],
-  "methods": {}
+  "methods": {
+    "sendEmails": {
+      "accepts": [
+        {
+          "arg": "id",
+          "type": "number"
+        },
+        {
+          "arg": "emailTemplateId",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "returns": {
+        "root": true
+      },
+      "description": "Send emails to all Contacts that attend an event.",
+      "http": {
+        "verb": "post",
+        "path": "/:id/contacts/send-emails"
+      }
+    },
+    "sendEmail": {
+      "accepts": [
+        {
+          "arg": "id",
+          "type": "number"
+        },
+        {
+          "arg": "contactId",
+          "type": "string",
+          "required": true
+        },
+        {
+          "arg": "emailTemplateId",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "returns": {
+        "root": true
+      },
+      "description": "Send emails to all Contacts that attend an event.",
+      "http": {
+        "verb": "post",
+        "path": "/:id/contacts/:contactId/send-email"
+      }
+    }
+  }
 }

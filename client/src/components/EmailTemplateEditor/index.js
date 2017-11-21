@@ -1,79 +1,28 @@
 import React from 'react'
-import Modal from 'components/Modal'
-import { ModalBody, ModalFooter } from 'components/Styled/Modal'
-import Button from 'components/Styled/Button'
-import { withProps, compose } from 'recompose'
-import { Field, reduxForm } from 'redux-form'
+import { withProps, withState, compose } from 'recompose'
+import { reduxForm, formValueSelector } from 'redux-form'
+import { connect } from 'react-redux'
 
-import { Row, Col } from 'react-styled-flexboxgrid'
-import Input from 'components/Form/Input'
-import Select from 'components/Form/Select'
-import HtmlEditor from 'components/Form/HtmlEditor'
-
-import { FormGroup } from 'components/Styled/Form'
-
-
-var options = [
-  { name: 'common' },
-  { name: 'event' }
-];
-
-const Form = ({ handleSubmit })  =>
-<form onSubmit={handleSubmit}>
-  <Modal md title='Edit Email Template'>
-    <ModalBody>
-      <FormGroup>
-        <Row>
-          <Col sm={8}>
-            <Field
-              name="email"
-              type="text"
-              label="Template Name:"
-              component={Input}
-              required
-            />
-          </Col>
-          <Col sm={4}>
-            <Field
-              name="type"
-              type="text"
-              label="Template Type:"
-              component={Select}
-              options={options}
-              required
-            />
-          </Col>
-        </Row>
-      </FormGroup>
-      <FormGroup>
-        <Field
-          name="subject"
-          type="text"
-          label="Email Subject:"
-          component={Input}
-          required
-        />
-      </FormGroup>
-      <FormGroup>
-        <Field
-          name="html"
-          type="text"
-          label="Email Content:"
-          component={HtmlEditor}
-          required
-        />
-      </FormGroup>
-    </ModalBody>
-    <ModalFooter>
-      <Button primary>Save</Button> <Button blank>Cancel</Button>
-    </ModalFooter>
-  </Modal>
-</form>
-
+import withCrud from 'containers/withCrud'
+import Form from './Form'
 
 export default compose(
-  withProps(({ dispatch }) => ({
-    onSubmit: (data) => console.log(data)
+  connect(state => ({
+    type: formValueSelector('email-template')(state, 'type'),
+  })),
+  withCrud,
+  withProps(({ fetch, close, data, upsert, remove }) => ({
+    initialValues: {...data, type: { name: data.type} },
+    onSubmit: form => {
+      const data = {
+        html: form.html,
+        name: form.name,
+        type: form.type.name,
+        html: form.html,
+      }
+      upsert('email-templates', data, form.id);
+    },
+    onDelete: () => remove(`email-templates`, data.id)
   })),
   reduxForm({ form: 'email-template' }),
 )(Form)

@@ -21,7 +21,9 @@
     "react-styled-flexboxgrid": "^2.0.3",
     "recompose": "^0.26.0",
     "redux": "^3.7.2",
+    "redux-form": "^7.1.2",
     "redux-thunk": "^2.2.0",
+    "store": "^2.0.12",
     "styled-components": "^2.1.2",
     "styled-components-theme": "^1.0.5"
   },

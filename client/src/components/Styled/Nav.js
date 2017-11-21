@@ -7,5 +7,6 @@ export const Nav = styled.div`
   background: ${theme.base};
   * {
     line-height: 60px;
+    text-decoration: none;
   }
 `

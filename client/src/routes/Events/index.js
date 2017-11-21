@@ -8,6 +8,7 @@ import moment from 'moment'
 import Fa from 'components/Fa'
 import Label from 'components/Styled/Label'
 import { Grid } from 'react-styled-flexboxgrid'
+import { Button } from 'components/Styled'
 import { compose, withProps, pure } from 'recompose'
 import { Panel, PanelHeading, PanelBody } from 'components/Styled/Panel'
 
@@ -16,11 +17,11 @@ const Row = ({ resource: event }) => {
     <tr>
       <td>{event.name}</td>
       <td>{moment(event.eventDate).format('LLL')}</td>
-      <td><Label success>{event.eventLocation}</Label></td>
+      <td><Label success><Fa lg base icon='ion-location' /> {event.eventLocation}</Label></td>
       <td>
         <span>
-          <button><Fa lg icon='ion-edit' gray/></button>
-          <button><Fa lg icon='ion-ios-trash-outline' /></button>
+          <Button mr={0.5} borderWarning backgroundWarning icon><Fa lg base icon='ion-edit'/></Button>
+          <Button icon borderDanger backgroundDanger><Fa lg base icon='ion-ios-trash-outline' /></Button>
         </span>
       </td>
     </tr>

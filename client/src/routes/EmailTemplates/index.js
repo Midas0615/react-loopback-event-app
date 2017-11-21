@@ -7,7 +7,7 @@ import AppLayout from 'layout/AppLayout'
 import { Panel, PanelHeading } from 'components/Styled/Panel'
 import Label from 'components/Styled/Label'
 import Button from 'components/Styled/Button'
-import EmailTemplate from 'components/EmailTemplate'
+import EmailTemplateEditor from 'components/EmailTemplateEditor'
 
 const SHOW_MODAL = true
 
@@ -42,7 +42,7 @@ const Contacts = (props) =>
     />
   </Panel>
   {/* Modal */}
-  {  SHOW_MODAL && <EmailTemplate /> }
+  {  SHOW_MODAL && <EmailTemplateEditor /> }
 </AppLayout>
 
 

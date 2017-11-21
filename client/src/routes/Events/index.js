@@ -19,8 +19,8 @@ const Row = ({ resource: event }) => {
       <td><Label success>{event.eventLocation}</Label></td>
       <td>
         <span>
-          <Fa icon='pencil-square-o' gray table/>
-          <Fa icon='trash' danger table/>
+          <button><Fa lg icon='ion-edit' gray/></button>
+          <button><Fa lg icon='ion-ios-trash-outline' /></button>
         </span>
       </td>
     </tr>

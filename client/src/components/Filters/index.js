@@ -28,11 +28,11 @@ export default () =>
   </InputGroup>
   <InputGroup mr={FILTER_MARGIN}>
     <Input type="text" placeholder="Begining Date" />
-    <Fa icon='calendar' gray input />
+    <Fa icon='ion-ios-calendar-outline' gray input />
   </InputGroup>
   <InputGroup mr={FILTER_MARGIN}>
     <Input type="text" placeholder="Ending Date" />
-    <Fa icon='calendar' gray input />
+    <Fa icon='ion-ios-calendar-outline' gray input />
   </InputGroup>
   <InputGroup mr={FILTER_MARGIN} width={10}>
     <Select options={options} />

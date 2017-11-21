@@ -1,8 +1,14 @@
 import React from 'react'
-import Modal from 'components/Styled/Modal'
+import ContactEditor from 'components/ContactEditor'
+import EventEditor from 'components/EventEditor'
+
+
+// Toggle
+const CONTACT_EDITOR = true
+const EVENT_EDITOR = false
 
 export default () =>
 <div>
-  <Modal />
-  Components go here
+  {CONTACT_EDITOR && <ContactEditor />}
+  {EVENT_EDITOR && <EventEditor />}
 </div>

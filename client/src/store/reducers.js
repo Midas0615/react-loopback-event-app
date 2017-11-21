@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
-import userReducer from 'reducers/userReducer'
+import user from 'modules/user'
+import { reducer as form } from 'redux-form'
 
 export const makeRootReducer = () => {
   return combineReducers({
-    user: userReducer
+    user,
+    form
   })
 }
 

@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 import theme from 'styles/theme'
 
 const Icon = styled.i`
+  pointer-events: none;
   color: ${props => props.primary ?  props.theme.primary : null};
   color: ${props => props.success ?  props.theme.success : null};
   color: ${props => props.warning ?  props.theme.warning : null};
@@ -14,7 +15,6 @@ const Icon = styled.i`
     position: absolute;
     top: 10px;
     right: 5px;
-    cursor: pointer;
   `};
   ${ props => props.table ? `font-size: 20px; cursor: pointer; margin-right: 5px;` : null };
 

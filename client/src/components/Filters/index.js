@@ -5,6 +5,7 @@ import Fa from 'components/Fa'
 import { Grid, Col, Row } from 'react-styled-flexboxgrid'
 import { Input, InputGroup } from 'components/Styled/Input'
 import { Dropdown } from 'components/Styled/Dropdown'
+import Select from 'react-select'
 
 const FilterWrapper = styled.form `
   margin: 1.25rem 0rem;
@@ -14,6 +15,11 @@ const FilterWrapper = styled.form `
 `
 
 const FILTER_MARGIN = 0.75;
+
+var options = [
+  { value: 'one', label: 'One' },
+  { value: 'two', label: 'Two' }
+];
 
 export default () =>
 <div>
@@ -28,8 +34,7 @@ export default () =>
     <Input type="text" placeholder="Ending Date" />
     <Fa icon='calendar' gray input />
   </InputGroup>
-  <InputGroup mr={FILTER_MARGIN}>
-    <Input type="text" placeholder="Select" />
-    <Fa icon='angle-down' gray input />
+  <InputGroup mr={FILTER_MARGIN} width={10}>
+    <Select options={options} />
   </InputGroup>
 </div>

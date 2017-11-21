@@ -60,7 +60,7 @@ export const ModalBody = styled.div`
   max-height: 70vh;
   box-sizing: border-box;
   padding: 1rem;
-  overflow-y: auto;
+
 `
 
 export const ModalHeading = styled.div`

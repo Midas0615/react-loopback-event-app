@@ -6,7 +6,7 @@ import { Redirect, withRouter } from 'react-router-dom'
 
 const Auth = ({ children, user }) => {
   if (user.isFetching) return null
-  if (!user.id) return <Redirect to="/login" />
+  // if (!user.id) return <Redirect to="/login" />
   return (
     <div>
       {children}

@@ -12,16 +12,15 @@ export const TableHeader = styled.thead `
     color: ${theme.dark};
     text-transform: uppercase;
     font-size: ${theme.fontSmall};
+    border-bottom: 1px solid ${theme.border.lighten(0.1)};
   }
 `
 
 export const TableBody = styled.tbody`
-  &>:first-child{border-top: none;}
-  &>:last-child{border-bottom: 1px solid ${theme.border};}
   &>:nth-child(even){ background-color: ${theme.light.lighten(0.05)}; }
   &>tr>td{
     padding: 1rem 1rem;
-    border-top: 1px solid ${theme.border};
+    border-bottom: 1px solid ${theme.border.lighten(0.2)};
     color: ${theme.dark.lighten(0.7)};
   }
   &>tr>:first-child{

@@ -23,8 +23,11 @@ export const Panel = styled.div `
 export const PanelHeading = styled.div`
   border-bottom: 1px solid ${theme.border};
   padding: ${PANEL_PADDING};
+  border-top-left-radius: ${theme.borderRadius};
+  border-top-right-radius: ${theme.borderRadius};
   ${props => props.primary && css`
     background: ${theme.light.darken(0.05)};
+    padding: 1.5rem 1rem;
   `};
 `;
 

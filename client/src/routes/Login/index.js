@@ -13,7 +13,6 @@ const Container = styled.div`
   margin-top: 3rem;
 `
 
-
 const Form = ({ handleSubmit, user, invalid, pristine }) => {
   if (user.id) return <Redirect to='/' />
   return (

@@ -25,13 +25,9 @@ const DataTable = ({ resource, data, canLoadMore, isFetching, fetchMore, refetch
       }
     </TableBody>
   </Table>
-
-  <Flex center>
+  <Flex center my={2}>
     <Button onClick={fetchMore} disabled={!canLoadMore} primary large>Load More</Button>
   </Flex>
-  {/* Napisi ovo po kulturno :D */}
-  <br/>
-  <br/>
   {/* <button onClick={refetch}>Reset</button> */}
   {/* <br/>
   Can Load More: { canLoadMore ? 'Yes': 'No' } <br/>

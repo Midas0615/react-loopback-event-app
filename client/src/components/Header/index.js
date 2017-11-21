@@ -9,6 +9,8 @@ const Header = ({ user, logout }) =>
   <Link to='/'>Home</Link>
   {' • '}
   <Link to='/contacts'>Contacts</Link>
+  {' • '}
+  <Link to='/email-templates'>Email Templates</Link>
   <span style={{marginRight:'100px'}}></span>
   Logged in as: {user.firstName} {' '}
   <button onClick={logout}>Log out</button>

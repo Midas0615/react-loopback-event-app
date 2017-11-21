@@ -7,7 +7,7 @@ export default (props) => {
   return (
     <div>
       {props.label && <FormLabel>{props.label}</FormLabel>}
-      <Input {...props.input} />
+      <Input {...props} {...props.input} />
     </div>
   )
 }

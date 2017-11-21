@@ -36,4 +36,7 @@ export const Input = styled.input`
   &::-webkit-input-placeholder {
     color: ${theme.border};
   }
+  &:disabled {
+    background: ${theme.light};
+  }
 `

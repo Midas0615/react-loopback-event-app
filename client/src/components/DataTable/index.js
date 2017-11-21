@@ -6,7 +6,7 @@ import { Button } from 'components/Styled'
 import { Flex } from 'components/Styled/Flex'
 import { Table, TableBody, TableHeader } from 'components/Styled/Table'
 
-const DataTable = ({ resource, data, canLoadMore, isFetching, fetchMore, refetch, isError, Component, heading }) =>
+const DataTable = ({ resource, data, canLoadMore, isFetching, fetchMore, refetch, isError, Component, heading, ...other }) =>
 <div>
   <Table>
     <TableHeader>
@@ -17,7 +17,7 @@ const DataTable = ({ resource, data, canLoadMore, isFetching, fetchMore, refetch
     <TableBody>
       {
       data && data.map((resource, index) =>
-        <Component resource={resource} key={index}/>
+        <Component resource={resource} key={index} {...other}/>
       )}
       {
         isFetching &&

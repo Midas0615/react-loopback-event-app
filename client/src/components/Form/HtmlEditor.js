@@ -8,7 +8,11 @@ export default (props) => {
   return (
     <div>
       {props.label && <FormLabel>{props.label}</FormLabel>}
-      <ReactQuill {...props} {...props.input} />
+      <ReactQuill
+        value={props.input.value}
+        onChange={props.input.onChange}
+        {...props}
+      />
     </div>
   )
 }

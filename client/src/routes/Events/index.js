@@ -60,7 +60,7 @@ const Contacts = (props) =>
 
 
 export default compose(
-  withState('modal', 'toggleModal', {}),
+  withState('modal', 'toggleModal', null),
   withProps({
     resource: 'events',
     params: { limit: 10, include: 'account' },

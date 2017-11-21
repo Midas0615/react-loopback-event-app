@@ -34,7 +34,6 @@
   "acls": [],
   "methods": {
     "sendEmails": {
-      "description": "Send emails to all Contacts that attend an event.",
       "accepts": [
         {
           "arg": "id",
@@ -49,13 +48,13 @@
       "returns": {
         "root": true
       },
+      "description": "Send emails to all Contacts that attend an event.",
       "http": {
         "verb": "post",
         "path": "/:id/contacts/send-emails"
       }
     },
     "sendEmail": {
-      "description": "Send emails to all Contacts that attend an event.",
       "accepts": [
         {
           "arg": "id",
@@ -75,6 +74,7 @@
       "returns": {
         "root": true
       },
+      "description": "Send emails to all Contacts that attend an event.",
       "http": {
         "verb": "post",
         "path": "/:id/contacts/:contactId/send-email"

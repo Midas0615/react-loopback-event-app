@@ -21,27 +21,5 @@
     }
   },
   "acls": [],
-  "methods": {
-    "sendEmails": {
-      "description": "Send emails to all Contacts in a contact group.",
-      "accepts": [
-        {
-          "arg": "id",
-          "type": "number"
-        },
-        {
-          "arg": "emailTemplateId",
-          "type": "string",
-          "required": true
-        }
-      ],
-      "returns": {
-        "root": true
-      },
-      "http": {
-        "verb": "post",
-        "path": "/:id/contacts/send-emails"
-      }
-    }
-  }
+  "methods": {}
 }

@@ -13,8 +13,6 @@ module.exports = function(Mailer) {
         from: 'Dan Radenkovic <dan@radenkovic.org>',
         subject: config.subject,
         html: messageBody,
-      }, function(err, mail) {
-        console.log(err);
       });
     } catch (e) {
       console.log(e);

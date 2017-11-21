@@ -33,9 +33,6 @@
     "address3": {
       "type": "string"
     },
-    "comment": {
-      "type": "string"
-    },
     "zip": {
       "type": "string"
     },
@@ -43,6 +40,9 @@
       "type": "string"
     },
     "phone": {
+      "type": "string"
+    },
+    "organization": {
       "type": "string"
     }
   },
@@ -61,27 +61,5 @@
     }
   },
   "acls": [],
-  "methods": {
-    "sendEmail": {
-      "description": "Send emails to a contact",
-      "accepts": [
-        {
-          "arg": "id",
-          "type": "number"
-        },
-        {
-          "arg": "emailTemplateId",
-          "type": "string",
-          "required": true
-        }
-      ],
-      "returns": {
-        "root": true
-      },
-      "http": {
-        "verb": "post",
-        "path": "/:id/send-email"
-      }
-    }
-  }
+  "methods": {}
 }

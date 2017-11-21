@@ -66,7 +66,8 @@
           "prototype.patchAttributes": true,
           "deleteById": true,
           "sendEmail": true,
-          "prototype.__get__events": true
+          "prototype.__get__events": true,
+          "count": true
         }
       }
     }

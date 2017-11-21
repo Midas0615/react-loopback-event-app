@@ -4,7 +4,7 @@
 // License text available at https://opensource.org/licenses/MIT
 'use strict';
 
-
+const fs = require('fs')
 const colors = require('colors')
 
 const app = require('../server');
@@ -72,6 +72,8 @@ module.exports = (app, next) => ds.automigrate('Account', async (err) => {
       'contactGroupId': 1,
     },
   ];
+  // const DataContacts = fs.readFileSync('data/import.json', 'UTF-8');
+  // createData('Contact', JSON.parse(DataContacts));
   createData('Contact', contacts);
 
   var events = [

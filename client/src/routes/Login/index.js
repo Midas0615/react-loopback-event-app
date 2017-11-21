@@ -7,6 +7,10 @@ import { Redirect } from 'react-router-dom'
 import { Panel, PanelBody, PanelHeading } from 'components/Styled/Panel'
 import styled from 'styled-components'
 
+import Input from 'components/Form/Input'
+import Button from 'components/Styled/Button'
+import { FormGroup } from 'components/Styled/Form'
+
 const Container = styled.div`
   margin: auto;
   width: 440px;
@@ -20,15 +24,34 @@ const Form = ({ handleSubmit, user, invalid, pristine }) => {
       <Panel>
         <PanelHeading primary>Login</PanelHeading>
         <PanelBody>
+        {user.loginError && <span>Login Error</span>}
+
         <form onSubmit={handleSubmit}>
-          <Field name="email" type="text" component="input"  required /> <br/>
-          <Field name="password" type="text" component="input"  required /> <br/>
-          {
-            user.isFetching
-            ? <button disabled>Logging in...</button>
-            : <button disabled={invalid || pristine}>Submit</button>
-          }
-          {user.isError && <span>Login Error</span>}
+          <FormGroup>
+            <Field
+              name="email"
+              type="text"
+              label="email:"
+              component={Input}
+              required
+            />
+          </FormGroup>
+          <FormGroup>
+            <Field
+              name="password"
+              type="text"
+              label="password:"
+              component={Input}
+              required
+            />
+          </FormGroup>
+          <FormGroup>
+            {
+              user.isFetching
+              ? <Button disabled>Logging in...</Button>
+              : <Button primary disabled={invalid || pristine}>Submit</Button>
+            }
+          </FormGroup>
         </form>
         </PanelBody>
       </Panel>

@@ -1,7 +1,7 @@
 import createTheme from 'styled-components-theme';
 
 export const themeConfig = {
-  primary:  '#4682b4',
+  primary:  '#3F51B5',
   info: '#233237',
   danger: '#e56557',
   warning: '#ec8b56',

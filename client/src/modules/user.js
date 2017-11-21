@@ -6,6 +6,7 @@ const REQUEST = 'USER_LOGIN/REQUEST';
 const RECEIVE = 'USER_LOGIN/RECEIVE';
 const REJECT = 'USER_LOGIN/REJECT';
 const VERIFY = 'USER_LOGIN/ACCESS_TOKEN';
+const INVALID = 'USER_LOGIN/INVALID_ACCESS_TOKEN';
 const LOGOUT = 'USER_LOGOUT';
 
 export const login = (data) => async dispatch => {
@@ -24,7 +25,7 @@ export const verifyToken = () => async dispatch => {
   dispatch({ type: VERIFY })
   try {
     const token = store.get('accessToken')
-    if (!token) return dispatch({ type: REJECT })
+    if (!token) return dispatch({ type: INVALID })
     const user = await API().get(`/accounts/${token.userId}`)
     dispatch({ type: RECEIVE, user })
   } catch(e) {
@@ -42,6 +43,7 @@ export const logout = () => async dispatch => {
 export default createReducer({ isFetching: true }, {
   [REQUEST]: (state, action) => ({ ...state, isFetching: true, isError: false }),
   [RECEIVE]: (state, action) => ({ ...state, ...action.user, isFetching: false }),
-  [REJECT]: (state, action) => ({ ...state, isFetching: false }),
+  [REJECT]: (state, action) => ({ ...state, isFetching: false, loginError: true }),
+  [INVALID]: (state, action) => ({ ...state, isFetching: false, tokenError: true }),
   [LOGOUT]: (state, action) => ({ isFetching: false })
 })

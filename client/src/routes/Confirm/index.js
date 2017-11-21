@@ -2,7 +2,6 @@ import React from 'react'
 import qs from 'query-string'
 
 const params = qs.parse(location.search)
-console.log(params)
 
 export default () =>
 <div>

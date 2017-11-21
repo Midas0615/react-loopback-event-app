@@ -7,11 +7,9 @@ import AppLayout from 'layout/AppLayout'
 import { Panel, PanelHeading } from 'components/Styled/Panel'
 import Label from 'components/Styled/Label'
 import Button from 'components/Styled/Button'
+import EmailTemplate from 'components/EmailTemplate'
 
-import Modal from 'components/Modal'
-import { ModalBody, ModalFooter } from 'components/Styled/Modal'
-
-const SHOW_MODAL = false
+const SHOW_MODAL = true
 
 const Row = ({ resource: template }) => {
   return (
@@ -44,18 +42,7 @@ const Contacts = (props) =>
     />
   </Panel>
   {/* Modal */}
-  {
-    SHOW_MODAL &&
-    <Modal lg title='Sample Model'>
-      <ModalBody>
-        Some Content
-      </ModalBody>
-      <ModalFooter>
-        <Button>Ok</Button>
-      </ModalFooter>
-    </Modal>
-  }
-
+  {  SHOW_MODAL && <EmailTemplate /> }
 </AppLayout>
 
 

@@ -4,7 +4,7 @@ import theme from 'styles/theme'
 export default styled.button`
   border: 1px solid ${theme.border};
   color: ${theme.medium};
-  padding: .5rem .75rem;
+  padding: .75rem 1rem;
   outline: 0;
   cursor: pointer;
   font-size: 0.8rem;
@@ -14,7 +14,12 @@ export default styled.button`
   ${props => props.primary && css`
     background: ${theme.primary};
     color: ${theme.light};
-    border: none;
+    border: 1px solid ${theme.primary};
+  `};
+  ${props => props.blank && css`
+    background: none;
+    color: ${theme.dark};
+    border: 1px solid transparent;
   `};
   ${props => props.lg && css`
     margin-top: 2rem;

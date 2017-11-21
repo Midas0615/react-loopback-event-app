@@ -7,6 +7,7 @@ injectGlobal`
   body {
     color: ${themeConfig.dark};
     font-family: 'Roboto';
+    background: ${themeConfig.light};
     font-size: 15px;
     margin: 0;
   }

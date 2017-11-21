@@ -18,5 +18,9 @@ export default styled.button`
     padding: 0.65rem 1rem;
     color: ${theme.base};
     border-radius: ${theme.borderRadius};
-  `}
+  `};
+  &:disabled {
+    opacity: 0.3;
+  }
+
 `

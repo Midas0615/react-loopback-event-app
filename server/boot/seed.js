@@ -72,9 +72,9 @@ module.exports = (app, next) => ds.automigrate('Account', async (err) => {
       'contactGroupId': 1,
     },
   ];
-  // const DataContacts = fs.readFileSync('data/import.json', 'UTF-8');
-  // createData('Contact', JSON.parse(DataContacts));
-  createData('Contact', contacts);
+  const DataContacts = fs.readFileSync('data/import.json', 'UTF-8');
+  createData('Contact', JSON.parse(DataContacts));
+  // createData('Contact', contacts);
 
   var events = [
     {
@@ -113,36 +113,6 @@ module.exports = (app, next) => ds.automigrate('Account', async (err) => {
       'name': 'Vasar kod Bolnicu',
       'comment': 'some comment',
       'accountId': 6,
-      'eventDate': Date.now(),
-      'eventLocation': 'Na Amfi',
-    },,{
-      'name': 'Vasar kod Bolnicu',
-      'comment': 'some comment',
-      'accountId': 7,
-      'eventDate': Date.now(),
-      'eventLocation': 'Na Amfi',
-    },,{
-      'name': 'Vasar kod Bolnicu',
-      'comment': 'some comment',
-      'accountId': 8,
-      'eventDate': Date.now(),
-      'eventLocation': 'Na Amfi',
-    },,{
-      'name': 'Vasar kod Bolnicu',
-      'comment': 'some comment',
-      'accountId': 9,
-      'eventDate': Date.now(),
-      'eventLocation': 'Na Amfi',
-    },,{
-      'name': 'Vasar kod Bolnicu',
-      'comment': 'some comment',
-      'accountId': 10,
-      'eventDate': Date.now(),
-      'eventLocation': 'Na Amfi',
-    },,{
-      'name': 'Vasar kod Bolnicu',
-      'comment': 'some comment',
-      'accountId': 11,
       'eventDate': Date.now(),
       'eventLocation': 'Na Amfi',
     },

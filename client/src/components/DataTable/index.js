@@ -4,30 +4,32 @@ import styled, { css } from 'styled-components'
 
 import { Button } from 'components/Styled'
 import { Flex } from 'components/Styled/Flex'
-import { TableWrapper, Table, TableBody, TableHeader } from 'components/Styled/Table'
+import { Table, TableBody, TableHeader } from 'components/Styled/Table'
 
-
-const DataTable = ({ resource, data, canLoadMore, isFetching, fetchMore, refetch, isError, Component }) =>
-<TableWrapper>
+const DataTable = ({ resource, data, canLoadMore, isFetching, fetchMore, refetch, isError, Component, heading }) =>
+<div>
   <Table>
     <TableHeader>
-      {/* TOA CE MORA SAS PROpS ISTO */}
       <tr>
-        <th>Event</th>
-        <th>Date</th>
-        <th>Location</th>
-        <th>Action</th>
+        {heading.map((item, index) => <th key={index}>{item}</th>)}
       </tr>
     </TableHeader>
-    <TableBody>{ data && data.map((resource, index) =>
-      <Component resource={resource} key={index}/>)}
+    <TableBody>
+      {
+      data && data.map((resource, index) =>
+        <Component resource={resource} key={index}/>
+      )}
+      {
+        isFetching &&
+        <tr><td colSpan={6}>LOADING</td></tr>
+      }
     </TableBody>
   </Table>
 
   <Flex center>
     <Button onClick={fetchMore} disabled={!canLoadMore} primary large>Load More</Button>
   </Flex>
-
+  {/* Napisi ovo po kulturno :D */}
   <br/>
   <br/>
   {/* <button onClick={refetch}>Reset</button> */}
@@ -36,6 +38,6 @@ const DataTable = ({ resource, data, canLoadMore, isFetching, fetchMore, refetch
   Is Fetching: { isFetching ? 'Yes' : 'No' } <br/>
   Is Error: { isError ? 'Yes': 'No' } */}
 
-</TableWrapper>
+</div>
 
 export default DataTable

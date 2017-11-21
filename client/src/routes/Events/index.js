@@ -3,17 +3,19 @@ import withPaginate from 'containers/withPaginate'
 import DataTable from 'components/DataTable'
 import Filters from 'components/Filters'
 import AppLayout from 'layout/AppLayout'
+import moment from 'moment'
 
 import Fa from 'components/Fa'
 import Label from 'components/Styled/Label'
 import { Grid } from 'react-styled-flexboxgrid'
 import { compose, withProps, pure } from 'recompose'
+import { Panel, PanelHeading, PanelBody } from 'components/Styled/Panel'
 
 const Row = ({ resource: event }) => {
   return (
     <tr>
       <td>{event.name}</td>
-      <td><Label gray>{event.eventDate}</Label></td>
+      <td>{moment(event.eventDate).format('LLL')}</td>
       <td><Label success>{event.eventLocation}</Label></td>
       <td>
         <span>
@@ -25,13 +27,21 @@ const Row = ({ resource: event }) => {
   )
 }
 
-
 const Contacts = (props) =>
 <AppLayout>
-  <Grid fluid>
-    <Filters />
-    <DataTable {...props} Component={Row} />
-  </Grid>
+  <Panel my={2}>
+    <PanelHeading primary>
+      <strong>Events</strong>
+    </PanelHeading>
+    <PanelHeading>
+      <Filters />
+    </PanelHeading>
+    <DataTable
+      {...props}
+       Component={Row}
+       heading={['Event', 'Date', 'Location', 'Actions']}
+     />
+  </Panel>
 </AppLayout>
 
 

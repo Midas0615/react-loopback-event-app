@@ -14,7 +14,7 @@ const FilterWrapper = styled.form `
 `
 
 export default () =>
-<FilterWrapper>
+<div>
   <InputWrapper>
     <Input type="text" placeholder="Event" />
   </InputWrapper>
@@ -30,4 +30,4 @@ export default () =>
     <Dropdown type="text" placeholder="Selecta" />
     <Fa icon='angle-down' gray dropdown />
   </InputWrapper>
-</FilterWrapper>
+</div>

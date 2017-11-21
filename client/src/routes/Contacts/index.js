@@ -8,30 +8,37 @@ import AppLayout from 'layout/AppLayout'
 import DataTable from 'components/DataTable'
 import Filters from 'components/Filters'
 import { Button } from 'components/Styled'
+import { Panel, PanelHeading, PanelBody } from 'components/Styled/Panel'
 
-
-const Row = ({ resource }) =>
+const Row = ({ resource: contact }) =>
 <tr>
-  <td>ROW</td>
-  <td>{resource.firstName} {resource.lastName}</td>
+  <td>{contact.firstName} {contact.lastName}</td>
+  <td>{contact.organisation || 'N/A'}</td>
+  <td>address 1 address 2 etc</td>
+  <td>edit, add to event, add to group, send email</td>
 </tr>
-
-
-
 
 const Contacts = (props) =>
 <AppLayout>
-  <Grid fluid>
-    <Filters />
-    <DataTable {...props} Component={Row} />
-    <Button>Test</Button>
-  </Grid>
+  <Panel my={2}>
+    <PanelHeading primary>
+      <strong>Contacts</strong>
+    </PanelHeading>
+    <PanelHeading>
+      <Filters />
+    </PanelHeading>
+    <DataTable
+      {...props}
+      Component={Row}
+      heading={['Name', 'Organization', 'Location', 'Actions']}
+    />
+  </Panel>
 </AppLayout>
 
 export default compose(
   withProps({
     resource: 'contacts',
-    params: { limit: 1 }
+    params: { limit: 10 }
   }),
   withPaginate,
   pure

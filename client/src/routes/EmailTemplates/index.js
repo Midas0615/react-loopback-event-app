@@ -8,7 +8,7 @@ import { Panel, PanelHeading } from 'components/Styled/Panel'
 import Label from 'components/Styled/Label'
 import Button from 'components/Styled/Button'
 import EmailTemplateEditor from 'components/EmailTemplateEditor'
-import { Flex} from 'components/Styled/Flex'
+import { Flex } from 'components/Styled/Flex'
 
 const Row = ({ resource: template, toggleModal }) => {
   return (
@@ -38,7 +38,6 @@ const Contacts = (props) =>
         <strong>Email Templates</strong>
         <Button onClick={() => props.toggleModal({})}>Create</Button>
       </Flex>
-
     </PanelHeading>
     <DataTable
       {...props}

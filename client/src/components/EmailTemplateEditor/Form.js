@@ -15,10 +15,10 @@ var options = [
   { name: 'event' }
 ];
 
-const Form = ({ handleSubmit, type, close, isSaving, isError, onDelete })  =>
+const Form = ({ handleSubmit, type, close, isSaving, isError, onDelete, data })  =>
 <form onSubmit={handleSubmit}>
   <Field name="id" component="input" type='hidden' />
-  <Modal md title='Edit Email Template' close={close}>
+  <Modal md title={`${data.id ? 'Edit' : 'Create'} Email Template`} close={close}>
     <ModalBody>
       <FormGroup>
         <Row>

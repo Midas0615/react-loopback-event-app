@@ -1,6 +1,12 @@
 // https://github.com/twbs/bootstrap-sass/blob/master/assets/stylesheets/bootstrap/_modals.scss
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import theme from 'styles/theme'
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0
+  }
+`
 
 export const Modal = styled.div`
   overflow: hidden;
@@ -30,6 +36,7 @@ export const Overlay = styled.div`
   bottom: 0;
   left: 0;
   z-index: 5;
+  animation: ${fadeIn} 0.2s ease-in-out;
   background-color: rgba(0,0,0,0.7);
 `
 
@@ -44,8 +51,9 @@ export const Dialog = styled.div`
   box-shadow: 0 3px 9px rgba(0,0,0,.2);
   border-bottom: 1px solid ${theme.border};
   border-radius: ${theme.borderRadius};
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  animation: ${fadeIn} 0.5s ease-in-out;
 `
 
 export const ModalBody = styled.div`

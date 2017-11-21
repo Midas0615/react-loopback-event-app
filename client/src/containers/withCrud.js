@@ -19,6 +19,7 @@ export default compose(
           if (fetch) fetch(resourceName);
           if (close) close();
         } catch(e) {
+          setSaving(false);
           setError('Error! Data not saved, please try again')
         }
         return;
@@ -30,6 +31,8 @@ export default compose(
         if (fetch) fetch(resourceName);
         if (close) close();
       } catch(e) {
+        console.log(e)
+        setSaving(false);
         setError('Error! Cannot create new entry.')
       }
     },

@@ -8,7 +8,7 @@ import { Panel, PanelHeading } from 'components/Styled/Panel'
 import Label from 'components/Styled/Label'
 import Button from 'components/Styled/Button'
 import EmailTemplateEditor from 'components/EmailTemplateEditor'
-
+import { Flex} from 'components/Styled/Flex'
 
 const Row = ({ resource: template, toggleModal }) => {
   return (
@@ -33,7 +33,13 @@ const Row = ({ resource: template, toggleModal }) => {
 const Contacts = (props) =>
 <AppLayout>
   <Panel my={2}>
-    <PanelHeading primary><strong>Email Templates</strong></PanelHeading>
+    <PanelHeading primary>
+      <Flex center space>
+        <strong>Email Templates</strong>
+        <Button onClick={() => props.toggleModal({})}>Create</Button>
+      </Flex>
+
+    </PanelHeading>
     <DataTable
       {...props}
       Component={Row}

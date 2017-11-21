@@ -28,6 +28,7 @@ const Form = ({ handleSubmit, type, close, isSaving, isError, onDelete })  =>
               type="text"
               label="Template Name:"
               component={Input}
+              disabled={type && type.name === 'system'}
               required
             />
           </Col>
@@ -89,7 +90,8 @@ const Form = ({ handleSubmit, type, close, isSaving, isError, onDelete })  =>
           }
           <Button type="button" blank onClick={close}>Cancel</Button>
         </div>
-        <Button type="button" onClick={onDelete}>Delete</Button>
+        { type && type.name !== 'system' && <Button type="button" onClick={onDelete}>Delete</Button> }
+
       </Flex>
     </ModalFooter>
   </Modal>

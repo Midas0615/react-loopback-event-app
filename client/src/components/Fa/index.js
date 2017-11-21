@@ -3,14 +3,16 @@ import styled from 'styled-components'
 import theme from 'styles/theme'
 
 const Icon = styled.i`
-  ${ props => props.primary ? `color: ${theme.main};` : null }
-  ${ props => props.success ? `color: ${theme.success};` : null }
-  ${ props => props.warning ? `color: ${theme.warning};` : null }
-  ${ props => props.danger ? `color: ${theme.danger};` : null }
-  ${ props => props.muted ? `color: ${theme.muted};` : null }
-  ${ props => props.pointer ? `cursor: pointer;` : null }
-  ${ props => props.date ? `position: absolute; top: 7px; right: 21px; cursor: pointer; color: ${theme.danger};` : null }
-  ${ props => props.dropdown ? `position: absolute; top: 7px; right: 21px; cursor: pointer; color: ${theme.light};` : null }
+  color: ${props => props.primary ?  props.theme.primary : null};
+  color: ${props => props.success ?  props.theme.success : null};
+  color: ${props => props.warning ?  props.theme.warning : null};
+  color: ${props => props.danger ?  props.theme.danger : null};
+  color: ${props => props.border ?  props.theme.border : null};
+  color: ${props => props.gray ?  props.theme.gray : null};
+  color: ${props => props.pointer ?  props.theme.pointer : null};
+  ${ props => props.date ? `position: absolute; top: 7px; right: 21px; cursor: pointer; color: ${theme.danger};` : null };
+  ${ props => props.dropdown ? `position: absolute; top: 7px; right: 21px; cursor: pointer; color: ${theme.light};` : null };
+  ${ props => props.table ? `font-size: 20px; cursor: pointer; margin-right: 5px;` : null };
 
 `
 

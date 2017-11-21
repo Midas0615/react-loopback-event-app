@@ -1,18 +1,30 @@
 import React from 'react'
-import { Grid } from 'react-styled-flexboxgrid'
 import withPaginate from 'containers/withPaginate'
-import { compose, withProps, pure } from 'recompose'
 import DataTable from 'components/DataTable'
 import Filters from 'components/Filters'
 import AppLayout from 'layout/AppLayout'
 
+import Fa from 'components/Fa'
+import Label from 'components/Styled/Label'
+import { Grid } from 'react-styled-flexboxgrid'
+import { compose, withProps, pure } from 'recompose'
+
 const Row = ({ resource: event }) => {
   return (
-    <div>
-      {event.name}
-    </div>
+    <tr>
+      <td>{event.name}</td>
+      <td><Label gray>{event.eventDate}</Label></td>
+      <td><Label success>{event.eventLocation}</Label></td>
+      <td>
+        <span>
+          <Fa icon='pencil-square-o' gray table/>
+          <Fa icon='trash' danger table/>
+        </span>
+      </td>
+    </tr>
   )
 }
+
 
 const Contacts = (props) =>
 <AppLayout>

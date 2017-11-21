@@ -1,16 +1,21 @@
 import createTheme from 'styled-components-theme';
 
 export const themeConfig = {
-  primary:  '#0089bf',
+  primary:  '#4682b4',
   info: '#233237',
-  danger: '#984B43',
-  warning: '#fed82a',
-  success: '#01885d',
+  danger: '#e56557',
+  warning: '#ec8b56',
+  success: '#5fd080',
   border: '#c5c5c5',
   dark:  '#312f32',
   medium: '#607D8B',
   light: '#ECEFF1',
+  gray: '#a2acb9',
+  base: '#ffffff',
   borderRadius: '3px',
+  fontDefault: '15px',
+  fontLabel: '14px',
+  fontSmall: '13px'
 }
 
 themeConfig.flexboxgrid = {

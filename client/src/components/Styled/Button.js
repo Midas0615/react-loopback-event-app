@@ -13,4 +13,10 @@ export default styled.button`
     color: ${theme.light};
     border: none;
   `};
+  ${props => props.large && css`
+    margin-top: 2rem;
+    padding: 0.65rem 1rem;
+    color: ${theme.base};
+    border-radius: ${theme.borderRadius};
+  `}
 `

@@ -1,34 +1,41 @@
 import React from 'react'
-import { Button } from 'components/Styled'
-
-
-// Primer
 import theme from 'styles/theme'
 import styled, { css } from 'styled-components'
 
-const Test = styled.div`
-  &>div{
+import { Button } from 'components/Styled'
+import { Flex } from 'components/Styled/Flex'
+import { TableWrapper, Table, TableBody, TableHeader } from 'components/Styled/Table'
 
-    padding: 2rem 0rem;
-  }
-`
 
 const DataTable = ({ resource, data, canLoadMore, isFetching, fetchMore, refetch, isError, Component }) =>
-<div>
-  {/* <h1>{resource}</h1> */}
-  <Test>{ data && data.map((resource, index) => <Component resource={resource} key={index}/> )}</Test>
-  <hr/>
-  <Button onClick={fetchMore} disabled={!canLoadMore} primary>Load More</Button>
-  {/* <Test main>Nesto</Test> */}
+<TableWrapper>
+  <Table>
+    <TableHeader>
+      {/* TOA CE MORA SAS PROpS ISTO */}
+      <tr>
+        <th>Event</th>
+        <th>Date</th>
+        <th>Location</th>
+        <th>Action</th>
+      </tr>
+    </TableHeader>
+    <TableBody>{ data && data.map((resource, index) =>
+      <Component resource={resource} key={index}/>)}
+    </TableBody>
+  </Table>
+
+  <Flex center>
+    <Button onClick={fetchMore} disabled={!canLoadMore} primary large>Load More</Button>
+  </Flex>
+
   <br/>
   <br/>
-  <button onClick={refetch}>Reset</button>
-  <br/>
+  {/* <button onClick={refetch}>Reset</button> */}
+  {/* <br/>
   Can Load More: { canLoadMore ? 'Yes': 'No' } <br/>
   Is Fetching: { isFetching ? 'Yes' : 'No' } <br/>
-  Is Error: { isError ? 'Yes': 'No' }
+  Is Error: { isError ? 'Yes': 'No' } */}
 
-</div>
-
+</TableWrapper>
 
 export default DataTable

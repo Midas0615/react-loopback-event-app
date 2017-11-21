@@ -12,7 +12,6 @@ const rootElement = 'root'
 const store = createStore(window.__INITIAL_STATE__)
 const MOUNT_NODE = document.getElementById('root')
 
-
 let render = () => {
   const App = require('./routes').default
 

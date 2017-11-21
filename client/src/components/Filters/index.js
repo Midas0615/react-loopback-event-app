@@ -3,25 +3,31 @@ import styled from 'styled-components'
 import theme from 'styles/theme'
 import Fa from 'components/Fa'
 import { Grid, Col, Row } from 'react-styled-flexboxgrid'
-import { Input, DatefieldWrapper, Datefield, DropdownWrapper, Dropdown } from 'components/Styled/Input'
+import { Input, InputWrapper, Datefield } from 'components/Styled/Input'
+import { Dropdown } from 'components/Styled/Dropdown'
 
 const FilterWrapper = styled.form `
-  margin: 1.5rem 0rem;
+  margin: 1.25rem 0rem;
+  background: #fff;
+  padding: 1rem 1rem;
+  box-shadow: 3px 3px 13px -5px rgba(0,0,0,0.74);
 `
 
 export default () =>
 <FilterWrapper>
-  <Input type="text" placeholder="Event" />
-  <DatefieldWrapper>
+  <InputWrapper>
+    <Input type="text" placeholder="Event" />
+  </InputWrapper>
+  <InputWrapper>
     <Datefield type="text" placeholder="Begining Date" />
-    <Fa icon='calendar' date />
-  </DatefieldWrapper>
-  <DatefieldWrapper>
+    <Fa icon='calendar' gray date />
+  </InputWrapper>
+  <InputWrapper>
     <Datefield type="text" placeholder="Ending Date" />
-    <Fa icon='calendar' danger date />
-  </DatefieldWrapper>
-  <DropdownWrapper>
+    <Fa icon='calendar' gray date />
+  </InputWrapper>
+  <InputWrapper>
     <Dropdown type="text" placeholder="Selecta" />
-    <Fa icon='angle-down' dropdown />
-  </DropdownWrapper>
+    <Fa icon='angle-down' gray dropdown />
+  </InputWrapper>
 </FilterWrapper>

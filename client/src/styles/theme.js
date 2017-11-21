@@ -15,7 +15,8 @@ export const themeConfig = {
   borderRadius: '3px',
   fontDefault: '15px',
   fontLabel: '14px',
-  fontSmall: '13px'
+  fontSmall: '13px',
+  fontFamily: 'Roboto',
 }
 
 themeConfig.flexboxgrid = {

@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import theme from 'styles/theme'
 
 const Icon = styled.i`
@@ -10,8 +10,12 @@ const Icon = styled.i`
   color: ${props => props.border ?  props.theme.border : null};
   color: ${props => props.gray ?  props.theme.gray : null};
   color: ${props => props.pointer ?  props.theme.pointer : null};
-  ${ props => props.date ? `position: absolute; top: 7px; right: 21px; cursor: pointer; color: ${theme.danger};` : null };
-  ${ props => props.dropdown ? `position: absolute; top: 7px; right: 21px; cursor: pointer; color: ${theme.light};` : null };
+  ${ props => props.input && css`
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    cursor: pointer;
+  `};
   ${ props => props.table ? `font-size: 20px; cursor: pointer; margin-right: 5px;` : null };
 
 `

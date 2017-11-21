@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import theme from 'styles/theme'
 import Fa from 'components/Fa'
 import { Grid, Col, Row } from 'react-styled-flexboxgrid'
-import { Input, InputWrapper, Datefield } from 'components/Styled/Input'
+import { Input, InputGroup } from 'components/Styled/Input'
 import { Dropdown } from 'components/Styled/Dropdown'
 
 const FilterWrapper = styled.form `
@@ -13,21 +13,23 @@ const FilterWrapper = styled.form `
   box-shadow: 3px 3px 13px -5px rgba(0,0,0,0.74);
 `
 
+const FILTER_MARGIN = 0.75;
+
 export default () =>
 <div>
-  <InputWrapper>
+  <InputGroup mr={FILTER_MARGIN}>
     <Input type="text" placeholder="Event" />
-  </InputWrapper>
-  <InputWrapper>
-    <Datefield type="text" placeholder="Begining Date" />
-    <Fa icon='calendar' gray date />
-  </InputWrapper>
-  <InputWrapper>
-    <Datefield type="text" placeholder="Ending Date" />
-    <Fa icon='calendar' gray date />
-  </InputWrapper>
-  <InputWrapper>
-    <Dropdown type="text" placeholder="Selecta" />
-    <Fa icon='angle-down' gray dropdown />
-  </InputWrapper>
+  </InputGroup>
+  <InputGroup mr={FILTER_MARGIN}>
+    <Input type="text" placeholder="Begining Date" />
+    <Fa icon='calendar' gray input />
+  </InputGroup>
+  <InputGroup mr={FILTER_MARGIN}>
+    <Input type="text" placeholder="Ending Date" />
+    <Fa icon='calendar' gray input />
+  </InputGroup>
+  <InputGroup mr={FILTER_MARGIN}>
+    <Input type="text" placeholder="Select" />
+    <Fa icon='angle-down' gray input />
+  </InputGroup>
 </div>

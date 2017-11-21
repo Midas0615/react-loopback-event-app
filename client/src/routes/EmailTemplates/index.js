@@ -23,7 +23,7 @@ const Row = ({ resource: template }) => {
         </Label>
       </td>
       <td>
-        <strong>{template.name}</strong> <br/>
+        {template.name} <br/>
         {template.type === 'system' && <small>Automatic is sent when user gets invited to an event</small>}
       </td>
       <td><Button>Edit</Button></td>

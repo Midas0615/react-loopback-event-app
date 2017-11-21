@@ -1,13 +1,13 @@
 import createTheme from 'styled-components-theme';
 
 export const themeConfig = {
-  primary:  '#393276',
-  info: '#4FC3F7',
-  danger: '#F44336',
-  warning: '#FFC107',
-  success: '#CDDC39',
-  border: '#CFD8DC',
-  dark:  '#263238',
+  primary:  '#0089bf',
+  info: '#233237',
+  danger: '#984B43',
+  warning: '#fed82a',
+  success: '#01885d',
+  border: '#c5c5c5',
+  dark:  '#312f32',
   medium: '#607D8B',
   light: '#ECEFF1',
   borderRadius: '3px',

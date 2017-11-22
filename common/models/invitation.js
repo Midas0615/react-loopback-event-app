@@ -21,7 +21,7 @@ module.exports = function(Invitation) {
       if (!emailTemplate) return;
       const contact = await Invitation.app.models.Contact.findById(ctx.instance.contactId);
       const event = await Invitation.app.models.Event.findById(ctx.instance.eventId);
-      const email = renderEmailBody(emailTemplate, contact, event);
+      const email = renderEmailBody(emailTemplate, contact, event, ctx.instance.id);
       Invitation.app.models.Mailer.sendEmail(email)
     } catch(e) {
       // NO_OP

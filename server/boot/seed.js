@@ -6,6 +6,7 @@
 
 const fs = require('fs')
 const colors = require('colors')
+const moment = require('moment');
 
 const app = require('../server');
 var ds = app.datasources.db;
@@ -101,19 +102,19 @@ module.exports = (app, next) => ds.automigrate('Account', async (err) => {
       'name': 'KOd Sharketa Vasar',
       'comment': 'some comment',
       'accountId': 4,
-      'eventDate': Date.now(),
+      'eventDate': moment().add(1, 'months').format(),
       'eventLocation': 'Na Amfi',
     },{
       'name': 'Vasar Jasar',
       'comment': 'some comment',
       'accountId': 5,
-      'eventDate': Date.now(),
+      'eventDate': moment().add(1, 'days').format(),
       'eventLocation': 'Na Amfi',
     },{
       'name': 'Vasar kod Bolnicu',
       'comment': 'some comment',
       'accountId': 6,
-      'eventDate': Date.now(),
+      'eventDate': moment().add(3, 'days').format(),
       'eventLocation': 'Na Amfi',
     },
   ];

@@ -41,7 +41,7 @@
         },
         {
           "arg": "emailTemplateId",
-          "type": "string",
+          "type": "number",
           "required": true
         }
       ],
@@ -62,12 +62,12 @@
         },
         {
           "arg": "contactId",
-          "type": "string",
+          "type": "number",
           "required": true
         },
         {
           "arg": "emailTemplateId",
-          "type": "string",
+          "type": "number",
           "required": true
         }
       ],

@@ -1,38 +1,33 @@
 import React from 'react'
-import Modal from 'components/Modal'
-import { ModalBody, ModalFooter } from 'components/Styled/Modal'
-import Button from 'components/Styled/Button'
 import { withProps, compose } from 'recompose'
-import { Field, reduxForm } from 'redux-form'
+import { reduxForm } from 'redux-form'
+import withCrud from 'containers/withCrud'
+import moment from 'moment'
 
-import Input from 'components/Form/Input'
-import { FormGroup } from 'components/Styled/Form'
-
-
-const Form = ({ handleSubmit })  =>
-<form onSubmit={handleSubmit}>
-<Modal lg title='Contact Editor'>
-    <ModalBody>
-      <FormGroup>
-        <Field
-          name="email"
-          type="text"
-          label="email:"
-          component={Input}
-          required
-        />
-      </FormGroup>
-    </ModalBody>
-    <ModalFooter>
-      <Button primary>Save</Button> <Button blank>Cancel</Button>
-    </ModalFooter>
-  </Modal>
-</form>
-
+import Form from './Form'
 
 export default compose(
-  withProps(({ dispatch }) => ({
-    onSubmit: (data) => console.log(data)
+  withCrud,
+  withProps(({ fetch, close, data, upsert, remove }) => ({
+    initialValues: { ...data, title: data.title ? {name: data.title} : undefined },
+    onSubmit: form => {
+      const data = {
+        title: form.title ? form.title.name : undefined,
+        firstName: form.firstName,
+        lastName: form.lastName,
+        email: form.email,
+        organization: form.organization,
+        address1: form.address1,
+        address2: form.address2,
+        address3: form.address3,
+        zip: form.zip,
+        city: form.city,
+        phone: form.phone
+      }
+      console.log(data);
+      upsert('contacts', data, form.id);
+    },
+    onDelete: () => remove(`contacts`, data.id)
   })),
   reduxForm({ form: 'contact' }),
 )(Form)

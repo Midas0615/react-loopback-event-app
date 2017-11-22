@@ -15,6 +15,7 @@ export const Modal = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 100;
   -webkit-overflow-scrolling: touch;
 
 `
@@ -60,7 +61,7 @@ export const ModalBody = styled.div`
   max-height: 70vh;
   box-sizing: border-box;
   padding: 1rem;
-  overflow-y: auto;
+
 `
 
 export const ModalHeading = styled.div`

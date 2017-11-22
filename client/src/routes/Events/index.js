@@ -12,14 +12,18 @@ import { Button } from 'components/Styled'
 import { compose, withProps, pure, withState } from 'recompose'
 import { Panel, PanelHeading, PanelBody } from 'components/Styled/Panel'
 import { Flex } from 'components/Styled/Flex'
+import { Link } from 'react-router-dom';
 
 import EventEditor from 'components/EventEditor'
 
 const Row = ({ resource: event, toggleModal }) => {
   return (
     <tr>
-      <td>{event.name}</td>
-      <td>{moment(event.eventDate).format('LLL')}</td>
+      <td><Link to={`/event/${event.id}`}>{event.name}</Link></td>
+      <td>
+        {moment(event.eventDate).format('LLL')} <br/>
+        <small>{moment(event.eventDate).fromNow()}</small>
+      </td>
       <td>{event.location}</td>
       <td>
         <span>

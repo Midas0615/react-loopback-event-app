@@ -23,7 +23,7 @@ const DataTable = ({ resource, data, canLoadMore, isFetching, fetchMore, refetch
       <TableBody>
         {
         data && data.map((resource, index) =>
-          <Component resource={resource} key={index} {...other}/>
+          <Component resource={resource} key={index} index={index} {...other}/>
         )}
         {
           isFetching &&
@@ -38,7 +38,7 @@ const DataTable = ({ resource, data, canLoadMore, isFetching, fetchMore, refetch
           </tr>
         }
         {
-          data &&
+          data && !data.length &&
           <tr>
             <td colSpan={6}>
               <Flex center>

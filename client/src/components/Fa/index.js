@@ -21,7 +21,7 @@ const Icon = styled.i`
   ${ props => props.input && css`
     position: absolute;
     top: 5px;
-    right: 7px;
+    right: 10px;
     font-size: 1.2rem;
   `};
   ${ props => props.table ? `font-size: 20px; cursor: pointer; margin-right: 5px;` : null };

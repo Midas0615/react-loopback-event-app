@@ -1,6 +1,8 @@
 import React from 'react'
 import PlacesAutocomplete from 'react-places-autocomplete'
 import { FormLabel } from 'components/Styled/Form'
+import Fa from 'components/Fa'
+import { InputGroup } from 'components/Styled/Input'
 
 const defaultStyles = {
   root: {
@@ -46,7 +48,10 @@ export default (props) => {
   return (
     <div>
       {props.label && <FormLabel>{props.label}</FormLabel>}
-      <PlacesAutocomplete {...props} inputProps={props.input} styles={defaultStyles} />
+      <InputGroup fullWidth>
+        <PlacesAutocomplete {...props} inputProps={props.input} styles={defaultStyles} />
+        <Fa icon='ion-ios-location-outline' gray input />
+      </InputGroup>
     </div>
   )
 }

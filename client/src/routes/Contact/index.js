@@ -11,8 +11,8 @@ import { Flex } from 'components/Styled/Flex'
 import Label from 'components/Styled/Label'
 
 const Row = ({ resource: invite,index }) => {
-  console.log(invite)
-  const contact = invite.contact || {};
+
+  const event = invite.event || {};
 
   return (
     <tr>
@@ -20,8 +20,8 @@ const Row = ({ resource: invite,index }) => {
         {index+1}
       </td>
       <td>
-        {contact.firstName} {contact.lastName} <br/>
-        <small>{contact.organization}</small>
+        {event.name}  <br/>
+        <small>{event.organization}</small>
       </td>
       <td>
         <Label
@@ -36,16 +36,15 @@ const Row = ({ resource: invite,index }) => {
 }
 
 const Event = (props) =>
-
 <AppLayout>
   <Panel my={2}>
     <PanelHeading primary>
       <Flex center space>
-        <strong>Event Name</strong>
+        <strong>Contact Name</strong>
       </Flex>
     </PanelHeading>
     <PanelBody>
-      Event Details Here
+      Contact Details Here
     </PanelBody>
     <hr/>
     <DataTable
@@ -63,8 +62,8 @@ export default compose(
       resource: 'invites',
       params: {
         limit: 10,
-        where: { eventId: match.params.eventId },
-        include: 'contact'
+        where: { contactId: match.params.contactId },
+        include: 'event'
       },
     }
   }),

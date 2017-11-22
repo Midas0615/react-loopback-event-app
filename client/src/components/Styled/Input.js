@@ -1,17 +1,12 @@
 import styled, { css } from 'styled-components'
 import theme from 'styles/theme'
-//
-// import styled, { css, extend } from 'styled-components'
-//
-// const Dropdown = Input.extend`
-//  // menjas kvo ti se ne svidja
-// `
 
 
 export const InputGroup = styled.div`
   position: relative;
   display: inline-block;
   vertical-align: middle;
+  ${props => props.fullWidth && `width: 100%`};
   ${props => props.width && `width: ${props.width}rem`};
   ${props => props.mr && `margin-right: ${props.mr}rem`};
   ${props => props.ml && `margin-right: ${props.ml}rem`};

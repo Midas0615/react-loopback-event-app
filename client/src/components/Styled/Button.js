@@ -5,6 +5,7 @@ export default styled.button`
   border: 1px solid ${theme.border};
   color: ${theme.medium};
   padding: .75rem 1rem;
+  line-height: 1.6;
   outline: 0;
   cursor: pointer;
   font-size: 0.8rem;
@@ -15,6 +16,11 @@ export default styled.button`
     background: ${theme.primary};
     color: ${theme.light};
     border: 1px solid ${theme.primary};
+  `};
+  ${props => props.warning && css`
+    background: ${theme.warning};
+    color: ${theme.light};
+    border: 1px solid ${theme.warning};
   `};
   ${props => props.blank && css`
     background: none;

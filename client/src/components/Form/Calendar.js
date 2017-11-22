@@ -11,9 +11,13 @@ const valid = function( current ){
     return current.isAfter( yesterday );
 };
 
+const allDates = function() {
+  return true
+}
+
 
 const Calendar = (props) => {
-
+  const PLACEHOLDER = props.placeholder
   return (
     <div>
       {props.label && <FormLabel>{props.label}</FormLabel>}
@@ -22,8 +26,8 @@ const Calendar = (props) => {
           value={props.input.value}
           inputProps={{required: props.required }}
           onChange={props.input.onChange}
-          isValidDate={valid}
-          renderInput={(props) => <Input {...props} {...props.input} />}
+          isValidDate={props.allDates  ? allDates : valid}
+          renderInput={(props) => <Input {...props} placeholder={PLACEHOLDER} />}
         />
         <Fa icon='ion-ios-calendar-outline' gray input />
       </InputGroup>

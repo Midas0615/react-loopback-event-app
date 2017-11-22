@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 // Components
 import DataTable from 'components/DataTable'
-import Filters from 'components/Filters'
+import ContactFilters from 'components/ContactFilters'
 import { Button } from 'components/Styled'
 import { Panel, PanelHeading, PanelBody } from 'components/Styled/Panel'
 import { Flex } from 'components/Styled/Flex'
@@ -13,10 +13,8 @@ import { Flex } from 'components/Styled/Flex'
 
 import ContactEditor from 'components/ContactEditor'
 import ContactGroupEditor from 'components/ContactGroupEditor'
-import InviteModal from 'components/InviteModal'
-
-
 import InviteButton from 'components/InviteButton'
+import EventList from 'components/EventList'
 
 const Row = ({ resource: contact, toggleModal }) =>
 <tr>
@@ -37,15 +35,15 @@ export default (props) =>
     <PanelHeading primary>
       <Flex center space>
         <strong>Contacts</strong>
-        <div>
-          <InviteModal />
+        <Flex>
+          <EventList />
           <Button onClick={() => props.toggleContactGroups(true)} mr={0.3}>Contact Groups</Button>
           <Button onClick={() => props.toggleModal({})}>Create</Button>
-        </div>
+        </Flex>
       </Flex>
     </PanelHeading>
     <PanelHeading>
-      <Filters />
+      <ContactFilters fetch={props.fetch} />
     </PanelHeading>
     <DataTable
       {...props}

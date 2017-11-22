@@ -16,7 +16,7 @@ export default function(WrappedComponent) {
       this.fetch(this.props.resource, this.props.params);
     }
 
-    refetch = () => {
+    refetch = (params) => {
       this.fetch(this.props.resource, this.props.params)
     }
 

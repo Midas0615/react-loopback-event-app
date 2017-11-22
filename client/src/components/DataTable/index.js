@@ -23,7 +23,7 @@ const DataTable = ({ resource, data, canLoadMore, isFetching, fetchMore, refetch
       <TableBody>
         {
         data && data.map((resource, index) =>
-          <Component resource={resource} key={index} index={index} {...other}/>
+          <Component resource={resource} key={index} index={index} refetch={refetch} {...other} />
         )}
         {
           isFetching &&

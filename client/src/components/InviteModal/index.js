@@ -24,7 +24,8 @@ const Info = ({ invite, removeCandidate, clear, modal, toggleModal, inviteContac
   const candidates = invite.candidatesInfo
   const list = invite.candidates;
   const event = invite.event;
-  if (!modal) return <button onClick={() => toggleModal(true)}>View Candidates ({list.length})</button>
+  if (!invite.ready) toggleModal(false);
+  if (!modal) return <Button sm onClick={() => toggleModal(true)} mr={0.2} ml={0.2}>{event.name} invites ({list.length})</Button>
   return (
     <Modal title={`Invite to ${event.name}`}>
       {
@@ -69,7 +70,7 @@ const Info = ({ invite, removeCandidate, clear, modal, toggleModal, inviteContac
 export default compose(
   withState('modal', 'toggleModal', false),
   withInvite,
-  withProps(({ clearState, toggleModal}) => ({
+  withProps(({ clearState, toggleModal }) => ({
     clear: () => {
       toggleModal();
       clearState();

@@ -1,5 +1,6 @@
 import React from 'react'
 import withInvite from 'containers/withInvite'
+import Button from 'components/Styled/Button'
 
 const InviteButton = ({ invite, contact, addCandidate, removeCandidate }) => {
   if (!invite.ready) return null;
@@ -13,11 +14,11 @@ const InviteButton = ({ invite, contact, addCandidate, removeCandidate }) => {
       }
       {
         !hasSubscription && !candidate &&
-        <button onClick={() => addCandidate(contact)}>Add Candidate</button>
+        <Button onClick={() => addCandidate(contact)} primary>Add To Invite List</Button>
       }
       {
         !hasSubscription && candidate &&
-        <button onClick={() => removeCandidate(contact.id)}>Remove Candidate</button>
+        <Button warning onClick={() => removeCandidate(contact.id)}>Remove From Invite List</Button>
       }
     </div>
   )

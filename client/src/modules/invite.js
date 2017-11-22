@@ -25,7 +25,7 @@ export const fetchEvent = (eventId) => async dispatch => {
 
 
  async function invite(contactId, eventId) {
-  return await API().post('/invites', { contactId, eventId })
+  return await API().post('/invites', { contactId, eventId, emailConfirmation: true })
 }
 
 export const inviteContacts = (contactList, eventId) => dispatch => {

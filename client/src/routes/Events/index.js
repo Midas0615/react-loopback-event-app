@@ -1,7 +1,7 @@
 import React from 'react'
 import withPaginate from 'containers/withPaginate'
 import DataTable from 'components/DataTable'
-import Filters from 'components/Filters'
+import EventFilters from 'components/EventFilters'
 import AppLayout from 'layout/AppLayout'
 import moment from 'moment'
 
@@ -15,6 +15,7 @@ import { Flex } from 'components/Styled/Flex'
 import { Link } from 'react-router-dom';
 
 import EventEditor from 'components/EventEditor'
+import EventSelector from 'components/EventSelector'
 
 const Row = ({ resource: event, toggleModal }) => {
   return (
@@ -29,6 +30,7 @@ const Row = ({ resource: event, toggleModal }) => {
         <span>
           <Button mr={0.5} borderWarning backgroundWarning  onClick={() => toggleModal(event)}><Fa lg base icon='ion-edit'/></Button>
           <Button  borderDanger backgroundDanger><Fa lg base icon='ion-ios-trash-outline' /></Button>
+          <EventSelector event={event} />
         </span>
       </td>
     </tr>
@@ -45,7 +47,7 @@ const Contacts = (props) =>
       </Flex>
     </PanelHeading>
     <PanelHeading>
-      <Filters />
+      <EventFilters fetch={props.fetch} />
     </PanelHeading>
     <DataTable
       {...props}
@@ -67,7 +69,7 @@ export default compose(
   withState('modal', 'toggleModal', null),
   withProps({
     resource: 'events',
-    params: { limit: 10, include: 'account' },
+    params: { limit: 10, include: 'account', where: { eventDate: {gt: Date.now()} }, order: 'eventDate ASC' },
   }),
   withPaginate,
   pure

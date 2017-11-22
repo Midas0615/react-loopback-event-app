@@ -1,16 +1,17 @@
 import React from 'react'
 import { Grid } from 'react-styled-flexboxgrid'
 import withPaginate from 'containers/withPaginate'
-import { compose, withProps, pure } from 'recompose'
+import { compose, withProps, withHandlers, pure, lifecycle } from 'recompose'
 import DataTable from 'components/DataTable'
-import Filters from 'components/Filters'
+import SendEmail from 'components/SendEmail'
 import AppLayout from 'layout/AppLayout'
 import { Panel, PanelHeading, PanelBody } from 'components/Styled/Panel'
 import { Flex } from 'components/Styled/Flex'
-
+import API from 'services/api'
 import Label from 'components/Styled/Label'
+import withCrud from 'containers/withCrud'
 
-const Row = ({ resource: invite,index }) => {
+const Row = ({ resource: invite,index, changeStatus }) => {
   console.log(invite)
   const contact = invite.contact || {};
 
@@ -29,37 +30,68 @@ const Row = ({ resource: invite,index }) => {
           success={invite.status === 'attending'}
           warning={invite.status === 'not-attending'}
           >{invite.status}</Label>
+          {
+            invite.status ==='unconfirmed' &&
+            <div>
+              <small onClick={() => changeStatus('attending', invite.id)}>Set Attending</small> | <small onClick={() => changeStatus('not-attending', invite.id)}>Set Not Attending</small>
+            </div>
+          }
+          {
+            invite.status === 'attending' &&
+            <small onClick={() => changeStatus('not-attending', invite.id)}>Set Not Attending</small>
+          }
+          {
+            invite.status === 'not-attending' &&
+            <small onClick={() => changeStatus('attending', invite.id)}>Set Attending</small>
+          }
       </td>
-      <td>Send Message Change Status</td>
+      <td><SendEmail contactId={invite.contactId} eventId={invite.eventId} /></td>
     </tr>
   )
 }
 
-const Event = (props) =>
+const Event = (props) => {
+  if (!props.event) return null
+  const event = props.event;
+  return (
+    <AppLayout>
+      <Panel my={2}>
+        <PanelHeading primary>
+          <Flex center space>
+            <strong>{event.name}</strong>
 
-<AppLayout>
-  <Panel my={2}>
-    <PanelHeading primary>
-      <Flex center space>
-        <strong>Event Name</strong>
-      </Flex>
-    </PanelHeading>
-    <PanelBody>
-      Event Details Here
-    </PanelBody>
-    <hr/>
-    <DataTable
-      {...props}
-       Component={Row}
-       heading={['', 'Name', 'Status', 'Actions']}
-     />
-  </Panel>
-</AppLayout>
+          </Flex>
+        </PanelHeading>
+        <PanelBody>
+          Event Details Here
+          {/* event.location itd  */}
+          <br/><br/>
+          <SendEmail eventId={event.id} caption="Send Email to all atendees" />
+
+        </PanelBody>
+        <h2>{event.name} Atendees</h2>
+
+        <DataTable
+          {...props}
+           Component={Row}
+           heading={['', 'Name', 'Status', 'Actions']}
+         />
+      </Panel>
+    </AppLayout>
+  )
+}
 
 
 export default compose(
-  withProps(({ match }) => {
+  lifecycle({
+    async componentWillMount() {
+      const event = await API().get(`/events/${this.props.match.params.eventId}`)
+      this.setState({ event })
+    }
+  }),
+  withProps(({ match, event }) => {
     return {
+      event,
       resource: 'invites',
       params: {
         limit: 10,
@@ -69,5 +101,12 @@ export default compose(
     }
   }),
   withPaginate,
+  withCrud,
+  withHandlers({
+    changeStatus:  ({ refetch, upsert }) => async (status, id) => {
+      await upsert('invites', { status }, id)
+      await refetch()
+    }
+  }),
   pure
 )(Event)

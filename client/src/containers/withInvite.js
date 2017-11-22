@@ -11,7 +11,7 @@ const mdp = dispatch => ({
   addCandidate: candidate => dispatch(addCandidate(candidate)),
   removeCandidate: candidateId => dispatch(removeCandidate(candidateId)),
   clearState: () => dispatch(clearState()),
-  inviteContacts: (contactList, eventId) => dispatch(inviteContacts(contactList, eventId)),
+  inviteContacts: (contactList, eventId, onSuccess) => dispatch(inviteContacts(contactList, eventId, onSuccess)),
 })
 
 export default connect(msp, mdp)

@@ -19,7 +19,7 @@ const Row = ({ candidate, removeCandidate }) =>
   </td>
 </tr>
 
-const Info = ({ invite, removeCandidate, fetchEvent, clear, modal, toggleModal, inviteContacts }) => {
+const Info = ({ invite, removeCandidate, clear, modal, toggleModal, inviteContacts }) => {
   if (!invite.ready) return null;
   const candidates = invite.candidatesInfo
   const list = invite.candidates;
@@ -53,7 +53,7 @@ const Info = ({ invite, removeCandidate, fetchEvent, clear, modal, toggleModal, 
             {
               invite.isInviting
               ? <Button primary disabled>Inviting...</Button>
-              : <Button primary disabled={!list.length} onClick={() => inviteContacts(list, event.id)}>Invite All Users to {event.name}</Button>
+              : <Button primary disabled={!list.length} onClick={() => inviteContacts(list, event.id, clear )}>Invite All Users to {event.name}</Button>
             }
             <Button blank onClick={() => toggleModal(false)}>Close</Button>
           </div>
@@ -61,7 +61,6 @@ const Info = ({ invite, removeCandidate, fetchEvent, clear, modal, toggleModal, 
             <Button onClick={() => clear()}>Delete List</Button>
           </div>
         </Flex>
-
       </ModalFooter>
     </Modal>
   )

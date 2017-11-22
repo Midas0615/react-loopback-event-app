@@ -72,9 +72,9 @@ module.exports = (app, next) => ds.automigrate('Account', async (err) => {
       'contactGroupId': 1,
     },
   ];
-  const DataContacts = fs.readFileSync('data/import.json', 'UTF-8');
-  createData('Contact', JSON.parse(DataContacts));
-  // createData('Contact', contacts);
+  //const DataContacts = fs.readFileSync('data/import.json', 'UTF-8');
+  // createData('Contact', JSON.parse(DataContacts));
+  createData('Contact', contacts);
 
   var events = [
     {

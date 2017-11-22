@@ -14,7 +14,7 @@ module.exports = {
   /** The base path for all projects assets (relative to the website root) */
   publicPath: '/',
   /** Whether to generate sourcemaps */
-  sourcemaps: false,
+  sourcemaps: true,
   /** A hash map of keys that the compiler should treat as external to the project */
   verbose: false,
   /** The list of modules to bundle separately from the core application code */

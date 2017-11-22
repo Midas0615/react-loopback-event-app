@@ -13,51 +13,46 @@ const LoadingWrapper = styled.div`
 `
 
 const DataTable = ({ resource, data, canLoadMore, isFetching, fetchMore, refetch, isError, Component, heading, ...other }) =>
-  <div>
-    <Table>
-      <TableHeader>
-        <tr>
-          {heading.map((item, index) => <th key={index}>{item}</th>)}
-        </tr>
-      </TableHeader>
-      <TableBody>
-        {
-        data && data.map((resource, index) =>
-          <Component resource={resource} key={index} index={index} refetch={refetch} {...other} />
-        )}
-        {
-          isFetching &&
+    <div>
+      <Table>
+        <TableHeader>
           <tr>
-            <td colSpan={6}>
-              <Flex center>
-                <LoadingRotator duration="0.8s" delay="0s" iterationCount="infinite">
-                  <Fa double primary icon='ion-load-c' />
-                </LoadingRotator>
-              </Flex>
-            </td>
+            {heading.map((item, index) => <th key={index}>{item}</th>)}
           </tr>
-        }
-        {
-          data && !data.length &&
-          <tr>
-            <td colSpan={6}>
-              <Flex center>
-                <h3>No events to show, click on <pre>Create</pre> to add some</h3>
-              </Flex>
-            </td>
-          </tr>
-        }
-      </TableBody>
-    </Table>
-    <Flex center my={2}>
-      <Button onClick={fetchMore} disabled={!canLoadMore} primary large>Load More</Button>
-    </Flex>
-    {/* <button onClick={refetch}>Reset</button> */}
-    {/* <br/>
-    Can Load More: { canLoadMore ? 'Yes': 'No' } <br/>
-    Is Fetching: { isFetching ? 'Yes' : 'No' } <br/>
-    Is Error: { isError ? 'Yes': 'No' } */}
+        </TableHeader>
+        <TableBody>
+          {
+          data && data.map((resource, index) =>
+            <Component resource={resource} key={index} index={index} refetch={refetch} {...other} />
+          )}
+          {
+            isFetching &&
+            <tr>
+              <td colSpan={6}>
+                <Flex center>
+                  <LoadingRotator duration="0.8s" delay="0s" iterationCount="infinite">
+                    <Fa double primary icon='ion-load-c' />
+                  </LoadingRotator>
+                </Flex>
+              </td>
+            </tr>
+          }
+          {
+            data && !data.length &&
+            <tr>
+              <td colSpan={6}>
+                <Flex center>
+                  <h3>No events to show, click on <pre>Create</pre> to add some</h3>
+                </Flex>
+              </td>
+            </tr>
+          }
+        </TableBody>
+      </Table>
+      <Flex center my={2}>
+        <Button onClick={fetchMore} disabled={!canLoadMore} primary large>Load More</Button>
+      </Flex>
+    </div>
 
-  </div>
 
 export default DataTable

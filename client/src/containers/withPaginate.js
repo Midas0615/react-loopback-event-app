@@ -27,7 +27,9 @@ export default function(WrappedComponent) {
       this.setState({ isFetching: true, isError: false })
       try {
         const data = await Resource(`/${this.resource}`, params)
-        this.setState({ isFetching: false, data, canLoadMore: data.length === this.params.limit ? true :false })
+        console.log('LENGTH', data.length);
+        console.log('LIMIT', this.params.limit);
+        this.setState({ isFetching: false, data, canLoadMore: data.length <= this.params.limit ? true :false })
       } catch(error) {
         console.error(error)
         this.setState({ isError: true, error, isFetching: false })
@@ -39,10 +41,12 @@ export default function(WrappedComponent) {
       const newParams = { ...this.params, offset: this.params.limit + this.params.offset };
       this.setState({ isFetching: true, isError: false })
       try {
+        let canLoadMore = true;
         const data = await Resource(`/${this.resource}`, newParams);
-        console.log(data);
         const newData = this.state.data.concat(data);
-        this.setState({ isFetching: false, data: newData, canLoadMore: data.length === this.params.limit ? true :false })
+        if (data.length <= this.params.limit) canLoadMore = true;
+        if (data.length === 0) canLoadMore = false;
+        this.setState({ isFetching: false, data: newData, canLoadMore })
         this.params.offset = this.params.limit + this.params.offset;
       } catch(error) {
         this.setState({ isError: true, error, isFetching: false })

@@ -26,7 +26,6 @@ const FilterWrapper = styled.form `
 const FILTER_MARGIN = 0.75;
 
 var orderBy = [
-
   { value: 'firstName ASC', name: 'First Name, ASC' },
   { value: 'firstName DESC', name: 'First Name, DESC' },
   { value: 'lastName ASC', name: 'Last Name, ASC' },
@@ -86,7 +85,7 @@ const Filter =  ({ fetch, handleSubmit, type }) =>
       component={Input}
     />
   </InputGroup>
-  <button onClick={() => fetch('events')}>Apply Filter</button>
+  <button >Apply Filter</button>
 </form>
 
 const selector = formValueSelector('contactFilters')
@@ -102,9 +101,10 @@ export default compose(
       if (filter.filterType && filter.filterValue) {
         where[filter.filterType.value] = {ilike: `${filter.filterValue}`}
       }
+
       console.log(where)
       if (filter.orderBy) order = filter.orderBy.value
-      const params = { limit: filter.limit || 10, order: order, where }
+      const params = { limit: parseInt(filter.limit) || 10, order: order, where }
       fetch('contacts', params)
     }
   }),

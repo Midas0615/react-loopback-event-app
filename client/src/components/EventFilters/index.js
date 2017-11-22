@@ -72,7 +72,7 @@ const Filter =  ({ fetch, handleSubmit }) =>
     />
   </InputGroup>
 
-  <button onClick={() => fetch('events')}>Apply Filter</button>
+  <button>Apply Filter</button>
 </form>
 
 export default compose(
@@ -87,7 +87,7 @@ export default compose(
       if (filter.to_date) where.eventDate = {lte: moment(filter.to_date).format() }
       if (filter.from_date && filter.to_date) where.eventDate = {between: [moment(filter.from_date).format(), moment(filter.to_date).format()]}
       if (filter.orderBy) order = filter.orderBy.value
-      const params = { limit: filter.limit || 10, order: order, where }
+      const params = { limit: parseInt(filter.limit) || 10, order: order, where }
       fetch('events', params)
     }
   }),

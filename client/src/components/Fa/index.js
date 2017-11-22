@@ -17,6 +17,7 @@ const Icon = styled.i`
   ${props => props.mx && `margin: 0 ${props.mx}rem`};
   ${props => props.md ?  'font-size: 1rem' : null};
   ${props => props.lg ?  'font-size: 1.2rem' : null};
+  ${props => props.double ?  'font-size: 2rem' : null};
 
   ${ props => props.input && css`
     position: absolute;

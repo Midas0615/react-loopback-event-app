@@ -27,7 +27,7 @@ export const PanelHeading = styled.div`
   border-top-right-radius: ${theme.borderRadius};
   ${props => props.primary && css`
     background: ${theme.light.darken(0.05)};
-    padding: 1.5rem 1rem;
+    padding: 0.5rem 1rem;
   `};
 `;
 

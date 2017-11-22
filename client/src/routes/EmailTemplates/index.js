@@ -34,7 +34,7 @@ const Contacts = (props) =>
 <AppLayout>
   <Panel my={2}>
     <PanelHeading primary>
-      <Flex center space>
+      <Flex itemsCenter space>
         <strong>Email Templates</strong>
         <Button onClick={() => props.toggleModal({})}>Create</Button>
       </Flex>

@@ -21,10 +21,10 @@ const Row = ({ resource: invite }) => {
 
 const Contacts = (props) =>
 <AppLayout>
-  <Grid fluid>
+  <Flex space>
     <Filters />
     <DataTable {...props} Component={Row} />
-  </Grid>
+  </Flex>
 </AppLayout>
 
 

@@ -14,4 +14,17 @@ injectGlobal`
     font-weight: 400;
   }
 
+  pre{
+    display: inline-block;
+    background: ${themeConfig.light};
+    padding: 5px 12px;
+    font-size: ${themeConfig.fontDefault};
+    border-radius: ${themeConfig.borderRadius};
+  }
+
+  h1,h2,h3,h4,h5,h6{
+    color: ${themeConfig.dark};
+    font-weight: 400;
+  }
+
 `

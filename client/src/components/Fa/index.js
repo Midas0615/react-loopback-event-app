@@ -11,6 +11,7 @@ const Icon = styled.i`
   color: ${props => props.border &&  props.theme.border};
   color: ${props => props.gray &&  props.theme.gray};
   color: ${props => props.base &&  props.theme.base};
+  color: ${props => props.dark &&  props.theme.dark};
   ${props => props.mr && `margin-right: ${props.mr}rem`};
   ${props => props.ml && `margin-left: ${props.ml}rem`};
   ${props => props.my && `margin: ${props.my}rem 0`};
@@ -18,6 +19,7 @@ const Icon = styled.i`
   ${props => props.md ?  'font-size: 1rem' : null};
   ${props => props.lg ?  'font-size: 1.2rem' : null};
   ${props => props.double ?  'font-size: 2rem' : null};
+  ${props => props.giant ?  'font-size: 4.5rem' : null};
 
   ${ props => props.input && css`
     position: absolute;

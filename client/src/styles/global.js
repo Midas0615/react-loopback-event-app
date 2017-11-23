@@ -20,6 +20,7 @@ injectGlobal`
     padding: 5px 12px;
     font-size: ${themeConfig.fontDefault};
     border-radius: ${themeConfig.borderRadius};
+    margin: 0;
   }
 
   h1,h2,h3,h4,h5,h6{

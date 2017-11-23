@@ -28,9 +28,9 @@ const Row = ({ resource: event, toggleModal }) => {
       <td>{event.location}</td>
       <td>
         <span>
-          <Button mr={0.5} borderWarning backgroundWarning  onClick={() => toggleModal(event)}><Fa lg base icon='ion-edit'/></Button>
-          <Button  borderDanger backgroundDanger><Fa lg base icon='ion-ios-trash-outline' /></Button>
-          <EventSelector event={event} />
+          <Button buttonIcon mr={0.5} warning onClick={() => toggleModal(event)}><Fa lg base icon='ion-edit'/></Button>
+          <Button buttonIcon mr={0.5} danger><Fa lg base icon='ion-ios-trash-outline' /></Button>
+          <EventSelector primary event={event} />
         </span>
       </td>
     </tr>
@@ -43,7 +43,7 @@ const Contacts = (props) =>
     <PanelHeading primary>
       <Flex itemsCenter space>
         <strong>Events</strong>
-        <Button onClick={() => props.toggleModal({})}>Create</Button>
+        <Button primary sm onClick={() => props.toggleModal({})}>Create</Button>
       </Flex>
     </PanelHeading>
     <PanelHeading>

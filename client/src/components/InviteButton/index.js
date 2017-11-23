@@ -1,6 +1,7 @@
 import React from 'react'
 import withInvite from 'containers/withInvite'
 import Button from 'components/Styled/Button'
+import Fa from 'components/Fa'
 
 const InviteButton = ({ invite, contact, addCandidate, removeCandidate }) => {
   if (!invite.ready) return null;
@@ -14,11 +15,11 @@ const InviteButton = ({ invite, contact, addCandidate, removeCandidate }) => {
       }
       {
         !hasSubscription && !candidate &&
-        <Button onClick={() => addCandidate(contact)} primary>Add To Invite List</Button>
+        <Button buttonIcon success onClick={() => addCandidate(contact)}><Fa lg base icon='ion-android-person-add'/></Button>
       }
       {
         !hasSubscription && candidate &&
-        <Button warning onClick={() => removeCandidate(contact.id)}>Remove From Invite List</Button>
+        <Button buttonIcon danger onClick={() => removeCandidate(contact.id)}><Fa lg base icon='ion-android-cancel'/></Button>
       }
     </div>
   )

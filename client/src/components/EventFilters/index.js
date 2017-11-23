@@ -72,7 +72,7 @@ const Filter =  ({ fetch, handleSubmit }) =>
     />
   </InputGroup>
 
-  <button>Apply Filter</button>
+  <Button primary sm>Apply Filter</Button>
 </form>
 
 export default compose(

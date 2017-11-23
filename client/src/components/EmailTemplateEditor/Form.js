@@ -85,12 +85,12 @@ const Form = ({ handleSubmit, type, close, isSaving, isError, onDelete, data }) 
         <div>
           {
             isSaving
-            ? <Button primary disabled>Saving...</Button>
-            : <Button primary>Save</Button>
+            ? <Button mr={0.5} primary disabled>Saving...</Button>
+            : <Button mr={0.5} primary>Save</Button>
           }
           <Button type="button" blank onClick={close}>Cancel</Button>
         </div>
-        { type && type.name !== 'system' && <Button type="button" onClick={onDelete}>Delete</Button> }
+        { type && type.name !== 'system' && <Button danger type="button" onClick={onDelete}>Delete</Button> }
 
       </Flex>
     </ModalFooter>

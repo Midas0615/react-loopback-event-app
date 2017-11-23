@@ -5,6 +5,7 @@ import { Button } from 'components/Styled'
 import { Flex } from 'components/Styled/Flex'
 import { connect } from 'react-redux'
 import { logout } from 'modules/user'
+import Text from 'components/Styled/Text'
 
 import styled from 'styled-components'
 import theme from 'styles/theme'
@@ -36,13 +37,12 @@ const Item = styled(NavLink)`
 
 const LogoutButton = styled(Button)`
   border: 1px solid ${theme.danger};
-  background-color: transparent;
+  background-color: ${theme.danger};
   padding: 0rem 1rem;
-  color: ${theme.danger};
+  color: ${theme.base};
   height: 27px;
   font-weight: bold;
   margin-left: 1rem;
-  &:hover{ background: ${theme.danger}; color: ${theme.base};}
 `
 
 const Header = ({ user, logout }) =>
@@ -55,7 +55,7 @@ const Header = ({ user, logout }) =>
         <Item to='/email-templates'>Email Templates</Item>
       </Flex>
       <Flex>
-        Logged in as: {user.firstName} {' '}
+        <Text tiny uppercase bold mr={0.5}>Logged in as: {user.firstName} {' '}</Text>
         <InviteModal />
 
         <Flex mt={0.75}>

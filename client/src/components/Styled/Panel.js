@@ -1,9 +1,3 @@
-// Panel Heading
-// Panel Body
-// Panel Footer
-// mozda da moze da se Panel koristi u Modal...
-
-
 import styled, { css } from 'styled-components'
 import theme from 'styles/theme'
 
@@ -26,13 +20,16 @@ export const PanelHeading = styled.div`
   border-top-left-radius: ${theme.borderRadius};
   border-top-right-radius: ${theme.borderRadius};
   ${props => props.primary && css`
-    background: ${theme.light.darken(0.05)};
+    background: ${theme.light};
     padding: 0.5rem 1rem;
   `};
 `;
 
 export const PanelBody = styled.div`
   padding: ${PANEL_PADDING};
+  ${props => props.dirtyWhite && css`
+    background: ${theme.dirtyWhite};
+  `};
 `
 
 export const PanelFooter =styled.div`

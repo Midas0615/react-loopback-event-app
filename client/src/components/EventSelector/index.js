@@ -7,7 +7,8 @@ import Button from 'components/Styled/Button'
 const Selector = ({ invite, fetchEvent, event, clearState }) =>
 <span>
   <Button
-    ml={0.1}
+    mr={0.5}
+    success
     onClick={() => fetchEvent(event.id)}
     primary={invite.event.id === event.id}
     >
@@ -19,7 +20,7 @@ const Selector = ({ invite, fetchEvent, event, clearState }) =>
   </Button>
   {
     invite.event.id === event.id &&
-    <Button blank onClick={() =>clearState()}>Cancel</Button>
+    <Button danger onClick={() =>clearState()}>Cancel</Button>
   }
 </span>
 

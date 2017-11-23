@@ -17,7 +17,7 @@ import Editor from './Container'
 const Row = ({ resource: contactGroup, toggleEditorCreate }) =>
 <tr>
   <td>{contactGroup.name}</td>
-  <td><button onClick={() => toggleEditorCreate(contactGroup)}>Edit</button></td>
+  <td><Button buttonIcon warning onClick={() => toggleEditorCreate(contactGroup)}><Fa lg base icon='ion-edit'/></Button></td>
 </tr>
 
 const ContactGroup = (props) =>
@@ -31,7 +31,7 @@ const ContactGroup = (props) =>
         heading={['Name', 'Actions']}
       />
       <ModalFooter>
-        <Button primary onClick={() => props.toggleEditorCreate({})}>New Contact Group</Button>
+        <Button mr={0.5} primary onClick={() => props.toggleEditorCreate({})}>New Contact Group</Button>
         <Button type="button" blank onClick={props.close}>Close</Button>
       </ModalFooter>
     </div>

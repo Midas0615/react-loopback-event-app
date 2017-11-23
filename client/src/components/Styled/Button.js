@@ -2,18 +2,13 @@ import styled, { css } from 'styled-components'
 import theme from 'styles/theme'
 
 export default styled.button`
-  border: 1px solid ${theme.border};
   color: ${theme.medium};
-  padding: .7rem 1rem;
+  padding: .5rem 1rem;
   line-height: 1.6;
   font-size: 0.8rem;
   outline: 0;
   cursor: pointer;
   border-radius: ${theme.borderRadius};
-  -webkit-box-shadow: 3px 3px 12px -7px rgba(0,0,0,0.75);
-  -moz-box-shadow: 3px 3px 12px -7px rgba(0,0,0,0.75);
-  box-shadow: 3px 3px 12px -7px rgba(0,0,0,0.75);
-
   ${props => props.mr && `margin-right: ${props.mr}rem`};
   ${props => props.ml && `margin-left: ${props.ml}rem`};
   ${props => props.my && `margin: ${props.my}rem 0`};
@@ -32,8 +27,8 @@ export default styled.button`
   `};
   ${props => props.blank && css`
     background: none;
-    color: ${theme.dark};
-    border: 1px solid ${theme.gray};
+    border: none;
+    color: ${theme.primary};
   `};
   ${props => props.success && css`
     background: ${theme.success};

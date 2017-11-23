@@ -11,7 +11,7 @@ import API from 'services/api'
 
 
 const SendEmail = ({ options, handleChange, emailTemplate, eventId, contactId, modal, toggleModal, handleSendClick, caption, isSending })  => {
-  if (!modal) return <Button onClick={() => toggleModal(true)} primary>{caption || 'Send Email'}</Button>
+  if (!modal) return <Button onClick={() => toggleModal(true)} primary sm>{caption || 'Send Email'}</Button>
   return (
     <Modal title="Send Email">
       <ModalBody>

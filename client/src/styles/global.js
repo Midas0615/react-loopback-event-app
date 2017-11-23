@@ -7,7 +7,7 @@ injectGlobal`
   body {
     color: ${themeConfig.dark};
     font-family: 'Roboto';
-    background: ${themeConfig.light};
+    background: #F0F0F3;
     font-size: 15px;
     margin: 0;
     -webkit-font-smoothing: antialiased;
@@ -24,8 +24,22 @@ injectGlobal`
   }
 
   h1,h2,h3,h4,h5,h6{
-    color: ${themeConfig.dark};
-    font-weight: 400;
+    font-weight: 500;
+    padding: 0;
+    margin: 0;
+    small {
+      color: ${themeConfig.medium};
+    }
+  }
+
+  a {
+    color: ${themeConfig.primary};
+    border-bottom: 1px solid ${themeConfig.border};
+    text-decoration: none;
+    cursor: pointer;
+    &:hover {
+      border-bottom: 1px solid ${themeConfig.primary};
+    }
   }
 
 `

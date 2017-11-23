@@ -6,7 +6,7 @@ import API from 'services/api'
 export default compose(
   withState('isSaving', 'setSaving'),
   withState('isError', 'setError'),
-  withProps(({ setSaving, setError, fetch, close }) => ({
+  withProps(({ setSaving, setError, fetch, refetch, close }) => ({
     upsert: async (resourceName, data, id) => {
       setSaving(true);
       setError(null);
@@ -16,7 +16,7 @@ export default compose(
           const res = await API()
           .patch(`/${resourceName}/${id}`, data)
           setSaving(false);
-          if (fetch) fetch(resourceName);
+          if (refetch) refetch();
           if (close) close();
         } catch(e) {
           setSaving(false);
@@ -28,7 +28,7 @@ export default compose(
       try {
         await API().post(`/${resourceName}`, data)
         setSaving(false);
-        if (fetch) fetch(resourceName);
+        if (refetch) refetch();
         if (close) close();
       } catch(e) {
         console.log(e)
@@ -36,10 +36,12 @@ export default compose(
         setError('Error! Cannot create new entry.')
       }
     },
-    remove: async (resourceName, id) => {
+    remove: async (resourceName, id, forced) => {
       try {
-        await API().delete(`/${resourceName}/${id}`);
-        if (fetch) fetch(resourceName);
+        forced
+        ? await API().delete(`/${resourceName}/${id}`)
+        : await API().patch(`/${resourceName}/${id}`, {deleted: true})
+        if (refetch) refetch(resourceName);
         if (close) close();
       } catch(e) {
         setError('Error! Data not saved, please try again')

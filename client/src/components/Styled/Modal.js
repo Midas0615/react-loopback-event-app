@@ -38,7 +38,7 @@ export const Overlay = styled.div`
   left: 0;
   z-index: 5;
   animation: ${fadeIn} 0.2s ease-in-out;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0,0,0,0.9);
 `
 
 export const Dialog = styled.div`
@@ -67,16 +67,15 @@ export const ModalBody = styled.div`
 export const ModalHeading = styled.div`
   border-bottom: 1px solid ${theme.border};
   padding: 1rem;
-  background: ${theme.light.darken(0.05)};
+  background: ${theme.light};
   padding: 1.5rem 1rem;
-  border-top-left-radius: ${theme.borderRadius};
-  border-top-right-radius: ${theme.borderRadius};
+
 `
 
 export const ModalFooter = styled.div`
   border-top: 1px solid ${theme.border.lighten(0.1)};
   padding: 1rem;
-  background: ${theme.light.lighten(0.05)};
+  background: ${theme.light};
   padding: 1.5rem 1rem;
   border-bottom-left-radius: ${theme.borderRadius};
   border-bottom-right-radius: ${theme.borderRadius};

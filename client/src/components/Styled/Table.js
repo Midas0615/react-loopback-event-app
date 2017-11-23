@@ -23,6 +23,5 @@ export const TableBody = styled.tbody`
     border-bottom: 1px solid ${theme.border.lighten(0.2)};
     color: ${theme.dark.lighten(0.7)};
   }
-  &>tr>:first-child{
-    color: ${theme.primary};
+
 `

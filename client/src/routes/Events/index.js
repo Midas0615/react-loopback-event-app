@@ -20,31 +20,33 @@ import EventSelector from 'components/EventSelector'
 const Row = ({ resource: event, toggleModal }) => {
   return (
     <tr>
-      <td><Link to={`/event/${event.id}`}>{event.name}</Link></td>
+      <td><Link to={`/events/${event.id}`}>{event.name}</Link></td>
       <td>
         {moment(event.eventDate).format('LLL')} <br/>
         <small>{moment(event.eventDate).fromNow()}</small>
       </td>
-      <td>{event.location}</td>
-      <td>
-        <span>
-          <Button buttonIcon mr={0.5} warning onClick={() => toggleModal(event)}><Fa lg base icon='ion-edit'/></Button>
-          <Button buttonIcon mr={0.5} danger><Fa lg base icon='ion-ios-trash-outline' /></Button>
-          <EventSelector primary event={event} />
-        </span>
-      </td>
+      <td>{event.location || 'N/A'}</td>
+      {
+        event.deleted
+        ? <td><Label danger>DELETED</Label></td>
+        : <td>
+          <span>
+            <Button sm mr={0.5}  onClick={() => toggleModal(event)}><Fa   icon='ion-edit'/> Edit</Button>
+            <EventSelector primary event={event} />
+          </span>
+        </td>
+      }
+
     </tr>
   )
 }
 
-const Contacts = (props) =>
+const Events = (props) =>
 <AppLayout>
-  <Panel my={2}>
+  <Panel my={4}>
     <PanelHeading primary>
-      <Flex itemsCenter space>
-        <strong>Events</strong>
-        <Button primary sm onClick={() => props.toggleModal({})}>Create</Button>
-      </Flex>
+        <h3>Events</h3>
+        <Button primary onClick={() => props.toggleModal({})}><Fa  icon='ion-plus-round'/> New Event</Button>
     </PanelHeading>
     <PanelHeading>
       <EventFilters fetch={props.fetch} />
@@ -52,7 +54,7 @@ const Contacts = (props) =>
     <DataTable
       {...props}
        Component={Row}
-       heading={['Event', 'Date', 'Location', 'Actions']}
+       heading={['Event', 'Date', { title: 'Location', width: 15}, { title: '', width: 20 }]}
      />
   </Panel>
   {/* Modal */}
@@ -60,6 +62,7 @@ const Contacts = (props) =>
     <EventEditor
       data={props.modal}
       fetch={props.fetch}
+      refetch={props.refetch}
       close={() => props.toggleModal(null)}
     /> }
 </AppLayout>
@@ -69,8 +72,8 @@ export default compose(
   withState('modal', 'toggleModal', null),
   withProps({
     resource: 'events',
-    params: { limit: 10, include: 'account', where: { eventDate: {gt: Date.now()} }, order: 'eventDate ASC' },
+    params: { limit: 10, include: 'account', where: { eventDate: {gt: Date.now()}, deleted: false }, order: 'eventDate ASC' },
   }),
   withPaginate,
   pure
-)(Contacts)
+)(Events)

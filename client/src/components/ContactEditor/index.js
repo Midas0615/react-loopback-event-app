@@ -24,7 +24,10 @@ export default compose(
         city: form.city,
         phone: form.phone
       }
-      console.log(data);
+      if (form.contactGroup) {
+        console.log(form.contactGroup)
+        data.contactGroupId = form.contactGroup.id;
+      }
       upsert('contacts', data, form.id);
     },
     onDelete: () => remove(`contacts`, data.id)

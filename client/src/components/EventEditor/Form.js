@@ -14,7 +14,7 @@ import Textarea from 'components/Form/Textarea'
 
 const Form = ({ handleSubmit, close, isSaving, isError, onDelete })  =>
 <form onSubmit={handleSubmit}>
-<Modal lg title='Event Editor' close={close}>
+<Modal sm title='Event Editor' close={close}>
   <ModalBody>
     <FormGroup>
       <Field

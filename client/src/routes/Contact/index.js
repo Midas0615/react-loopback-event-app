@@ -17,6 +17,44 @@ import { Panel, PanelHeading, PanelBody } from 'components/Styled/Panel'
 import { Button } from 'components/Styled'
 import Text from 'components/Styled/Text'
 import Label from 'components/Styled/Label'
+import { Link } from 'react-router-dom'
+
+
+export const FormatStatus = ({status, eventDate}) => {
+  const statusTense = moment().diff(eventDate, 'minutes') > 0 ? 'Attended' : 'Attending'
+  console.warn(status)
+  return (
+    <Flex itemsCenter>
+      <Label
+        mr={0.5}
+        gray={status === 'unconfirmed'}
+        success={status === 'attending'}
+        warning={status === 'not-attending'}
+        >
+          { status === 'unconfirmed' && 'Unconfirmed' }
+          { status === 'attending' && `${statusTense}` }
+          { status === 'not-attending' && `Not ${statusTense}` }
+      </Label> {' '}
+    </Flex>
+  )
+}
+
+export const Actions = ({ invite, changeStatus, eventDate }) => {
+  const statusTense = moment().diff(eventDate, 'minutes') > 0 ? 'Attended' : 'Attending'
+  return (
+    <td>
+      <SendEmail contactId={invite.contactId} eventId={invite.eventId} />
+      { invite.status === 'unconfirmed' &&
+      <span>
+        <Button sm ml={0.3} onClick={() => changeStatus('attending', invite.id)}>Set {statusTense}</Button>
+        <Button sm ml={0.3} onClick={() => changeStatus('not-attending', invite.id)}>Set Not {statusTense}</Button>
+      </span>
+       }
+      { invite.status ==='not-attending' && <Button sm ml={0.3} onClick={() => changeStatus('attending', invite.id)}>Set {statusTense}</Button> }
+      { invite.status ==='attending' && <Button sm ml={0.3} onClick={() => changeStatus('not-attending', invite.id)}>Set Not {statusTense}</Button> }
+    </td>
+  )
+}
 
 const Row = ({ resource: invite, index, changeStatus }) => {
   const event = invite.event || {};
@@ -26,35 +64,13 @@ const Row = ({ resource: invite, index, changeStatus }) => {
         {index+1}
       </td>
       <td>
-        {event.name}  <br/>
+        <Link to={`/events/${event.id}`}>{event.name}</Link>  <br/>
         <small>{event.organization}</small>
       </td>
       <td>
-        <Flex itemsCenter>
-          <Label
-            mr={0.5}
-            gray={invite.status === 'unconfirmed'}
-            success={invite.status === 'attending'}
-            warning={invite.status === 'not-attending'}
-            >{invite.status}
-          </Label> {' '}
-          {
-            invite.status ==='unconfirmed' &&
-            <div>
-              <Text tiny pointer uppercase bold mr={0.5} onClick={() => changeStatus('attending', invite.id)}>Set Attending</Text> | <Text tiny pointer uppercase bold ml={0.5} onClick={() => changeStatus('not-attending', invite.id)}>Set Not Attending</Text>
-            </div>
-          }
-          {
-            invite.status === 'attending' &&
-            <Text tiny pointer danger uppercase bold mr={0.5} onClick={() => changeStatus('not-attending', invite.id)}>Set Not Attending</Text>
-          }
-          {
-            invite.status === 'not-attending' &&
-            <Text tiny pointer uppercase success bold mr={0.5} onClick={() => changeStatus('attending', invite.id)}>Set Attending</Text>
-          }
-        </Flex>
+        <FormatStatus status={invite.status} eventDate={event.eventDate} changeStatus={changeStatus} />
       </td>
-      <td><SendEmail contactId={invite.contactId} eventId={invite.eventId} /></td>
+      <Actions invite={invite} eventDate={invite.event.eventDate} changeStatus={changeStatus} />
     </tr>
   )
 }
@@ -107,8 +123,9 @@ const Contact = (props) => {
         <hr/>
         <DataTable
           {...props}
-           Component={Row}
-           heading={['', 'Name', 'Status', 'Actions']}
+          noDataCaption={`${contact.firstName} did not attend any event.`}
+          Component={Row}
+          heading={['', 'Name', 'Status', {width: 22, title: ''}]}
          />
       </Panel>
     </AppLayout>

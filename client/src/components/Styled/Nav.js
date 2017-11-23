@@ -2,11 +2,12 @@ import styled from 'styled-components'
 import theme from 'styles/theme'
 
 export const Nav = styled.div`
-  padding: 0 1rem;
   border-bottom: 1px solid ${theme.border};
-  background: ${theme.base};
+  background: #212025;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   * {
-    line-height: 50px;
     text-decoration: none;
   }
 `

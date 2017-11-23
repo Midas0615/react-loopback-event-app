@@ -10,6 +10,9 @@
     "name": {
       "type": "string",
       "required": true
+    },
+    "deleted": {
+      "type": "boolean"
     }
   },
   "validations": [],

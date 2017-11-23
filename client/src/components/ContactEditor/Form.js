@@ -13,14 +13,22 @@ import Address from 'components/Form/Address'
 import Calendar from 'components/Form/Calendar'
 import Textarea from 'components/Form/Textarea'
 import Select from 'components/Form/Select'
+import AsyncSelect from 'components/Form/AsyncSelect'
 
 import { FormGroup } from 'components/Styled/Form'
-
+import API from 'services/api'
 const titles = [
   {name: 'Mr.'},
   {name: 'Ms.'},
   {name: 'Dr.'},
 ]
+
+const getOptions = async(input) => {
+  console.log(input)
+  const filter = JSON.stringify({ where: {name: {ilike: `%${input}%`} }, limit: 7 })
+   const options = await API().get('/contact-groups', {params: {filter}})
+   return {options}
+}
 
 const Form = ({ handleSubmit, close, isSaving, isError, onDelete, data })  =>
 <form onSubmit={handleSubmit}>
@@ -59,7 +67,7 @@ const Form = ({ handleSubmit, close, isSaving, isError, onDelete, data })  =>
       </FormGroup>
       <FormGroup>
         <Row>
-          <Col sm={6}>
+          <Col sm={4}>
             <Field
               name="email"
               type="email"
@@ -68,12 +76,21 @@ const Form = ({ handleSubmit, close, isSaving, isError, onDelete, data })  =>
               required
             />
           </Col>
-          <Col sm={6}>
+          <Col sm={4}>
             <Field
               name="organization"
               type="text"
               label="Organization:"
               component={Input}
+            />
+          </Col>
+          <Col sm={4}>
+            <Field
+              name="contactGroup"
+              type="text"
+              label="Contact Group:"
+              loadOptions={getOptions}
+              component={AsyncSelect}
             />
           </Col>
         </Row>

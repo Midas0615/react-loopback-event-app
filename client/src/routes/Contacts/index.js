@@ -10,7 +10,7 @@ export default compose(
   withState('contactGroups', 'toggleContactGroups', false),
   withProps({
     resource: 'contacts',
-    params: { limit: 10 }
+    params: { limit: 10, order: 'createdAt DESC', where: {deleted: false}, include: 'contactGroup' }
   }),
   withPaginate,
   pure

@@ -21,6 +21,10 @@
     },
     "type": {
       "type": "string"
+    },
+    "deleted": {
+      "type": "boolean",
+      "default": false
     }
   },
   "validations": [],

@@ -31,27 +31,28 @@ var orderBy = [
   { value: 'name DESC', name: 'Event Name, DESC' },
 ];
 
+
 const Filter =  ({ fetch, handleSubmit }) =>
 <form onSubmit={handleSubmit}>
   <InputGroup mr={FILTER_MARGIN}>
     <Field
       name="name"
-      placeholder='event name'
+      placeholder='Event Name'
       component={Input}
     />
   </InputGroup>
-  <InputGroup mr={FILTER_MARGIN}>
+  <InputGroup mr={FILTER_MARGIN}  width={11}>
     <Field
       name="from_date"
-      placeholder='from date'
+      placeholder='From Date'
       allDates
       component={Calendar}
     />
   </InputGroup>
-  <InputGroup mr={FILTER_MARGIN}>
+  <InputGroup mr={FILTER_MARGIN} width={11}>
     <Field
       name="to_date"
-      placeholder='to date'
+      placeholder='To Date'
       allDates
       component={Calendar}
     />
@@ -64,15 +65,22 @@ const Filter =  ({ fetch, handleSubmit }) =>
       options={orderBy}
     />
   </InputGroup>
-  <InputGroup mr={FILTER_MARGIN} width={10}>
+  <InputGroup mr={FILTER_MARGIN} width={5}>
     <Field
       name="limit"
-      placeholder='Results Per Page'
+      placeholder='Per Page'
       component={Input}
     />
   </InputGroup>
-
-  <Button primary sm>Apply Filter</Button>
+  <InputGroup mr={FILTER_MARGIN} width={10}>
+    <Field
+      name="deleted"
+      placeholder='Deleted Events'
+      component={Select}
+      options={[{name: 'Show Deleted'}]}
+    />
+  </InputGroup>
+  <Button primary sm>Apply Filters</Button>
 </form>
 
 export default compose(
@@ -86,7 +94,10 @@ export default compose(
       if (filter.from_date) where.eventDate = {gte: moment(filter.from_date).format() }
       if (filter.to_date) where.eventDate = {lte: moment(filter.to_date).format() }
       if (filter.from_date && filter.to_date) where.eventDate = {between: [moment(filter.from_date).format(), moment(filter.to_date).format()]}
+      if (!filter.from_date && !filter.to_date) where.eventDate = {gte: moment().format()}
       if (filter.orderBy) order = filter.orderBy.value
+
+      where.deleted = filter.deleted ? true : false;
       const params = { limit: parseInt(filter.limit) || 10, order: order, where }
       fetch('events', params)
     }

@@ -15,11 +15,11 @@ const InviteButton = ({ invite, contact, addCandidate, removeCandidate }) => {
       }
       {
         !hasSubscription && !candidate &&
-        <Button buttonIcon success onClick={() => addCandidate(contact)}><Fa lg base icon='ion-android-person-add'/></Button>
+        <Button   onClick={() => addCandidate(contact)}><Fa  icon='ion-person-add'/> Invite</Button>
       }
       {
         !hasSubscription && candidate &&
-        <Button buttonIcon danger onClick={() => removeCandidate(contact.id)}><Fa lg base icon='ion-android-cancel'/></Button>
+        <Button danger onClick={() => removeCandidate(contact.id)}><Fa icon='ion-backspace-outline'/> Remove</Button>
       }
     </div>
   )

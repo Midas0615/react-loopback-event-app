@@ -12,12 +12,16 @@ const LoadingWrapper = styled.div`
 
 `
 
-const DataTable = ({ resource, data, canLoadMore, isFetching, fetchMore, refetch, isError, Component, heading, ...other }) =>
+const DataTable = ({ resource, data, canLoadMore, isFetching, fetchMore, refetch, isError, Component, heading, ...other, noDataCaption }) =>
     <div>
       <Table>
         <TableHeader>
           <tr>
-            {heading.map((item, index) => <th key={index}>{item}</th>)}
+            {heading.map((item, index) =>
+              item.width
+              ?  <th key={index} style={{width: `${item.width}rem`}}>{item.title}</th>
+              : <th key={index}>{item}</th>
+            )}
           </tr>
         </TableHeader>
         <TableBody>
@@ -41,17 +45,20 @@ const DataTable = ({ resource, data, canLoadMore, isFetching, fetchMore, refetch
             data && !data.length &&
             <tr>
               <td colSpan={6}>
-                <Flex center>
-                  <h3>No events to show, click on <pre>Create</pre> to add some</h3>
+                <Flex center my={3}>
+                  <h3>{noDataCaption || 'No results'}</h3>
                 </Flex>
               </td>
             </tr>
           }
         </TableBody>
       </Table>
-      <Flex center my={2}>
-        <Button onClick={fetchMore} disabled={!canLoadMore} primary large>Load More</Button>
-      </Flex>
+      {
+        canLoadMore &&
+        <Flex center my={2}>
+          <Button onClick={fetchMore} primary large>Load More</Button>
+        </Flex>
+      }
     </div>
 
 

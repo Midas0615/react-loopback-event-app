@@ -25,7 +25,7 @@ const Info = ({ invite, removeCandidate, clear, modal, toggleModal, inviteContac
   const list = invite.candidates;
   const event = invite.event;
   if (!invite.ready) toggleModal(false);
-  if (!modal) return <Flex><Button style={{padding: '0 1rem', boxShadow: 'none'}} success sm onClick={() => toggleModal(true)} mr={0.2} ml={0.2}>{event.name} invites ({list.length})</Button></Flex>
+  if (!modal) return <Flex><Button style={{padding: '0 1rem', boxShadow: 'none'}} danger sm onClick={() => toggleModal(true)} mr={0.2} ml={0.2}>{event.name} invites ({list.length})</Button></Flex>
   return (
     <Modal title={`Invite to ${event.name}`}>
       {
@@ -59,7 +59,7 @@ const Info = ({ invite, removeCandidate, clear, modal, toggleModal, inviteContac
             <Button blank onClick={() => toggleModal(false)}>Close</Button>
           </div>
           <div>
-            <Button onClick={() => clear()}>Delete List</Button>
+            <Button danger onClick={() => clear()}>Delete List</Button>
           </div>
         </Flex>
       </ModalFooter>

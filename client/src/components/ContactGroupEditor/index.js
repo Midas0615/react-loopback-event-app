@@ -17,7 +17,7 @@ import Editor from './Container'
 const Row = ({ resource: contactGroup, toggleEditorCreate }) =>
 <tr>
   <td>{contactGroup.name}</td>
-  <td><Button buttonIcon warning onClick={() => toggleEditorCreate(contactGroup)}><Fa lg base icon='ion-edit'/></Button></td>
+  <td><Button  onClick={() => toggleEditorCreate(contactGroup)}><Fa  icon='ion-edit'/> Edit</Button></td>
 </tr>
 
 const ContactGroup = (props) =>
@@ -28,7 +28,7 @@ const ContactGroup = (props) =>
       <DataTable
         {...props}
         Component={Row}
-        heading={['Name', 'Actions']}
+        heading={['Name', {width: 5, title: ''}]}
       />
       <ModalFooter>
         <Button mr={0.5} primary onClick={() => props.toggleEditorCreate({})}>New Contact Group</Button>
@@ -40,6 +40,7 @@ const ContactGroup = (props) =>
     props.editOrCreate &&
     <Editor
       fetch={props.fetch}
+      refetch={props.refetch}
       data={props.editOrCreate}
       close={() => props.toggleEditorCreate(false)}
     />

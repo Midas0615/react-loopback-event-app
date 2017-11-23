@@ -6,7 +6,7 @@ import { Grid, Col, Row } from 'react-styled-flexboxgrid'
 import { InputGroup } from 'components/Styled/Input'
 import { compose, withHandlers } from 'recompose'
 import { connect } from 'react-redux'
-
+import API from 'services/api'
 import Button from 'components/Styled/Button'
 
 import { Field, reduxForm, formValueSelector } from 'redux-form'
@@ -14,6 +14,7 @@ import Input from 'components/Form/Input'
 import Select from 'components/Form/Select'
 import Calendar from 'components/Form/Calendar'
 import moment from 'moment'
+import AsyncSelect from 'components/Form/AsyncSelect'
 
 
 const FilterWrapper = styled.form `
@@ -22,6 +23,13 @@ const FilterWrapper = styled.form `
   padding: 1rem 1rem;
   box-shadow: 3px 3px 13px -5px rgba(0,0,0,0.74);
 `
+
+const getOptions = async(input) => {
+  console.log(input)
+  const filter = JSON.stringify({ where: {name: {ilike: `%${input}%`} }, limit: 7 })
+   const options = await API().get('/contact-groups', {params: {filter}})
+   return {options}
+}
 
 const FILTER_MARGIN = 0.75;
 
@@ -72,17 +80,34 @@ const Filter =  ({ fetch, handleSubmit, type }) =>
   </InputGroup>
   <InputGroup mr={FILTER_MARGIN} width={10}>
     <Field
+      name="contactGroup"
+      type="text"
+      placeholder="Contact Group"
+      loadOptions={getOptions}
+      component={AsyncSelect}
+    />
+  </InputGroup>
+  <InputGroup mr={FILTER_MARGIN} width={10}>
+    <Field
       name="orderBy"
       placeholder='Order By'
       component={Select}
       options={orderBy}
     />
   </InputGroup>
-  <InputGroup mr={FILTER_MARGIN} width={10}>
+  <InputGroup mr={FILTER_MARGIN} width={5}>
     <Field
       name="limit"
-      placeholder='Results Per Page'
+      placeholder='Per Page'
       component={Input}
+    />
+  </InputGroup>
+  <InputGroup mr={FILTER_MARGIN} width={11}>
+    <Field
+      name="deleted"
+      placeholder='Deleted Contacts'
+      component={Select}
+      options={[{name: 'Show Deleted'}]}
     />
   </InputGroup>
   <Button primary sm>Apply Filter</Button>
@@ -101,10 +126,10 @@ export default compose(
       if (filter.filterType && filter.filterValue) {
         where[filter.filterType.value] = {ilike: `${filter.filterValue}`}
       }
-
-      console.log(where)
+      if (filter.contactGroup) where.contactGroupId = filter.contactGroup.id
+      where.deleted = filter.deleted ? true : false;
       if (filter.orderBy) order = filter.orderBy.value
-      const params = { limit: parseInt(filter.limit) || 10, order: order, where }
+      const params = { limit: parseInt(filter.limit) || 10, order: order, where, include: 'contactGroup' }
       fetch('contacts', params)
     }
   }),

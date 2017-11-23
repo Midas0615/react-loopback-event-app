@@ -15,17 +15,21 @@ import InviteModal from 'components/InviteModal'
 
 const Item = styled(NavLink)`
   display: flex;
-  border-left: 1px solid ${theme.border};
-  padding: 0rem 1rem;
-  background: ${theme.base};
-  color: ${theme.primary};
+  align-items: center;
+  padding: 0 1.5rem;
+  border: none;
+  background: ${theme.genesis};
+  color: rgba(255,255,255, 0.7);
   cursor: pointer;
   transition: 0.3s background;
+
   &:hover{
     background-color: ${theme.primary.darken(0.1)};
     color: ${theme.base};
+    border: none;
+    cursor: pointer;
+
   };
-  &:last-child{border-right: 1px solid ${theme.border}};
   &.active {
     background: ${theme.primary};
     color: ${theme.base};
@@ -36,39 +40,47 @@ const Item = styled(NavLink)`
 `
 
 const LogoutButton = styled(Button)`
-  border: 1px solid ${theme.danger};
-  background-color: ${theme.danger};
-  padding: 0rem 1rem;
-  color: ${theme.base};
-  height: 27px;
-  font-weight: bold;
-  margin-left: 1rem;
+  border: none;
+  padding: .5rem 1rem;
+  border: 0;
+  margin-right: 2rem;
+  background: none;
+  font-size: .87rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: ${theme.medium.lighten(0.8)};
+  &:hover {
+    cursor: pointer;
+    color: ${theme.primary};
+  }
+`
+
+const Logo = styled.img`
+  height: 90px;
+  margin-right: 2rem;
 `
 
 const Header = ({ user, logout }) =>
 <Nav>
-  <Container>
-    <Flex space>
-      <Flex>
-        <Item exact to='/'>Events</Item>
-        <Item to='/contacts'>Contacts</Item>
-        <Item to='/email-templates'>Email Templates</Item>
-      </Flex>
-      <Flex>
-        <Text tiny uppercase bold mr={0.5}>Logged in as: {user.firstName} {' '}</Text>
-        <InviteModal />
-
-        <Flex mt={0.75}>
-
-          <LogoutButton onClick={logout}>
-            <div style={{transform: 'translateY(-12px)'}}>
-            <Fa icon='ion-log-out' /> Log out
-            </div>
-          </LogoutButton>
-        </Flex>
-      </Flex>
-    </Flex>
-  </Container>
+  <Flex>
+    <Logo src="/genesis-90.png"/>
+    <Item to='/events'><Fa icon='ion-ios-calendar-outline' mr={0.3} md/>Events</Item>
+    <Item to='/contacts'><Fa icon='ion-person-stalker' mr={0.3} md/>Contacts</Item>
+    <Item to='/email-templates'><Fa icon='ion-ios-email-outline' md mr={0.3}/>Email Templates</Item>
+  </Flex>
+  <Flex>
+    <InviteModal />
+    <Item to="/settings">
+       <Fa icon='ion-ios-gear' mr={0.3}/>Settings
+    </Item>
+    {
+      user.id &&
+      <LogoutButton onClick={logout}>
+        <Fa icon='ion-power' mr={0.3}/> Log out ({user.firstName})
+      </LogoutButton>
+    }
+  </Flex>
 </Nav>
 
 const msp = state => ({ user: state.user })

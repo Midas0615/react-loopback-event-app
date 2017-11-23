@@ -2,9 +2,13 @@ import styled, { css } from 'styled-components'
 import theme from 'styles/theme'
 
 export default styled.label`
-  padding: 0.35rem 1.25rem;
+  padding: 0.35rem 1rem;
+  text-transform: uppercase;
   display: flex;
   align-items: center;
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: 1px;
   max-width: fit-content;
   color: ${theme.base};
   border-radius: ${theme.borderRadius};
@@ -18,11 +22,6 @@ export default styled.label`
   ${props => props.mt && `margin-top: ${props.mt}rem`};
   ${props => props.my && `margin: ${props.my}rem 0`};
   ${props => props.mx && `margin: 0 ${props.mx}rem`};
-  -webkit-box-shadow: 3px 3px 12px -7px rgba(0,0,0,0.75);
-  -moz-box-shadow: 3px 3px 12px -7px rgba(0,0,0,0.75);
-  box-shadow: 3px 3px 12px -7px rgba(0,0,0,0.75);
-
-${'' /* Type */}
 ${props => props.blank && css`
   border-bottom: 1px solid ${theme.dark};
   color: ${theme.dark}

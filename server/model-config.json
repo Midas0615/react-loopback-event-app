@@ -48,7 +48,8 @@
           "login": true,
           "logout": true,
           "resetPassword": true,
-          "prototype.__get__accessTokens": true
+          "prototype.__get__accessTokens": true,
+          "prototype.patchAttributes": true
         }
       }
     }

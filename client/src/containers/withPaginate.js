@@ -17,7 +17,8 @@ export default function(WrappedComponent) {
     }
 
     refetch = (params) => {
-      this.fetch(this.props.resource, this.props.params)
+      const newParams = {...this.params, ...params}
+      this.fetch(this.props.resource, newParams)
     }
 
     fetch = async(resource, params) => {
@@ -26,10 +27,11 @@ export default function(WrappedComponent) {
       this.resource = resource;
       this.setState({ isFetching: true, isError: false })
       try {
+        let canLoadMore = true;
         const data = await Resource(`/${this.resource}`, params)
-        console.log('LENGTH', data.length);
-        console.log('LIMIT', this.params.limit);
-        this.setState({ isFetching: false, data, canLoadMore: data.length <= this.params.limit ? true :false })
+        canLoadMore = data.length === this.params.limit;
+        if (data.length === 0) canLoadMore = false;
+        this.setState({ isFetching: false, data, canLoadMore})
       } catch(error) {
         console.error(error)
         this.setState({ isError: true, error, isFetching: false })
@@ -44,7 +46,7 @@ export default function(WrappedComponent) {
         let canLoadMore = true;
         const data = await Resource(`/${this.resource}`, newParams);
         const newData = this.state.data.concat(data);
-        if (data.length <= this.params.limit) canLoadMore = true;
+        canLoadMore = data.length === this.params.limit;
         if (data.length === 0) canLoadMore = false;
         this.setState({ isFetching: false, data: newData, canLoadMore })
         this.params.offset = this.params.limit + this.params.offset;

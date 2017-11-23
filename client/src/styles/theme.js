@@ -1,15 +1,16 @@
 import createTheme from 'styled-components-theme';
 
 export const themeConfig = {
-  primary:  '#5188c0',
+  primary:  '#1976D2',
+  genesis: '#212025',
   info: '#233237',
-  danger: '#e56557',
-  warning: '#ec8b56',
-  success: '#5fd080',
+  danger: '#f44336',
+  warning: '#FF9800',
+  success: '#4CAF50',
   border: '#c5c5c5',
-  dark:  '#312f32',
-  medium: '#607D8B',
-  light: '#ECEFF1',
+  dark:  '#212025',
+  medium: '#484650',
+  light: '#EDEDED',
   gray: '#a2acb9',
   dirtyWhite: '#f9f9f9',
   base: '#ffffff',

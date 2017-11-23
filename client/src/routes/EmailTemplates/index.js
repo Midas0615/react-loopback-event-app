@@ -26,19 +26,17 @@ const Row = ({ resource: template, toggleModal }) => {
         {template.name} <br/>
         {template.type === 'system' && <small>Automatic is sent when user gets invited to an event</small>}
       </td>
-      <td><Button buttonIcon warning onClick={() => toggleModal(template)}><Fa lg base icon='ion-edit'/></Button></td>
+      <td><Button sm onClick={() => toggleModal(template)}><Fa  icon='ion-edit'/> Edit</Button></td>
     </tr>
   )
 }
 
 const Contacts = (props) =>
 <AppLayout>
-  <Panel my={2}>
+  <Panel my={4}>
     <PanelHeading primary>
-      <Flex itemsCenter space>
-        <strong>Email Templates</strong>
-        <Button primary sm onClick={() => props.toggleModal({})}>Create</Button>
-      </Flex>
+        <h3>Email Templates</h3>
+        <Button primary sm onClick={() => props.toggleModal({})}><Fa  icon='ion-plus'/> New Email Template</Button>
     </PanelHeading>
     <DataTable
       {...props}
@@ -51,6 +49,7 @@ const Contacts = (props) =>
     <EmailTemplateEditor
       data={props.modal}
       fetch={props.fetch}
+      refetch={props.refetch}
       close={() => props.toggleModal(null)}
     /> }
 </AppLayout>
@@ -60,7 +59,7 @@ export default compose(
   withState('modal', 'toggleModal', null),
   withProps({
     resource: 'email-templates',
-    params: { limit: 10},
+    params: { limit: 10, where: { deleted: false }},
   }),
   withPaginate,
   pure

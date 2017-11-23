@@ -13,7 +13,6 @@ const lighten = (prop, amt) => props => {
 }
 
 
-
 const ColoredButton = styled.button`
  background: ${ darken('primary', 1.3) };
 `

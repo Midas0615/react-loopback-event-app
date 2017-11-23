@@ -20,6 +20,10 @@
     "eventDate": {
       "type": "date",
       "required": true
+    },
+    "deleted": {
+      "type": "boolean",
+      "default": false
     }
   },
   "validations": [],

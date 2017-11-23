@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components'
 import theme from 'styles/theme'
 
-
 export const InputGroup = styled.div`
   position: relative;
   display: inline-block;
@@ -34,4 +33,12 @@ export const Input = styled.input`
   &:disabled {
     background: ${theme.light};
   }
+  ${p => p.invalid && css`
+    border: 1px solid ${theme.danger};
+    box-shadow: 0 0px 2px 0px ${theme.danger};
+    &:focus {
+      box-shadow: 0 0px 2px 0px ${theme.danger};
+      border: 1px solid ${theme.danger};
+    }
+  `};
 `

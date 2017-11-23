@@ -13,14 +13,21 @@ const defaultStyles = {
     display: 'inline-block',
     width: '100%',
     boxSizing: 'border-box',
-    padding: '10px',
+    padding: '9px',
+    fontSize: '0.9rem',
+    outline: '0',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '#c5c5c5',
+    borderRadius: '3px'
   },
   autocompleteContainer: {
     position: 'absolute',
     top: '100%',
     boxSizing: 'border-box',
     backgroundColor: 'white',
-    border: '1px solid #555555',
+    border: '1px solid #c5c5c5',
+    marginTop: '-1px',
     width: '100%'
   },
   autocompleteItem: {

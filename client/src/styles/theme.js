@@ -1,7 +1,7 @@
 import createTheme from 'styled-components-theme';
 
 export const themeConfig = {
-  primary:  '#3F51B5',
+  primary:  '#5188c0',
   info: '#233237',
   danger: '#e56557',
   warning: '#ec8b56',
@@ -11,11 +11,14 @@ export const themeConfig = {
   medium: '#607D8B',
   light: '#ECEFF1',
   gray: '#a2acb9',
+  dirtyWhite: '#f9f9f9',
   base: '#ffffff',
   borderRadius: '3px',
   fontDefault: '15px',
-  fontLabel: '14px',
+  fontTiny: '10px',
   fontSmall: '13px',
+  fontLarge: '40px',
+  fontGiant: '55px',
   fontFamily: 'Roboto',
 }
 

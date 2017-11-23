@@ -4,57 +4,96 @@ import theme from 'styles/theme'
 export default styled.button`
   border: 1px solid ${theme.border};
   color: ${theme.medium};
-  padding: .75rem 1rem;
+  padding: .7rem 1rem;
   line-height: 1.6;
+  font-size: 0.8rem;
   outline: 0;
   cursor: pointer;
-  font-size: 0.8rem;
   border-radius: ${theme.borderRadius};
-  ${props => props.mr && `margin-right: ${props.mr}rem`};
-  ${props => props.ml && `margin-right: ${props.ml}rem`};
-  ${props => props.primary && css`
-    background: ${theme.primary};
-    color: ${theme.light};
-    border: 1px solid ${theme.primary};
-  `};
-  ${props => props.warning && css`
-    background: ${theme.warning};
-    color: ${theme.light};
-    border: 1px solid ${theme.warning};
-  `};
-  ${props => props.blank && css`
-    background: none;
-    color: ${theme.dark};
-    border: 1px solid transparent;
-  `};
-  ${props => props.lg && css`
-    margin-top: 2rem;
-    padding: 0.65rem 1rem;
-    color: ${theme.base};
-  `};
-  ${props => props.icon && css`
-    padding: 0.5rem 1rem;
-    background: transparent;
-  `};
+  -webkit-box-shadow: 3px 3px 12px -7px rgba(0,0,0,0.75);
+  -moz-box-shadow: 3px 3px 12px -7px rgba(0,0,0,0.75);
+  box-shadow: 3px 3px 12px -7px rgba(0,0,0,0.75);
+
   ${props => props.mr && `margin-right: ${props.mr}rem`};
   ${props => props.ml && `margin-left: ${props.ml}rem`};
   ${props => props.my && `margin: ${props.my}rem 0`};
   ${props => props.mx && `margin: 0 ${props.mx}rem`};
 
-  background-color: ${props => props.backgroundPrimary && props.theme.primary };
-  background-color: ${props => props.backgroundSuccess && props.theme.success};
-  background-color: ${props => props.backgroundWarning &&  props.theme.warning};
-  background-color: ${props => props.backgroundDanger &&  props.theme.danger};
-  background-color: ${props => props.backgroundGray &&  props.theme.gray};
+  ${'' /* Color */}
+  ${props => props.primary && css`
+    background: ${theme.primary};
+    color: ${theme.base};
+    border: 1px solid ${theme.primary};
+  `};
+  ${props => props.warning && css`
+    background: ${theme.warning};
+    color: ${theme.base};
+    border: 1px solid ${theme.warning};
+  `};
+  ${props => props.blank && css`
+    background: none;
+    color: ${theme.dark};
+    border: 1px solid ${theme.gray};
+  `};
+  ${props => props.success && css`
+    background: ${theme.success};
+    color: ${theme.base};
+    border: 1px solid ${theme.success};
+  `};
 
-  border-color: ${props => props.borderPrimary && props.theme.primary };
-  border-color: ${props => props.borderSuccess && props.theme.success};
-  border-color: ${props => props.borderWarning &&  props.theme.warning};
-  border-color: ${props => props.borderDanger &&  props.theme.danger};
-  border-color: ${props => props.borderBorder &&  props.theme.border};
-  border-color: ${props => props.borderGray &&  props.theme.gray};
+  ${props => props.danger && css`
+    background: ${theme.danger};
+    color: ${theme.base};
+    border: 1px solid ${theme.danger};
+  `};
+
+  ${props => props.gray && css`
+    background: ${theme.gray};
+    color: ${theme.base};
+    border: 1px solid ${theme.gray};
+  `};
+
+  ${props => props.border && css`
+    background: ${theme.border};
+    color: ${theme.base};
+    border: 1px solid ${theme.border};
+  `};
+  ${props => props.dirtyWhite && css`
+    background: ${theme.dirtyWhite};
+    color: ${theme.dark};
+    border: 1px solid ${theme.dirtyWhite};
+  `};
   &:disabled {
     opacity: 0.3;
   }
+
+  ${'' /* Size */}
+  ${props => props.lg && css`
+    padding: 0.75rem 1.75rem;
+    font-size: 1rem;
+  `};
+
+  ${props => props.sm && css`
+    padding: 0.58rem 0.5rem;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+  `};
+
+
+  ${'' /* Type */}
+  ${props => props.withicon && css`
+    padding: 2px 10px;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 11.5px;
+  `};
+
+  ${props => props.buttonIcon && css`
+    padding: 0.4rem 1rem;
+  `};
 
 `

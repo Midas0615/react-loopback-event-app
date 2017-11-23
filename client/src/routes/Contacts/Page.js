@@ -24,8 +24,13 @@ const Row = ({ resource: contact, toggleModal }) =>
   <td>{contact.organization || 'N/A'}</td>
   <td>address 1 address 2 etc</td>
   <td>
-    <button onClick={() => toggleModal(contact)}>Edit</button>, add to group, send email
-    <InviteButton contact={contact} />
+    <Flex itemsCenter>
+      <Flex mr={0.5}>
+        <Button buttonIcon warning mr={0.5} onClick={() => toggleModal(contact)}><Fa lg base icon='ion-edit'/></Button>
+        <InviteButton contact={contact} />
+      </Flex>
+      <pre>add to group, send email</pre>
+    </Flex>
   </td>
 </tr>
 
@@ -33,12 +38,12 @@ export default (props) =>
 <AppLayout>
   <Panel my={2}>
     <PanelHeading primary>
-      <Flex center space>
+      <Flex itemsCenter space>
         <strong>Contacts</strong>
         <Flex>
           <EventList />
-          <Button onClick={() => props.toggleContactGroups(true)} mr={0.3}>Contact Groups</Button>
-          <Button onClick={() => props.toggleModal({})}>Create</Button>
+          <Button primary sm ml={0.5} onClick={() => props.toggleContactGroups(true)} mr={0.3}>Contact Groups</Button>
+          <Button primary sm onClick={() => props.toggleModal({})}>Create</Button>
         </Flex>
       </Flex>
     </PanelHeading>

@@ -9,6 +9,7 @@ import Label from 'components/Styled/Label'
 import Button from 'components/Styled/Button'
 import EmailTemplateEditor from 'components/EmailTemplateEditor'
 import { Flex } from 'components/Styled/Flex'
+import Fa from 'components/Fa'
 
 const Row = ({ resource: template, toggleModal }) => {
   return (
@@ -25,7 +26,7 @@ const Row = ({ resource: template, toggleModal }) => {
         {template.name} <br/>
         {template.type === 'system' && <small>Automatic is sent when user gets invited to an event</small>}
       </td>
-      <td><Button onClick={() => toggleModal(template)}>Edit</Button></td>
+      <td><Button buttonIcon warning onClick={() => toggleModal(template)}><Fa lg base icon='ion-edit'/></Button></td>
     </tr>
   )
 }
@@ -36,7 +37,7 @@ const Contacts = (props) =>
     <PanelHeading primary>
       <Flex itemsCenter space>
         <strong>Email Templates</strong>
-        <Button onClick={() => props.toggleModal({})}>Create</Button>
+        <Button primary sm onClick={() => props.toggleModal({})}>Create</Button>
       </Flex>
     </PanelHeading>
     <DataTable

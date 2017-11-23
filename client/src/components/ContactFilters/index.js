@@ -85,7 +85,7 @@ const Filter =  ({ fetch, handleSubmit, type }) =>
       component={Input}
     />
   </InputGroup>
-  <button >Apply Filter</button>
+  <Button primary sm>Apply Filter</Button>
 </form>
 
 const selector = formValueSelector('contactFilters')

@@ -29,6 +29,7 @@ export const verifyToken = () => async dispatch => {
     const user = await API().get(`/accounts/${token.userId}`)
     dispatch({ type: RECEIVE, user })
   } catch(e) {
+    dispatch({ type: INVALID })
     store.remove('accessToken')
   }
 }

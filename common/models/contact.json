@@ -64,29 +64,13 @@
       "foreignKey": ""
     }
   },
-  "acls": [],
-  "methods": {
-    "sendEmail": {
-      "accepts": [
-        {
-          "arg": "id",
-          "type": "number",
-          "required": true
-        },
-        {
-          "arg": "emailTemplateId",
-          "type": "number",
-          "required": true
-        }
-      ],
-      "returns": {
-        "root": true
-      },
-      "description": "Send email to single contact.",
-      "http": {
-        "verb": "post",
-        "path": "/:id/send-email"
-      }
+  "acls": [
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
     }
-  }
+  ],
+  "methods": {}
 }

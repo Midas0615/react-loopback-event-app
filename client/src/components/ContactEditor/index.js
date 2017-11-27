@@ -27,7 +27,10 @@ export default compose(
       if (form.contactGroup) {
         console.log(form.contactGroup)
         data.contactGroupId = form.contactGroup.id;
+      } else {
+        data.contactGroupId = null;
       }
+
       upsert('contacts', data, form.id);
     },
     onDelete: () => remove(`contacts`, data.id)

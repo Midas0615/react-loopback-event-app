@@ -21,6 +21,9 @@
       "type": "date",
       "required": true
     },
+    "eventLocation": {
+      "type": "string"
+    },
     "deleted": {
       "type": "boolean",
       "default": false
@@ -35,8 +38,45 @@
       "through": "Invitation"
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    }
+  ],
   "methods": {
+    "sendEmail": {
+      "accepts": [
+        {
+          "arg": "id",
+          "type": "number"
+        },
+        {
+          "arg": "contactId",
+          "type": "number",
+          "required": true
+        },
+        {
+          "arg": "emailTemplateId",
+          "type": "number",
+          "required": true
+        },
+        {
+          "arg": "inviteId",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "root": true
+      },
+      "description": "Send emails to all Contacts that attend an event.",
+      "http": {
+        "verb": "post",
+        "path": "/:id/contacts/:contactId/send-email"
+      }
+    },
     "sendEmails": {
       "accepts": [
         {
@@ -56,32 +96,6 @@
       "http": {
         "verb": "post",
         "path": "/:id/contacts/send-emails"
-      }
-    },
-    "sendEmail": {
-      "accepts": [
-        {
-          "arg": "id",
-          "type": "number"
-        },
-        {
-          "arg": "contactId",
-          "type": "number",
-          "required": true
-        },
-        {
-          "arg": "emailTemplateId",
-          "type": "number",
-          "required": true
-        }
-      ],
-      "returns": {
-        "root": true
-      },
-      "description": "Send emails to all Contacts that attend an event.",
-      "http": {
-        "verb": "post",
-        "path": "/:id/contacts/:contactId/send-email"
       }
     }
   }

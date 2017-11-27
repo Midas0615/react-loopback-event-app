@@ -45,6 +45,7 @@ export const Dialog = styled.div`
   margin: auto;
   box-sizing: border-box;
   max-width: 640px;
+  margin-bottom: 3rem;
   ${props => props.lg && `max-width: 1200px;`};
   ${props => props.md && `max-width: 960px;`};
   ${props => props.width && `max-width: ${props.width}`};
@@ -52,16 +53,12 @@ export const Dialog = styled.div`
   box-shadow: 0 3px 9px rgba(0,0,0,.2);
   border-bottom: 1px solid ${theme.border};
   border-radius: ${theme.borderRadius};
-  margin-top: 3rem;
-  margin-bottom: 3rem;
   animation: ${fadeIn} 0.5s ease-in-out;
 `
 
 export const ModalBody = styled.div`
-  max-height: 70vh;
   box-sizing: border-box;
   padding: 1rem;
-
 `
 
 export const ModalHeading = styled.div`

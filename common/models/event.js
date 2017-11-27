@@ -20,12 +20,13 @@ module.exports = function(Event) {
     }
   };
   // Send Email to single Contact
-  Event.sendEmail = async (eventId, contactId, emailTemplateId, next) => {
+  Event.sendEmail = async (eventId, contactId, emailTemplateId, inviteId, next) => {
+    console.log('Sending Email to single contact');
     try {
       const emailTemplate = await Event.app.models.EmailTemplate.findById(emailTemplateId);
       const event = await Event.app.models.Event.findById(eventId);
       const contact = await Event.app.models.Contact.findById(contactId);
-      const email = renderEmailBody(emailTemplate, contact, event);
+      const email = renderEmailBody(emailTemplate, contact, event, inviteId);
       Event.app.models.Mailer.sendEmail(email);
     }
     catch(e) {

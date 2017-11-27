@@ -22,6 +22,7 @@ export default function(WrappedComponent) {
     }
 
     fetch = async(resource, params) => {
+      if (!resource) return;
       this.params = params || { limit: 10 };
       this.params.offset = 0;
       this.resource = resource;
@@ -32,6 +33,7 @@ export default function(WrappedComponent) {
         canLoadMore = data.length === this.params.limit;
         if (data.length === 0) canLoadMore = false;
         this.setState({ isFetching: false, data, canLoadMore})
+        return data;
       } catch(error) {
         console.error(error)
         this.setState({ isError: true, error, isFetching: false })

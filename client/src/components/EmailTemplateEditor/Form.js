@@ -64,13 +64,13 @@ const Form = ({ handleSubmit, type, close, isSaving, isError, onDelete, data }) 
       </FormGroup>
       <FormGroup>
         { type && type.name === 'common' &&
-          <small>Available tags: <code>firstName, lastName</code></small>
+          <small>Available tags: <code>title, firstName, lastName</code></small>
         }
         { type && type.name === 'event' &&
-          <small>Available tags: <code>firstName, lastName, eventName, eventDate</code></small>
+          <small>Available tags: <code>title, firstName, lastName, eventName, eventDate, eventLocation</code></small>
         }
         { type && type.name === 'system' &&
-          <small>Available tags: <code>firstName, lastName, eventName, eventDate, attendingUrl, notAttendingUrl.</code></small>
+          <small>Available tags: <code>title, firstName, lastName, eventName, eventDate, eventLocation, attendingUrl, notAttendingUrl.</code></small>
         }
       </FormGroup>
       {

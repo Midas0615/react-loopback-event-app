@@ -8,13 +8,15 @@ import Form from './Form'
 
 export default compose(
   withCrud,
-  withProps(({ fetch, close, data, upsert, remove }) => ({
+  withProps(({ fetch, close, data, upsert, remove, fetchParent }) => ({
     initialValues: data,
-    onSubmit: form => {
+    onSubmit: async(form) => {
+      console.log('HERE')
       const data = {
         name: form.name
       }
-      upsert('contact-groups', data, form.id);
+      await upsert('contact-groups', data, form.id);
+      fetchParent();
     },
     onDelete: () => remove(`contact-groups`, data.id)
   })),

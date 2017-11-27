@@ -82,7 +82,7 @@ module.exports = (app, next) => ds.automigrate('Account', async (err) => {
       'name': 'Babusnicki Vasar',
       'comment': 'some comment',
       'accountId': 1,
-      'eventDate': Date.now(),
+      'eventDate': moment().add(2, 'days').format(),
       'eventLocation': 'Na Amfi',
     },
     {

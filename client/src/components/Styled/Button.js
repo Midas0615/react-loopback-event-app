@@ -16,9 +16,9 @@ export default styled.button`
 
   ${'' /* Color */}
   ${props => props.primary && css`
-    background: ${theme.primary};
+    background: linear-gradient(${theme.primary.lighten(0.2)}, ${theme.primary});
     color: ${theme.base};
-    border: 1px solid ${theme.primary};
+    border: 1px solid ${theme.primary.lighten(0.1)};
   `};
   ${props => props.warning && css`
     background: ${theme.warning};

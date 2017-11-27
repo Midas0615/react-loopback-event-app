@@ -1,0 +1,33 @@
+<style>
+  a {
+    text-decoration: none; color: black; border-bottom: 1px solid #CCC;
+  }
+  p{
+    margin: 0;
+    padding: 0;
+  }
+</style>
+<body style="margin: 0; padding: 0; margin: auto; max-width: 640px; margin-top: 20px; background: #fbfbfb;">
+  <!-- Header -->
+  <table style="width: 100%; height: auto; color: #333; font-family: Arial, sans-serif; font-size: 17px; line-height: 1.6;  border: 1px solid #CCC; border-collapse: collapse;">
+    <tr style="background: #212025;" >
+      <td style="margin: 0; padding: 0; line-height: 0;">
+        <img src="https://i.imgur.com/qj2eB2V.png" alt="">
+      </td>
+    </tr>
+    <tr>
+      <td style="padding: 20px; padding-bottom: 40px;">
+        <p>Hello<strong> {{firstName}}</strong>,</p><p><br></p><p>You are invited to <strong>{{eventName}}</strong>, please respond by clicking on links:</p><p><br></p><p><a href="{{attendingUrl}}" target="_blank">Attending</a> or <a href="{{notAttendingUrl}}" target="_blank">Not Attending</a>.</p><p>Best,</p><p>EventApp</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding: 20px; background: #EEE; font-size: 15px; border-top: 1px solid #CCC; border-bottom: 1px solid #CCC; ">
+        <strong>Genesis Foundation</strong> <br>
+        Some address <br>
+        <a href="mailto:genesis@something.com" style="text-decoration: none; color: black; border-bottom: 1px solid #CCC;">genesis@something.com</a> <br>
+        London, UK
+
+      </td>
+    </tr>
+  </table>
+</body>

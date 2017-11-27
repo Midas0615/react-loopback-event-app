@@ -10,8 +10,8 @@ import Input from 'components/Form/Input'
 import API from 'services/api'
 
 
-const SendEmail = ({ options, handleChange, emailTemplate, eventId, contactId, modal, toggleModal, handleSendClick, caption, isSending })  => {
-  if (!modal) return <Button onClick={() => toggleModal(true)} primary sm>{caption || 'Send Email'}</Button>
+const SendEmail = ({ options, handleChange, emailTemplate, eventId, inviteId, contactId, modal, toggleModal, handleSendClick, caption, isSending, disabled })  => {
+  if (!modal) return <Button onClick={() => toggleModal(true)} disabled={disabled} primary sm>{caption || 'Send Email'}</Button>
   return (
     <Modal title="Send Email">
       <ModalBody>
@@ -50,11 +50,12 @@ export default compose (
     async componentDidMount() {
       const eventId = this.props.eventId;
       const contactId = this.props.contactId;
-      console.warn(eventId, contactId)
+      const inviteId = this.props.inviteId;
       // Set Proper Filter
       let filter;
-      if (eventId) filter = JSON.stringify({});
+      if (eventId) filter = JSON.stringify({where: {type: {neq: 'system'}}});
       if (!eventId) filter = JSON.stringify({where: {type: 'common'}});
+      if (contactId && inviteId ) filter = JSON.stringify({});
       const options = await API().get('/email-templates', {params: {filter}});
       this.setState({ options })
     }
@@ -62,7 +63,7 @@ export default compose (
   withState('modal','toggleModal', false),
   withState('emailTemplate', 'setTemplate', null),
   withState('isSending', 'setSending', false),
-  withProps(({ options, setTemplate, emailTemplate, setSending, eventId, contactId, toggleModal }) => ({
+  withProps(({ options, setTemplate, emailTemplate, setSending, eventId, contactId, toggleModal, inviteId }) => ({
     options,
     handleChange: (selectedTemplate) => {
       setTemplate(selectedTemplate)
@@ -70,17 +71,17 @@ export default compose (
     handleSendClick: async () => {
       setSending(true)
       if (eventId && !contactId) {
-        await API().post(`/events/${eventId}/contacts/send-emails`, { emailTemplateId: emailTemplate.id})
+        await API().post(`/events/${eventId}/contacts/send-emails`, { emailTemplateId: emailTemplate.id, inviteId: inviteId })
         setSending(false)
         toggleModal(false)
       }
       if (contactId && !eventId) {
-        await API().post(`/contacts/${contactId}/send-email`, { emailTemplateId: emailTemplate.id})
+        await API().post(`/contacts/${contactId}/send-email`, { emailTemplateId: emailTemplate.id })
         setSending(false)
         toggleModal(false)
       }
       if (contactId && eventId) {
-        await API().post(`/events/${eventId}/contacts/${contactId}/send-email`, { emailTemplateId: emailTemplate.id})
+        await API().post(`/events/${eventId}/contacts/${contactId}/send-email`, { emailTemplateId: emailTemplate.id, inviteId: inviteId })
         setSending(false)
         toggleModal(false)
       }

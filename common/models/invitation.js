@@ -14,7 +14,7 @@ module.exports = function(Invitation) {
   };
 
   // Send Email
-  Invitation.observe('after save', async function updateTimestamp(ctx, next) {
+  Invitation.observe('after save', async function sendEmail(ctx, next) {
     if (!ctx.instance.emailConfirmation) return;
     try {
       const emailTemplate = await Invitation.app.models.EmailTemplate.findOne({ where: { name: 'USER_INVITED' }});

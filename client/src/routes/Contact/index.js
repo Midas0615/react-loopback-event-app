@@ -8,10 +8,12 @@ import SendEmail from 'components/SendEmail'
 import moment from 'moment'
 import styled from 'styled-components'
 import theme from 'styles/theme'
+import ContactEditor from 'components/ContactEditor'
+
 
 import Fa from 'components/Fa'
-import { compose, withProps, pure, lifecycle, withHandlers } from 'recompose'
-import { Grid } from 'react-styled-flexboxgrid'
+import { compose, withProps, pure, lifecycle, withHandlers, withState } from 'recompose'
+import { Grid, Row, Col } from 'react-styled-flexboxgrid'
 import { Flex } from 'components/Styled/Flex'
 import { Panel, PanelHeading, PanelBody } from 'components/Styled/Panel'
 import { Button } from 'components/Styled'
@@ -22,7 +24,6 @@ import { Link } from 'react-router-dom'
 
 export const FormatStatus = ({status, eventDate}) => {
   const statusTense = moment().diff(eventDate, 'minutes') > 0 ? 'Attended' : 'Attending'
-  console.warn(status)
   return (
     <Flex itemsCenter>
       <Label
@@ -43,7 +44,7 @@ export const Actions = ({ invite, changeStatus, eventDate }) => {
   const statusTense = moment().diff(eventDate, 'minutes') > 0 ? 'Attended' : 'Attending'
   return (
     <td>
-      <SendEmail contactId={invite.contactId} eventId={invite.eventId} />
+      {invite.contact && <SendEmail inviteId={invite.id} contactId={invite.contactId} eventId={invite.eventId} disabled={!invite.contact.email} />}
       { invite.status === 'unconfirmed' &&
       <span>
         <Button sm ml={0.3} onClick={() => changeStatus('attending', invite.id)}>Set {statusTense}</Button>
@@ -56,7 +57,7 @@ export const Actions = ({ invite, changeStatus, eventDate }) => {
   )
 }
 
-const Row = ({ resource: invite, index, changeStatus }) => {
+const DataRow = ({ resource: invite, index, changeStatus }) => {
   const event = invite.event || {};
   return (
     <tr>
@@ -75,56 +76,57 @@ const Row = ({ resource: invite, index, changeStatus }) => {
   )
 }
 
-const ContactBox = styled.div`
-    border-left: 6px solid ${theme.warning};
-    padding: 0rem 0.75rem;
-    margin-right: 1rem;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    -webkit-box-shadow: 3px 3px 12px -7px rgba(0,0,0,0.75);
-    -moz-box-shadow: 3px 3px 12px -7px rgba(0,0,0,0.75);
-    box-shadow: 3px 3px 12px -7px rgba(0,0,0,0.75);
-`
+
+// refetchContact
 const Contact = (props) => {
   if (!props.contact) return null;
-
   const contact = props.contact;
   return (
     <AppLayout>
       <Panel my={2}>
         <PanelHeading primary>
-          <Flex>
-            <strong>{contact.firstName} {contact.lastName}</strong>
-          </Flex>
+          <h3>{contact.firstName} {contact.lastName}</h3>
+          <div>
+            {/* Contacts Modal */}
+            <Button sm mr={0.5} onClick={() => props.toggleModal(props.contact)}><Fa icon='ion-edit'/> Edit Contact</Button>
+            <SendEmail contactId={contact.id} caption={`Send email to ${contact.firstName}`} />
+            {  props.modal &&
+              <ContactEditor
+                data={props.modal}
+                fetch={props.refetchContact}
+                refetch={props.refetchContact}
+                close={() => props.toggleModal(null)}
+              /> }
+          </div>
         </PanelHeading>
         <PanelBody>
-          <Flex>
-            <Flex grow>
-              <ContactBox>
-                <Fa giant icon="ion-ios-person" />
-              </ContactBox>
-              <Flex column>
-                <Label mb={0.25} blank><Fa mr={0.5} dark lg icon="ion-android-contact" /><Text>{contact.title} {contact.firstName} {contact.lastName}</Text></Label>
-                <Label mb={0.25} blank><Fa mr={0.5} dark lg icon="ion-email" /><Text>{contact.email}</Text></Label>
-              </Flex>
-            </Flex>
-            <Flex itemsStart>
-              <Button withicon primary>
-                <Text>Send email to {contact.firstName}</Text>
-                <Fa ml={0.5} base lg icon="ion-ios-email" />
-              </Button>
-            </Flex>
-          </Flex>
+          <Row>
+            <Col sm={6}>
+              <h5>Basic</h5>
+              <Fa mr={0.5} icon="ion-person" /> {contact.title} {contact.firstName} {contact.lastName}
+              <Fa ml={2} mr={0.5} icon="ion-ios-email-outline" />{contact.email || 'No Email'} <br/>
+              <Fa mr={0.5} icon="ion-briefcase" /> {contact.organization || 'N/A'} <br/>
+              <Fa mr={0.5} icon="ion-ios-telephone-outline" /> {contact.phone || 'N/A'} <br/>
+            </Col>
+            <Col sm={4}>
+              <h5>Address</h5>
+              <Fa mr={0.5} icon="ion-ios-location" />{contact.address1 || 'N/A'} <br/>
+              <Fa mr={0.5} icon="ion-ios-location" />{contact.address2 || 'N/A'} <br/>
+              <Fa mr={0.5} icon="ion-ios-location" />{contact.address3 || 'N/A'} <br/>
+            </Col>
+            <Col sm={2}>
+              <h5>City/State</h5>
+              <Fa mr={0.5} icon="ion-map" />{contact.city || 'N/A'} <br/>
+              <Fa mr={0.5} icon="ion-pound" />{contact.zip || 'N/A'} <br/>
 
-          {/* <SendEmail contactId={contact.id} caption={`Send email to ${contact.firstName}`} /> */}
+            </Col>
+          </Row>
+
         </PanelBody>
-        <hr/>
         <DataTable
           {...props}
           noDataCaption={`${contact.firstName} did not attend any event.`}
-          Component={Row}
+          Component={DataRow}
           heading={['', 'Name', 'Status', {width: 22, title: ''}]}
          />
       </Panel>
@@ -137,10 +139,15 @@ const Contact = (props) => {
 export default compose(
   lifecycle({
     async componentWillMount() {
+      this.fetch()
+      this.setState({ refetchContact: this.fetch.bind(this) })
+    },
+    async fetch() {
       const contact = await API().get(`/contacts/${this.props.match.params.contactId}`)
       this.setState({ contact })
     }
   }),
+  withState('modal', 'toggleModal', null),
   withCrud,
   withProps(({ match, contact, fetch }) => {
     return {
@@ -157,7 +164,6 @@ export default compose(
   withHandlers({
     changeStatus:  ({ refetch, upsert }) => async (status, id) => {
       await upsert('invites', { status }, id)
-      console.log(status)
       await refetch()
     }
   })

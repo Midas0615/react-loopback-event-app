@@ -11,9 +11,9 @@
   "email": {
     "name": "email",
     "connector": "mail",
-    "senderName": "Dan Zmix",
+    "senderName": "Event Management App Production",
     "senderEmail": "dan@radenkovic.org",
-    "hostName": "http://localhost:3000",
+    "hostName": "http://eventmanagementapp.herokuapp.com",
     "transports": [
       {
         "type": "smtp",

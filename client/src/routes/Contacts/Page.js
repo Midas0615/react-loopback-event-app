@@ -82,6 +82,7 @@ export default (props) =>
     {
       props.contactGroups &&
       <ContactGroupEditor
+        fetchParent={props.refetch}
         close={() => props.toggleContactGroups(false)}
       />
     }

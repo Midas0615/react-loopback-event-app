@@ -39,7 +39,7 @@ const Form = ({ handleSubmit, user, invalid, pristine }) => {
           <FormGroup>
             <Field
               name="password"
-              type="text"
+              type="password"
               label="password:"
               component={Input}
               required

@@ -73,7 +73,6 @@ const Form = ({ handleSubmit, close, isSaving, isError, onDelete, data })  =>
               type="email"
               label="Email:"
               component={Input}
-              required
             />
           </Col>
           <Col sm={4}>

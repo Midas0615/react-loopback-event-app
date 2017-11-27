@@ -4,6 +4,7 @@ const renderEmailBody = require('./../../server/utils/renderEmailBody');
 module.exports = function(Contact) {
   // Send Email to single Contact
   Contact.sendEmail = async (contactId, emailTemplateId, next) => {
+
     try {
       const emailTemplate = await Contact.app.models.EmailTemplate.findById(emailTemplateId);
       if (!emailTemplate || emailTemplate.type !== 'common') throw EmailTypeException

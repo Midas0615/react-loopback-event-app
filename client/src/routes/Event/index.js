@@ -8,6 +8,7 @@ import withCrud from 'containers/withCrud'
 import moment from 'moment'
 import styled from 'styled-components'
 import theme from 'styles/theme'
+import EventEditor from 'components/EventEditor'
 
 import Fa from 'components/Fa'
 import Label from 'components/Styled/Label'
@@ -15,9 +16,10 @@ import { Button } from 'components/Styled'
 import { Panel, PanelHeading, PanelBody } from 'components/Styled/Panel'
 import { Flex } from 'components/Styled/Flex'
 import Text from 'components/Styled/Text'
-import { compose, withProps, withHandlers, pure, lifecycle } from 'recompose'
+import { compose, withProps, withHandlers, pure, lifecycle, withState } from 'recompose'
 import { Grid } from 'react-styled-flexboxgrid'
 import { FormatStatus, Actions } from 'routes/Contact'
+import { Link } from 'react-router-dom'
 
 const Row = ({ resource: invite,index, changeStatus, event }) => {
   const contact = invite.contact || {};
@@ -28,7 +30,7 @@ const Row = ({ resource: invite,index, changeStatus, event }) => {
         {index+1}
       </td>
       <td>
-        {contact.firstName} {contact.lastName} <br/>
+        <Link to={`/contacts/${contact.id}`}>{contact.firstName} {contact.lastName}</Link> <br/>
         <small>{contact.organization}</small>
       </td>
       <td>
@@ -39,17 +41,6 @@ const Row = ({ resource: invite,index, changeStatus, event }) => {
   )
 }
 
-
-const EventDate = styled.div`
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-right: 3rem;
-  padding-right: 1rem;
-  border-right: 1px solid ${theme.border};
-`
-
 const Event = (props) => {
   if (!props.event) return null;
   const event = props.event;
@@ -59,10 +50,20 @@ const Event = (props) => {
         <PanelHeading >
             <h3>
             <Fa icon="ion-ios-calendar-outline" lg mr={0.4}/>{event.name} <br/>
-            <small>{moment(event.eventDate).format('LLL')} @ {event.location}</small>
+            <small>{moment(event.eventDate).format('LLL')} @ {event.location}</small> <br/>
+            <small>{event.comment}</small>
             </h3>
             <Flex>
+              <Button sm mr={0.5} onClick={() => props.toggleModal(event)}><Fa icon='ion-edit'/> Edit Event</Button>
               <SendEmail eventId={event.id} caption="Send Email to all atendees" />
+              {/* Modal */}
+              {  props.modal &&
+                <EventEditor
+                  data={props.modal}
+                  fetch={props.refetchEvent}
+                  refetch={props.refetchEvent}
+                  close={() => props.toggleModal(null)}
+                /> }
             </Flex>
         </PanelHeading>
         <DataTable
@@ -80,10 +81,15 @@ const Event = (props) => {
 export default compose(
   lifecycle({
     async componentWillMount() {
+      this.fetch()
+      this.setState({ refetchEvent: this.fetch.bind(this) })
+    },
+    async fetch() {
       const event = await API().get(`/events/${this.props.match.params.eventId}`)
       this.setState({ event })
     }
   }),
+  withState('modal', 'toggleModal', null),
   withProps(({ match, event }) => {
     return {
       event,

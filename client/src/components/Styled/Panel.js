@@ -23,6 +23,7 @@ export const Panel = styled.div `
   ${props => props.mb && css`
     margin-bottom: ${props.mb}rem;
   `};
+
 `
 
 export const PanelHeading = styled.div`
@@ -36,8 +37,8 @@ export const PanelHeading = styled.div`
     padding: 1.5rem 1rem;
     color: #FFF;
     border: none;
-
   `};
+  ${p => p.noPadding && `padding:0`};
 `;
 
 export const PanelBody = styled.div`
@@ -45,6 +46,7 @@ export const PanelBody = styled.div`
   ${props => props.dirtyWhite && css`
     background: ${theme.dirtyWhite};
   `};
+
 `
 
 export const PanelFooter =styled.div`

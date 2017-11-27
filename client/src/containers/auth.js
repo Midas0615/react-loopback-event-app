@@ -4,15 +4,7 @@ import { verifyToken } from 'modules/user'
 import { compose, lifecycle } from 'recompose'
 import { Redirect, withRouter } from 'react-router-dom'
 
-const Auth = ({ children, user }) => {
-  if (user.isFetching) return null
-  // if (!user.id) return <Redirect to="/login" />
-  return (
-    <div>
-      {children}
-    </div>
-  )
-}
+const Auth = () => null
 
 const msp = state => ({ user: state.user })
 const mdp = dispatch => ({ verifyToken: () => dispatch(verifyToken()) })

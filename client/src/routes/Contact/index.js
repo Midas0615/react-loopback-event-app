@@ -118,9 +118,11 @@ const Contact = (props) => {
               <h5>City/State</h5>
               <Fa mr={0.5} icon="ion-map" />{contact.city || 'N/A'} <br/>
               <Fa mr={0.5} icon="ion-pound" />{contact.zip || 'N/A'} <br/>
-
             </Col>
           </Row>
+          <br/>
+          <h5>Comment</h5>
+          {contact.comment || 'N/A'}
 
         </PanelBody>
         <DataTable

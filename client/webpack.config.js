@@ -60,7 +60,8 @@ config.devServer = {
   noInfo: true, // only errors & warns on hot reload -- faster builds,
   proxy: {
     '/api': 'http://localhost:8080',
-    '/explorer': 'http://localhost:8080'
+    '/explorer': 'http://localhost:8080',
+    '/downloads': 'http://localhost:8080'
   }
 }
 

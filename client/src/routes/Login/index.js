@@ -10,7 +10,7 @@ import styled from 'styled-components'
 import Input from 'components/Form/Input'
 import Button from 'components/Styled/Button'
 import { FormGroup } from 'components/Styled/Form'
-
+import Alert from 'components/Styled/Alert'
 const Container = styled.div`
   margin: auto;
   width: 440px;
@@ -24,7 +24,7 @@ const Form = ({ handleSubmit, user, invalid, pristine }) => {
       <Panel>
         <PanelHeading primary>Login</PanelHeading>
         <PanelBody>
-        {user.loginError && <span>Login Error</span>}
+        {user.loginError && <Alert error>Invalid credentials.</Alert>}
 
         <form onSubmit={handleSubmit}>
           <FormGroup>

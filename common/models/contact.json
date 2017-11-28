@@ -8,12 +8,10 @@
   },
   "properties": {
     "firstName": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "lastName": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "email": {
       "type": "string"
@@ -66,7 +64,7 @@
   },
   "acls": [
     {
-      "accessType": "WRITE",
+      "accessType": "READ",
       "principalType": "ROLE",
       "principalId": "$unauthenticated",
       "permission": "DENY"

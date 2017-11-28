@@ -1,13 +1,13 @@
 import React from 'react'
 import AppLayout from 'layout/AppLayout'
 import withCrud from 'containers/withCrud'
-
+import store from 'store'
 import { Button } from 'components/Styled'
 import { Panel, PanelHeading, PanelBody } from 'components/Styled/Panel'
 import { Flex } from 'components/Styled/Flex'
 import { compose, withProps, withHandlers, pure, withState } from 'recompose'
 import { Field, reduxForm, formValueSelector } from 'redux-form'
-
+import { HrefButton } from 'components/Styled/Button'
 import Input from 'components/Form/Input'
 import { FormGroup } from 'components/Styled/Form'
 import Alert from 'components/Styled/Alert'
@@ -25,14 +25,10 @@ const Item = (props) =>
   />
 </FormGroup>
 
-
-
-
-const Settings = ({ user, handleSubmit, invalid, saved }) => {
-  if (!user.id) return <span>Not logged In</span>
+const Settings = ({ user, handleSubmit, invalid, saved, accessToken }) => {
   return (
     <AppLayout>
-      <Panel my={4}>
+      <Panel mt={4}>
         <PanelHeading primary>
           <h3>Account Settings</h3>
         </PanelHeading>
@@ -77,6 +73,28 @@ const Settings = ({ user, handleSubmit, invalid, saved }) => {
           </form>
         </PanelBody>
       </Panel>
+      <Panel my={1}>
+        <PanelHeading primary>
+          <h3>Backups</h3>
+        </PanelHeading>
+        <PanelBody>
+          <Row>
+            <Col sm={1}></Col>
+            <Col sm={4}>
+              <h3>Backup Contacts</h3>
+              <p>Click button below to download all contacts.</p>
+              <HrefButton href={`/api/downloads/contacts?access_token=${accessToken}`} target="_blank" primary>Backup Contacts</HrefButton>
+            </Col>
+            <Col sm={1}></Col>
+            <Col sm={4}>
+              <h3>Backup Events</h3>
+              <p>Click button below to download all events.</p>
+              <HrefButton href={`/api/downloads/events?access_token=${accessToken}`} target="_blank" primary>Backup Events</HrefButton>
+            </Col>
+          </Row>
+          <br/>
+        </PanelBody>
+      </Panel>
     </AppLayout>
   )
 }
@@ -104,6 +122,7 @@ export default compose(
   withCrud,
   withProps(({user}) => ({
     initialValues: user,
+    accessToken: store.get('accessToken').id
   })),
   withState('saved', 'setSaved', false),
   withHandlers({
@@ -122,7 +141,6 @@ export default compose(
       } catch(e) {
         console.log(e)
       }
-
     },
   }),
   reduxForm({form: 'settings', validate}),

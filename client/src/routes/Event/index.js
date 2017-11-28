@@ -9,10 +9,11 @@ import moment from 'moment'
 import styled from 'styled-components'
 import theme from 'styles/theme'
 import EventEditor from 'components/EventEditor'
-
+import store from 'store'
 import Fa from 'components/Fa'
 import Label from 'components/Styled/Label'
 import { Button } from 'components/Styled'
+import { HrefButton } from 'components/Styled/Button'
 import { Panel, PanelHeading, PanelBody } from 'components/Styled/Panel'
 import { Flex } from 'components/Styled/Flex'
 import Text from 'components/Styled/Text'
@@ -44,6 +45,7 @@ const Row = ({ resource: invite,index, changeStatus, event }) => {
 const Event = (props) => {
   if (!props.event) return null;
   const event = props.event;
+  console.log(props)
   return (
     <AppLayout>
       <Panel mt={5}>
@@ -55,6 +57,7 @@ const Event = (props) => {
             </h3>
             <Flex>
               <Button sm mr={0.5} onClick={() => props.toggleModal(event)}><Fa icon='ion-edit'/> Edit Event</Button>
+              <HrefButton href={`/api/downloads/invites/${event.id}?access_token=${props.accessToken}`} mr={0.4}>Download Event Data</HrefButton>
               <SendEmail eventId={event.id} caption="Send Email to all atendees" />
               {/* Modal */}
               {  props.modal &&
@@ -93,6 +96,7 @@ export default compose(
   withProps(({ match, event }) => {
     return {
       event,
+      accessToken: store.get('accessToken').id,
       resource: 'invites',
       params: {
         limit: 10,

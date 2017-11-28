@@ -46,6 +46,7 @@ export const Dialog = styled.div`
   box-sizing: border-box;
   max-width: 640px;
   margin-bottom: 3rem;
+  margin-top: 3rem;
   ${props => props.lg && `max-width: 1200px;`};
   ${props => props.md && `max-width: 960px;`};
   ${props => props.width && `max-width: ${props.width}`};

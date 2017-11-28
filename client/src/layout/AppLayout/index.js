@@ -6,7 +6,7 @@ import { compose } from 'recompose'
 import { withRouter } from 'react-router-dom'
 
 const AppLayout = ({ children, user, history }) =>  {
-  if (!user.isFetching && !user.id) history.replace('login');
+  if (!user.isFetching && !user.id) history.push('login');
   return (
     <div>
       <Header />

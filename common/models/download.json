@@ -1,0 +1,67 @@
+{
+  "name": "Download",
+  "plural": "downloads",
+  "base": "Model",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    }
+  ],
+  "methods": {
+    "contacts": {
+      "accepts": [],
+      "returns": {
+        "arg": "data",
+        "type": "string",
+        "root": true
+      },
+      "http": {
+        "verb": "get",
+        "path": "/contacts",
+        "errorStatus": "404"
+      }
+    },
+    "events": {
+      "accepts": [],
+      "returns": {
+        "arg": "data",
+        "type": "string",
+        "root": true
+      },
+      "http": {
+        "verb": "get",
+        "path": "/events",
+        "errorStatus": "404"
+      }
+    },
+    "invites": {
+      "accepts": [
+        {
+          "arg": "eventId",
+          "type": "number",
+          "required": true
+        }
+      ],
+      "returns": {
+        "arg": "data",
+        "type": "string",
+        "root": true
+      },
+      "http": {
+        "verb": "get",
+        "path": "/invites/:eventId",
+        "errorStatus": "404"
+      }
+    }
+  }
+}

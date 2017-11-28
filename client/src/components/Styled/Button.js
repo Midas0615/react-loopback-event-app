@@ -92,3 +92,24 @@ export default styled.button`
   `};
 
 `
+
+export const HrefButton = styled.a`
+  color: ${theme.medium};
+  padding: .5rem 1rem;
+  line-height: 1.6;
+  font-size: 0.8rem;
+  outline: 0;
+  cursor: pointer;
+  border-radius: ${theme.borderRadius};
+  background: linear-gradient(${theme.primary.lighten(0.2)}, ${theme.primary});
+  color: ${theme.base};
+  border: 1px solid ${theme.primary.lighten(0.1)};
+  padding: 0.58rem 0.5rem;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.6px;
+  ${props => props.mr && `margin-right: ${props.mr}rem`};
+  ${props => props.ml && `margin-left: ${props.ml}rem`};
+
+`

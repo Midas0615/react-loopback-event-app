@@ -37,9 +37,9 @@ module.exports = (app, next) => ds.automigrate('Account', async (err) => {
       password: '123456',
     },
     {
-      email: 'txen89@gmail.com',
-      firstName: 'Nemanja',
-      lastName: 'Ignjatovic',
+      email: 'andrew.herbert@secure-it.co.uk',
+      firstName: 'Andy',
+      lastName: 'Herbert',
       realm: 'admin',
       password: '123456',
     },
@@ -49,14 +49,14 @@ module.exports = (app, next) => ds.automigrate('Account', async (err) => {
   console.log(`User account created: txen89@gmail.com, password: 123456`.green);
   var contactGroups = [
     {
-      name: 'Ahmedovski',
+      name: 'Contact Group One',
     },
   ];
   createData('ContactGroup', contactGroups);
   var contacts = [
     {
-      'firstName': 'Jasar',
-      'lastName': 'Ahmedovski',
+      'firstName': 'Dan',
+      'lastName': 'Radenkovic',
       'email': 'bogdan.radenkovic@gmail.com',
       'title': 'Mr.',
       'comment': '',
@@ -64,58 +64,26 @@ module.exports = (app, next) => ds.automigrate('Account', async (err) => {
       'contactGroupId': 1,
     },
     {
-      'firstName': 'Ipce',
-      'lastName': 'Ahmedovski',
-      'email': 'txen89@gmail.com',
+      'firstName': 'Andy',
+      'lastName': 'Herbert',
+      'email': 'andrew.herbert@secure-it.co.uk',
       'title': 'Mr.',
       'comment': '',
       'accountId': 1,
       'contactGroupId': 1,
     },
   ];
-  //const DataContacts = fs.readFileSync('data/import.json', 'UTF-8');
-  // createData('Contact', JSON.parse(DataContacts));
-  createData('Contact', contacts);
+  const DataContacts = fs.readFileSync('data/import.json', 'UTF-8');
+  createData('Contact', JSON.parse(DataContacts));
+  // createData('Contact', contacts);
 
   var events = [
     {
-      'name': 'Babusnicki Vasar',
-      'comment': 'some comment',
+      'name': 'Sample Event',
+      'comment': 'Some Comment',
       'accountId': 1,
       'eventDate': moment().add(2, 'days').format(),
-      'eventLocation': 'Na Amfi',
-    },
-    {
-      'name': 'Vasar kod Toponicu',
-      'comment': 'some comment',
-      'accountId': 2,
-      'eventDate': Date.now(),
-      'eventLocation': 'Na Amfi',
-    },
-    {
-      'name': 'Vasar kod Komsiju',
-      'comment': 'some comment',
-      'accountId': 3,
-      'eventDate': Date.now(),
-      'eventLocation': 'Na Amfi',
-    },{
-      'name': 'KOd Sharketa Vasar',
-      'comment': 'some comment',
-      'accountId': 4,
-      'eventDate': moment().add(1, 'months').format(),
-      'eventLocation': 'Na Amfi',
-    },{
-      'name': 'Vasar Jasar',
-      'comment': 'some comment',
-      'accountId': 5,
-      'eventDate': moment().add(1, 'days').format(),
-      'eventLocation': 'Na Amfi',
-    },{
-      'name': 'Vasar kod Bolnicu',
-      'comment': 'some comment',
-      'accountId': 6,
-      'eventDate': moment().add(3, 'days').format(),
-      'eventLocation': 'Na Amfi',
+      'eventLocation': 'Some dummy place',
     },
   ];
 
@@ -132,8 +100,7 @@ module.exports = (app, next) => ds.automigrate('Account', async (err) => {
       type: 'system',
       subject: 'You are Invited to Event: {{eventName}} on {{eventDate}}',
       html: `
-        <h2>Hello {{firstName}},
-        <br/><br/>
+        <h2>Hello {{firstName}}</h2>,
         You are invited to {{eventName}}, please respond by clicking on links: <br/><br/>
         <a href="{{attendingUrl}}">Attending</a> or <a href="{{notAttendingUrl}}">Not Attending</a>.
         <p>

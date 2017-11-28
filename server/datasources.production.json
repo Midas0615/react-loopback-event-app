@@ -1,9 +1,10 @@
 {
   "db": {
+    "host": "ec2-107-20-214-99.compute-1.amazonaws.com",
     "port": "5432",
-    "database": "event_app",
-    "username": "postgres",
-    "password": "",
+    "database": "d74h78j0iegpk6",
+    "username": "bmmmzhdnokwvxe",
+    "password": "c5c5f7d86e51fc2a62e6334c09601f49015a7c7b7a766c92aa46cbeda7a3eb76",
     "name": "db",
     "connector": "memory",
     "debug": true

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   'db': {
     'host': 'ec2-107-20-214-99.compute-1.amazonaws.com',

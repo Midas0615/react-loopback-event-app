@@ -1,10 +1,15 @@
 'use strict';
 const fs = require('fs');
-const path = process.env.NODE_ENV === 'production' ?
-  './server/datasources.production.json' :
-  './server/datasources.json';
-const configFile = fs.readFileSync(path, 'UTF-8');
-const GLOBAL_CONFIG = JSON.parse(configFile).email;
+
+if (process.env.NODE_ENV === 'production') {
+  console.log('HERE I AM');
+  const conf = require('../datasources.production.js');
+  const GLOBAL_CONFIG = conf.email;
+} else {
+  const path = './server/datasources.json';
+  const configFile = fs.readFileSync(path, 'UTF-8');
+  const GLOBAL_CONFIG = JSON.parse(configFile).email;
+}
 
 module.exports = function(Mailer) {
   Mailer.sendEmail = (config) => {

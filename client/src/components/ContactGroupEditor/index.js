@@ -20,6 +20,7 @@ import Editor from './Container'
 const Row = ({ resource: contactGroup, toggleEditorCreate }) =>
 <tr>
   <td>{contactGroup.name}</td>
+  <td>{contactGroup.deleted ? 'DELETED' : 'LIVE'}</td>
   <td><Button  onClick={() => toggleEditorCreate(contactGroup)}><Fa  icon='ion-edit'/> Edit</Button></td>
 </tr>
 
@@ -63,13 +64,13 @@ export default compose(
   withState('search', 'setSearch', null),
   withProps({
     resource: 'contact-groups',
-    params: { limit: 10 }
+    params: { limit: 10, where: { deleted: false } }
   }),
   withPaginate,
   withHandlers({
     onSubmit: ({ fetch, fetchParent }) => async form => {
-      let params = { where: { name: {ilike: form.query} } };
-      if (!form.query) params = {}
+      let params = { where: { name: {ilike: form.query}, deleted: false } };
+      if (!form.query) params = { where: { deleted: false }}
       try {
         await fetch('contact-groups', params);
       } catch(e) {

@@ -25,8 +25,7 @@ const FilterWrapper = styled.form `
 `
 
 const getOptions = async(input) => {
-  console.log(input)
-  const filter = JSON.stringify({ where: {name: {ilike: `%${input}%`} }, limit: 7 })
+  const filter = JSON.stringify({ where: {name: {ilike: `%${input}%`}, deleted: false}, limit: 7 })
    const options = await API().get('/contact-groups', {params: {filter}})
    return {options}
 }
@@ -124,7 +123,7 @@ export default compose(
       let order = 'firstName ASC'
       // Name
       if (filter.filterType && filter.filterValue) {
-        where[filter.filterType.value] = {ilike: `${filter.filterValue}`}
+        where[filter.filterType.value] = {ilike: `%${filter.filterValue}%`}
       }
       if (filter.contactGroup) where.contactGroupId = filter.contactGroup.id
       where.deleted = filter.deleted ? true : false;

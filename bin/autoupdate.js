@@ -4,7 +4,13 @@ const path = require('path');
 const models = require(process.cwd() + '/server/model-config.json');
 
 const app = require(process.cwd() + '/server/server');
-const datasources = require(process.cwd() + process.env === 'production' ? '/server/datasources.json' : '/server/datasources.production.json');
+
+let datasources;
+if (process.env.NODE_ENV === 'production') {
+  datasources = require(process.cwd() + '/server/datasources.production.json' );
+} else {
+  datasources = require(process.cwd() + '/server/datasources.json');
+}
 
 function autoUpdateAll() {
   Object.keys(models).forEach(async function(key) {

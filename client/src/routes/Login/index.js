@@ -62,7 +62,10 @@ const Form = ({ handleSubmit, user, invalid, pristine }) => {
 export default compose(
   connect(state => ({ user: state.user })),
   withProps(({ dispatch }) => ({
-    onSubmit: data => dispatch(login(data))
+    onSubmit: data => {
+      data.ttl = 1209600;
+      dispatch(login(data))
+    },
   })),
   reduxForm({ form: 'contact' }),
 )(Form)

@@ -70,5 +70,28 @@
       "permission": "ALLOW"
     }
   ],
-  "methods": {}
+  "methods": {
+    "sendEmail": {
+      "accepts": [
+        {
+          "arg": "contactId",
+          "type": "number",
+          "required": true
+        },
+        {
+          "arg": "emailTemplateId",
+          "type": "number",
+          "required": true
+        }
+      ],
+      "returns": {
+        "root": true
+      },
+      "description": "Send email to a contact.",
+      "http": {
+        "verb": "post",
+        "path": "/:contactId/send-email"
+      }
+    }
+  }
 }

@@ -2,18 +2,18 @@
 const moment = require('moment');
 const Mustache = require('mustache');
 const fs = require('fs');
-
-if (process.env.NODE_ENV === 'production') {
-  console.log('HERE I AM');
-  const conf = require('../datasources.production.js');
-  const GLOBAL_CONFIG = conf.email;
-} else {
-  const path = './server/datasources.json';
-  const configFile = fs.readFileSync(path, 'UTF-8');
-  const GLOBAL_CONFIG = JSON.parse(configFile).email;
-}
+const conf = require('../datasources.production.js');
 
 module.exports = (emailTemplate, contact, event, inviteId) => {
+  let GLOBAL_CONFIG;
+  if (process.env.NODE_ENV === 'production') {
+    GLOBAL_CONFIG = conf.email;
+  } else {
+    const path = './server/datasources.json';
+    const configFile = fs.readFileSync(path, 'UTF-8');
+    GLOBAL_CONFIG = JSON.parse(configFile).email;
+  }
+
   const VARIABLES = {
     title: contact.title,
     firstName: contact.firstName,

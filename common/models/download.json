@@ -11,10 +11,10 @@
   "relations": {},
   "acls": [
     {
-      "accessType": "*",
+      "accessType": "READ",
       "principalType": "ROLE",
-      "principalId": "$unauthenticated",
-      "permission": "DENY"
+      "principalId": "$everyone",
+      "permission": "ALLOW"
     }
   ],
   "methods": {

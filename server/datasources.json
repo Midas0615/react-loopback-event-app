@@ -5,7 +5,7 @@
     "username": "postgres",
     "password": "",
     "name": "db",
-    "connector": "memory",
+    "connector": "postgresql",
     "debug": true
   },
   "email": {

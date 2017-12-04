@@ -6,13 +6,13 @@
     "username": "bmmmzhdnokwvxe",
     "password": "c5c5f7d86e51fc2a62e6334c09601f49015a7c7b7a766c92aa46cbeda7a3eb76",
     "name": "db",
-    "connector": "memory",
+    "connector": "postgresql",
     "debug": true
   },
   "email": {
     "name": "email",
     "connector": "mail",
-    "senderName": "Event Management App Production",
+    "senderName": "Genesis Events",
     "senderEmail": "dan@radenkovic.org",
     "hostName": "http://eventmanagementapp.herokuapp.com",
     "transports": [

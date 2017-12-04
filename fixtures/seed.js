@@ -8,7 +8,7 @@ const fs = require('fs')
 const colors = require('colors')
 const moment = require('moment');
 
-const app = require('../server');
+const app = require('../server/server');
 var ds = app.datasources.db;
 
 function createData(mdl, data) {
@@ -25,8 +25,9 @@ function createData(mdl, data) {
 }
 
 
-module.exports = (app, next) => ds.automigrate('Account', async (err) => {
+const seed = (app, next) => ds.automigrate('Account', async (err) => {
   if (err) throw err;
+  console.log('Starting seed')
 
   var accounts = [
     {
@@ -44,55 +45,21 @@ module.exports = (app, next) => ds.automigrate('Account', async (err) => {
       password: '123456',
     },
   ];
-  createData('Account', accounts);
-  console.log(`User account created: bogdan.radenkovic@gmail.com, password: 123456`.green);
-  console.log(`User account created: txen89@gmail.com, password: 123456`.green);
-  var contactGroups = [
-    {
-      name: 'Contact Group One',
-    },
-  ];
-  createData('ContactGroup', contactGroups);
-  var contacts = [
-    {
-      'firstName': 'Dan',
-      'lastName': 'Radenkovic',
-      'email': 'bogdan.radenkovic@gmail.com',
-      'title': 'Mr.',
-      'comment': '',
-      'accountId': 1,
-      'contactGroupId': 1,
-    },
-    {
-      'firstName': 'Andy',
-      'lastName': 'Herbert',
-      'email': 'andrew.herbert@secure-it.co.uk',
-      'title': 'Mr.',
-      'comment': '',
-      'accountId': 1,
-      'contactGroupId': 1,
-    },
-  ];
-  const DataContacts = fs.readFileSync('data/import.json', 'UTF-8');
-  createData('Contact', JSON.parse(DataContacts));
-  // createData('Contact', contacts);
+  try {
+    await createData('Account', accounts);
+    console.log(`User account created: bogdan.radenkovic@gmail.com, password: 123456`.green);
+    console.log(`User account created: txen89@gmail.com, password: 123456`.green);
+  } catch(e) {
+    console.log(e)
+  }
 
-  var events = [
-    {
-      'name': 'Sample Event',
-      'comment': 'Some Comment',
-      'accountId': 1,
-      'eventDate': moment().add(2, 'days').format(),
-      'eventLocation': 'Some dummy place',
-    },
-  ];
-
-  createData('Event', events);
-  var invitations = [
-    {contactId: 1, eventId: 1},
-    {contactId: 2, eventId: 1},
-  ];
-  createData('Invitation', invitations);
+  const DataContacts = fs.readFileSync(process.cwd() + '/data/import.json', 'UTF-8');
+  try {
+    await createData('Contact', JSON.parse(DataContacts));
+  } catch(e) {
+    console.log(e)
+  }
+  //createData('Contact', contacts);
 
   var emailTemplates = [
     {
@@ -140,5 +107,8 @@ module.exports = (app, next) => ds.automigrate('Account', async (err) => {
   ];
   createData('EmailTemplate', emailTemplates);
 
-  next();
 });
+
+seed();
+
+module.exports = seed;

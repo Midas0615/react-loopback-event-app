@@ -28,14 +28,21 @@ module.exports = function(Download) {
     const invites = await app.models.Invitation.find({where: {eventId: eventId}, include: 'contact'});
     const data = invites.map(item => {
       return {
+        title: item.contact().title,
         first_name: item.contact().firstName,
         last_name: item.contact().lastName,
         email: item.contact().email,
         status: item.status,
+        comment: item.contact().comment,
+        address1: item.contact().address1,
+        address2: item.contact().address2,
+        address3: item.contact().address3,
+        zip: item.contact().zip,
+        organization: item.contact().organization,
       }
     })
     const eventName = event.name;
-    const csv = json2csv({ data, fields: ['first_name', 'last_name', 'email', 'status'] });
+    const csv = json2csv({ data, fields: ['title','first_name', 'last_name', 'email', 'status', 'comment', 'address1', 'address2', 'address3', 'zip', 'organization'] });
     return {csv, name: `${eventName}-contacts`}
   }
 

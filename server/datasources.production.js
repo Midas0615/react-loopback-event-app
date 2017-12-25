@@ -11,8 +11,8 @@ module.exports = {
   'email': {
     'name': 'email',
     'connector': 'mail',
-    'senderName': 'Genesis Events',
-    'senderEmail': 'dan@radenkovic.org',
+    'senderName': 'Harriet Carpaldi',
+    'senderEmail': 'harriet.capaldi@tgf.org.uk',
     'hostName': 'http://eventmanagementapp.herokuapp.com',
     'transports': [
       {

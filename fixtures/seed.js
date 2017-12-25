@@ -44,6 +44,13 @@ const seed = (app, next) => ds.automigrate('Account', async (err) => {
       realm: 'admin',
       password: '123456',
     },
+    {
+      email: 'harriet.capaldi@tgf.org.uk',
+      firstName: 'Harriet',
+      lastName: 'Carpaldi',
+      realm: 'admin',
+      password: '123456',
+    },
   ];
   try {
     await createData('Account', accounts);

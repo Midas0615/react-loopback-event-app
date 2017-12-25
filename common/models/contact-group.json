@@ -21,7 +21,7 @@
     "contacts": {
       "type": "hasMany",
       "model": "Contact",
-      "foreignKey": ""
+      "foreignKey": "contactGroupId"
     }
   },
   "acls": [

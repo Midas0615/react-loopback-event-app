@@ -11,8 +11,8 @@
   "email": {
     "name": "email",
     "connector": "mail",
-    "senderName": "Dan Zmix",
-    "senderEmail": "dan@radenkovic.org",
+    "senderName": "Harriet Carpaldi",
+    "senderEmail": "harriet.capaldi@tgf.org.uk",
     "hostName": "http://localhost:3000",
     "transports": [
       {

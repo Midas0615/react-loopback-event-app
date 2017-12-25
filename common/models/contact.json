@@ -59,7 +59,7 @@
     "contactGroup": {
       "type": "belongsTo",
       "model": "ContactGroup",
-      "foreignKey": ""
+      "foreignKey": "contactGroupId"
     }
   },
   "acls": [

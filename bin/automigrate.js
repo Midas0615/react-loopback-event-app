@@ -7,7 +7,7 @@ const app = require(process.cwd() + '/server/server');
 
 let datasources;
 if (process.env.NODE_ENV === 'production') {
-  datasources = require(process.cwd() + '/server/datasources.production.json' );
+  datasources = require(process.cwd() + '/server/datasources.production.js' );
 } else {
   datasources = require(process.cwd() + '/server/datasources.json');
 }

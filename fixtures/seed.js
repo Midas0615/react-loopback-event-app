@@ -11,6 +11,18 @@ const moment = require('moment');
 const app = require('../server/server');
 var ds = app.datasources.db;
 
+
+const upsertGroup = async (groupName) => {
+  if (!groupName) return null
+  const found = await app.models['ContactGroup'].findOne({ name: groupName })
+  if (found) return found.id
+  if (!found) {
+    const created = await app.models['ContactGroup'].create({ name: groupName })
+    return created.id
+  }
+}
+
+
 function createData(mdl, data) {
   var count = data.length;
   data.forEach(async (account) => {
@@ -60,9 +72,26 @@ const seed = (app, next) => ds.automigrate('Account', async (err) => {
     console.log(e)
   }
 
-  const DataContacts = fs.readFileSync(process.cwd() + '/data/import.json', 'UTF-8');
+  const DataContacts = fs.readFileSync(process.cwd() + '/data/import_new.json', 'UTF-8');
   try {
-    await createData('Contact', JSON.parse(DataContacts));
+    const contacts = JSON.parse(DataContacts)
+    const sanitizedContacts = contacts.map(async contact => {
+      contact.comment = `
+        ${contact.comment}
+        ${contact.assistant ? 'Assistant:' + contact.assistant : ''}
+        ${contact.database ? 'Database:' + contact.database : ''}
+        ${contact['Additional Titles'] ? 'Additional Titles:' +contact['Additional Titles'] : ''}
+      `
+      delete contact.assistant
+      delete contact.database
+      delete contact["Additional Titles"]
+      const contactGroupId = await upsertGroup(contact.groupName)
+      if (contactGroupId) contact.contactGroupId = contactGroupId
+      delete contact.groupName
+      return contact
+    })
+    const final = await Promise.all(sanitizedContacts)
+    await createData('Contact', final);
   } catch(e) {
     console.log(e)
   }

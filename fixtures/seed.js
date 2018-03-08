@@ -75,7 +75,7 @@ const seed = (app, next) => ds.automigrate('Account', async (err) => {
   const DataContacts = fs.readFileSync(process.cwd() + '/data/import_new.json', 'UTF-8');
   try {
     const contacts = JSON.parse(DataContacts)
-    const sanitizedContacts = contacts.map(async contact => {
+    const sanitizedContacts = contacts.map(contact => {
       contact.comment = `
         ${contact.comment}
         ${contact.assistant ? 'Assistant:' + contact.assistant : ''}
@@ -85,13 +85,21 @@ const seed = (app, next) => ds.automigrate('Account', async (err) => {
       delete contact.assistant
       delete contact.database
       delete contact["Additional Titles"]
-      const contactGroupId = await upsertGroup(contact.groupName)
-      if (contactGroupId) contact.contactGroupId = contactGroupId
-      delete contact.groupName
+      // try {
+      //   const contactGroupId = await upsertGroup(contact.groupName)
+      //   if (contactGroupId) contact.contactGroupId = contactGroupId
+      //   delete contact.groupName
+      //   return contact
+      // } catch(e) {
+      //   console.log('ERROR', e)
+      //   return contact
+      // }
       return contact
     })
-    const final = await Promise.all(sanitizedContacts)
-    await createData('Contact', final);
+
+    await createData('Contact', sanitizedContacts)
+
+
   } catch(e) {
     console.log(e)
   }

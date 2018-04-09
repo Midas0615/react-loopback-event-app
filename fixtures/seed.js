@@ -10,17 +10,7 @@ const moment = require('moment');
 
 const app = require('../server/server');
 var ds = app.datasources.db;
-
-
-const upsertGroup = async (groupName) => {
-  if (!groupName) return null
-  const found = await app.models['ContactGroup'].findOne({ name: groupName })
-  if (found) return found.id
-  if (!found) {
-    const created = await app.models['ContactGroup'].create({ name: groupName })
-    return created.id
-  }
-}
+const contactMapper = require('./contactMapper')
 
 
 function createData(mdl, data) {
@@ -30,8 +20,7 @@ function createData(mdl, data) {
       if (err) throw err;
 
       count--;
-      if (count === 0)
-        ds.disconnect();
+
     });
   });
 }
@@ -72,39 +61,41 @@ const seed = (app, next) => ds.automigrate('Account', async (err) => {
     console.log(e)
   }
 
-  const DataContacts = fs.readFileSync(process.cwd() + '/data/import_new.json', 'UTF-8');
+  var contactGroups = contactMapper.contactGroups.map(c => {
+    delete c.id
+    return c
+  })
   try {
-    const contacts = JSON.parse(DataContacts)
-    const sanitizedContacts = contacts.map(contact => {
-      contact.comment = `
-        ${contact.comment}
-        ${contact.assistant ? 'Assistant:' + contact.assistant : ''}
-        ${contact.database ? 'Database:' + contact.database : ''}
-        ${contact['Additional Titles'] ? 'Additional Titles:' +contact['Additional Titles'] : ''}
-      `
-      delete contact.assistant
-      delete contact.database
-      delete contact["Additional Titles"]
-      // try {
-      //   const contactGroupId = await upsertGroup(contact.groupName)
-      //   if (contactGroupId) contact.contactGroupId = contactGroupId
-      //   delete contact.groupName
-      //   return contact
-      // } catch(e) {
-      //   console.log('ERROR', e)
-      //   return contact
-      // }
-      return contact
-    })
-
-    await createData('Contact', sanitizedContacts)
-
-
+    await createData('ContactGroup', contactGroups)
+    console.log('ContactGroups Created')
   } catch(e) {
-    console.log(e)
+    console.log('Failed ContactGroup Creation')
   }
-  //createData('Contact', contacts);
 
+  const DataContacts = fs.readFileSync(process.cwd() + '/data/import_new.json', 'UTF-8');
+  const contacts = JSON.parse(DataContacts)
+  const sanitizedContacts = contacts.map(contact => {
+    contact.comment = `
+      ${contact.comment}
+      ${contact.assistant ? 'Assistant:' + contact.assistant : ''}
+      ${contact.database ? 'Database:' + contact.database : ''}
+      ${contact['Additional Titles'] ? 'Additional Titles:' +contact['Additional Titles'] : ''}
+    `
+    delete contact.assistant
+    delete contact.database
+    delete contact["Additional Titles"]
+    if (!contact.groupName) return contact
+    contact.contactGroupId = contactMapper.findContactGroup(contact.groupName)
+    return contact
+  })
+
+
+  try {
+    await createData('Contact', sanitizedContacts)
+    console.log('Contact Created')
+  } catch(e) {
+    console.log('Failed Contact Creation', e)
+  }
   var emailTemplates = [
     {
       name: 'USER_INVITED',
@@ -154,5 +145,6 @@ const seed = (app, next) => ds.automigrate('Account', async (err) => {
 });
 
 seed();
+
 
 module.exports = seed;

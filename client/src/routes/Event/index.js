@@ -22,7 +22,7 @@ import { Grid } from 'react-styled-flexboxgrid'
 import { FormatStatus, Actions } from 'routes/Contact'
 import { Link } from 'react-router-dom'
 
-const Row = ({ resource: invite,index, changeStatus, event }) => {
+const Row = ({ resource: invite, index, changeStatus, event }) => {
   const contact = invite.contact || {};
   if (!event) return null;
   return (

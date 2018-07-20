@@ -26,8 +26,8 @@ const FilterWrapper = styled.form `
 
 const getOptions = async(input) => {
   const filter = JSON.stringify({ where: {name: {ilike: `%${input}%`}, deleted: false}, limit: 7 })
-   const options = await API().get('/contact-groups', {params: {filter}})
-   return {options}
+  const options = await API().get('/contact-groups', {params: {filter}})
+  return {options}
 }
 
 const FILTER_MARGIN = 0.75;
@@ -56,7 +56,8 @@ var filterType = [
   { value: 'email', name: 'Email' },
   { value: 'zip', name: 'Postal Code' },
   { value: 'city', name: 'City' },
-  { value: 'phone', name: 'Phone' },
+  { value: 'phone', name: 'Phone' }, 
+  { value: 'event', name: 'Event' }
 ];
 
 const Filter =  ({ fetch, handleSubmit, type }) =>
@@ -84,6 +85,7 @@ const Filter =  ({ fetch, handleSubmit, type }) =>
       placeholder="Contact Group"
       loadOptions={getOptions}
       component={AsyncSelect}
+      labelKey='name'
     />
   </InputGroup>
   <InputGroup mr={FILTER_MARGIN} width={10}>
@@ -120,16 +122,29 @@ export default compose(
   withHandlers({
     onSubmit: ({ fetch }) => filter => {
       const where = {};
-      let order = 'firstName ASC'
+      let order = 'lastName ASC'
       // Name
       if (filter.filterType && filter.filterValue) {
-        where[filter.filterType.value] = {ilike: `%${filter.filterValue}%`}
+        if (filter.filterType.value === 'event')
+          where['name'] = {ilike: `%${filter.filterValue}%`}
+        else 
+          where[filter.filterType.value] = {ilike: `%${filter.filterValue}%`}
       }
+      
       if (filter.contactGroup) where.contactGroupId = filter.contactGroup.id
       where.deleted = filter.deleted ? true : false;
       if (filter.orderBy) order = filter.orderBy.value
-      const params = { limit: parseInt(filter.limit) || 10, order: order, where, include: 'contactGroup' }
-      fetch('contacts', params)
+      
+      
+      if (filter.filterType && filter.filterType.value === 'event') {
+        const params = { where, include: {contacts: 'contactGroup'} }
+        // const params = { limit: parseInt(filter.limit) || 10, where, include: {contacts: 'contactGroup'} 
+        // const params = { limit: parseInt(filter.limit) || 10, where, include: 'contacts' }
+        fetch('contacts-event', params)
+      } else {
+        const params = { limit: parseInt(filter.limit) || 10, order: order, where, include: 'contactGroup' }
+        fetch('contacts', params)
+      }
     }
   }),
   reduxForm({ form: 'contactFilters' }),

@@ -6,8 +6,8 @@ import API from 'services/api'
 
 const getOptions = async(input) => {
   const filter = JSON.stringify({ where: {name: {ilike: `%${input}%`}, eventDate: {gt: Date.now()}, deleted: false }, limit: 7 })
-   const options = await API().get('/events', {params: {filter}})
-   return {options}
+  const options = await API().get('/events', {params: {filter}})
+  return {options}
 }
 
 const Dropdown = ({ invite, handleChange }) =>

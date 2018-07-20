@@ -17,17 +17,23 @@ import AsyncSelect from 'components/Form/AsyncSelect'
 
 import { FormGroup } from 'components/Styled/Form'
 import API from 'services/api'
-const titles = [
-  {name: 'Mr.'},
-  {name: 'Ms.'},
-  {name: 'Dr.'},
-]
+
+import _ from 'lodash'
+
+const getTitles = async(input) => {
+  // from contact table, fetch all titles match with inputed text.
+  const filter = JSON.stringify({ where: {title: {ilike: `%${input}%`} }})
+  const allOptions = await API().get('/contacts', {params: {filter}})
+  // remove duplicated titles using lodash.
+  const options = _.uniqBy(allOptions, 'title');
+  // const options = _.take(_.uniqBy(allOptions, 'title'), 7);
+  return {options}
+}
 
 const getOptions = async(input) => {
-  console.log(input)
   const filter = JSON.stringify({ where: {name: {ilike: `%${input}%`} }, limit: 7 })
-   const options = await API().get('/contact-groups', {params: {filter}})
-   return {options}
+  const options = await API().get('/contact-groups', {params: {filter}})
+  return {options}
 }
 
 const Form = ({ handleSubmit, close, isSaving, isError, onDelete, data })  =>
@@ -41,8 +47,9 @@ const Form = ({ handleSubmit, close, isSaving, isError, onDelete, data })  =>
               name="title"
               type="text"
               label="Title:"
-              component={Select}
-              options={titles}
+              loadOptions={getTitles}
+              component={AsyncSelect}
+              labelKey='title'
             />
           </Col>
           <Col sm={5}>
@@ -90,6 +97,7 @@ const Form = ({ handleSubmit, close, isSaving, isError, onDelete, data })  =>
               label="Contact Group:"
               loadOptions={getOptions}
               component={AsyncSelect}
+              labelKey='name'
             />
           </Col>
         </Row>

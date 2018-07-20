@@ -10,7 +10,7 @@ export default (props) => {
         loadOptions={props.loadOptions}
         value={props.input.value}
         onChange={props.input.onChange}
-        labelKey='name'
+        labelKey={props.labelKey}
         {...props}
       />
     </div>

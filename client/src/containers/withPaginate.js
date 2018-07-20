@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Resource from 'services/resource'
+import _ from 'lodash';
 
 export default function(WrappedComponent) {
   return class extends Component {
@@ -25,11 +26,28 @@ export default function(WrappedComponent) {
       if (!resource) return;
       this.params = params || { limit: 10 };
       this.params.offset = 0;
+
       this.resource = resource;
+      
       this.setState({ isFetching: true, isError: false })
       try {
         let canLoadMore = true;
-        const data = await Resource(`/${this.resource}`, params)
+
+        //--- contact list by filtering event
+        if(resource === 'contacts-event') {
+          var data = await Resource(`/events`, params);
+          var tempData = {};
+          if (data.length !== 0) {
+            data.map((event, index) => {
+              tempData = [...event.contacts];
+            })
+            // data = _.take(tempData, 10);
+            data = tempData;
+          }
+        } else {
+          var data = await Resource(`/${this.resource}`, params)
+        }
+
         canLoadMore = data.length === this.params.limit;
         if (data.length === 0) canLoadMore = false;
         this.setState({ isFetching: false, data, canLoadMore})
@@ -46,7 +64,8 @@ export default function(WrappedComponent) {
       this.setState({ isFetching: true, isError: false })
       try {
         let canLoadMore = true;
-        const data = await Resource(`/${this.resource}`, newParams);
+        var data = await Resource(`/${this.resource}`, newParams);
+        
         const newData = this.state.data.concat(data);
         canLoadMore = data.length === this.params.limit;
         if (data.length === 0) canLoadMore = false;

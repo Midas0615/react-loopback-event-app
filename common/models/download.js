@@ -25,24 +25,23 @@ module.exports = function(Download) {
 
   Download.invites = async (eventId) => {
     const event = await app.models.Event.findOne({where: { id: eventId }});
-    const invites = await app.models.Invitation.find({where: {eventId: eventId}, include: 'contact'});
+    // JOIN query - Return all invites with contact, and all contact-group of each contact
+    const invites = await app.models.Invitation.find({where: {eventId: eventId}, include: {contact: 'contactGroup'}});
     const data = invites.map(item => {
+      // for contact has undefined group-name(NULL)
+      const contactGroup = item.contact().contactGroup() || {name: ''};
+      const contactGroupName = contactGroup.name;
       return {
-        title: item.contact().title,
-        first_name: item.contact().firstName,
-        last_name: item.contact().lastName,
+        full_name: item.contact().title + ' ' +
+                  item.contact().firstName + ' ' + 
+                  item.contact().lastName,
         email: item.contact().email,
         status: item.status,
-        comment: item.contact().comment,
-        address1: item.contact().address1,
-        address2: item.contact().address2,
-        address3: item.contact().address3,
-        zip: item.contact().zip,
-        organization: item.contact().organization,
+        group_name: contactGroupName,
       }
     })
     const eventName = event.name;
-    const csv = json2csv({ data, fields: ['title','first_name', 'last_name', 'email', 'status', 'comment', 'address1', 'address2', 'address3', 'zip', 'organization'] });
+    const csv = json2csv({ data, fields: ['full_name', 'email', 'status', 'group_name'] });
     return {csv, name: `${eventName}-contacts`}
   }
 

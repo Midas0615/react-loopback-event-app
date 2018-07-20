@@ -10,7 +10,8 @@ export default compose(
   withState('contactGroups', 'toggleContactGroups', false),
   withProps({
     resource: 'contacts',
-    params: { limit: 10, order: 'createdAt DESC', where: {deleted: false}, include: 'contactGroup' }
+    // The default view on the contacts page to "Last name (Asc)"
+    params: { limit: 10, order: 'lastName ASC', where: {deleted: false}, include: 'contactGroup' }
   }),
   withPaginate,
   pure

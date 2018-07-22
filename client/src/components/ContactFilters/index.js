@@ -57,7 +57,7 @@ var filterType = [
   { value: 'zip', name: 'Postal Code' },
   { value: 'city', name: 'City' },
   { value: 'phone', name: 'Phone' }, 
-  { value: 'event', name: 'Event' }
+  { value: 'event', name: 'Event' }  
 ];
 
 const Filter =  ({ fetch, handleSubmit, type }) =>
@@ -133,13 +133,10 @@ export default compose(
       
       if (filter.contactGroup) where.contactGroupId = filter.contactGroup.id
       where.deleted = filter.deleted ? true : false;
-      if (filter.orderBy) order = filter.orderBy.value
-      
+      if (filter.orderBy) order = filter.orderBy.value      
       
       if (filter.filterType && filter.filterType.value === 'event') {
-        const params = { where, include: {contacts: 'contactGroup'} }
-        // const params = { limit: parseInt(filter.limit) || 10, where, include: {contacts: 'contactGroup'} 
-        // const params = { limit: parseInt(filter.limit) || 10, where, include: 'contacts' }
+        const params = { limit: parseInt(filter.limit) || 10, order: order, data: { where, include: {'contacts': 'contactGroup'}} }
         fetch('contacts-event', params)
       } else {
         const params = { limit: parseInt(filter.limit) || 10, order: order, where, include: 'contactGroup' }

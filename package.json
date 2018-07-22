@@ -24,7 +24,7 @@
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^5.0.0",
     "loopback-connector-postgresql": "^3.2.0",
-    "moment": "^2.19.2",
+    "moment": "^2.22.2",
     "mustache": "^2.3.0",
     "node-gyp": "^3.6.2",
     "nodemailer": "^4.4.0",

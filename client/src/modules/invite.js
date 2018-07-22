@@ -16,7 +16,6 @@ export const fetchEvent = (eventId) => async dispatch => {
   try {
     const params = { include: 'contacts' };
     const event = await API().get(`/events/${eventId}`, { params: { filter: JSON.stringify(params) } });
-    console.log('@#@@@@@@@@', event);
     const invitees = event.contacts.map(item => item.id);
     dispatch({ type: RECEIVE, event, invitees })
   } catch(e) {

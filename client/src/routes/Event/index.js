@@ -37,7 +37,7 @@ const Row = ({ resource: invite, index, changeStatus, event }) => {
       <td>
         <FormatStatus status={invite.status} eventDate={event.eventDate} />
       </td>
-      <Actions invite={invite} changeStatus={changeStatus} eventDate={event.eventDate}  />
+      <Actions invite={invite} changeStatus={changeStatus} events={[event]}/>
     </tr>
   )
 }
@@ -45,7 +45,12 @@ const Row = ({ resource: invite, index, changeStatus, event }) => {
 const Event = (props) => {
   if (!props.event) return null;
   const event = props.event;
-  console.log(props)
+  let contacts = [];
+  if (props.data) {
+    for (let invite of props.data) {
+      contacts.push(invite.contact)
+    }
+  }
   return (
     <AppLayout>
       <Panel mt={5}>
@@ -58,7 +63,11 @@ const Event = (props) => {
             <Flex>
               <Button sm mr={0.5} onClick={() => props.toggleModal(event)}><Fa icon='ion-edit'/> Edit Event</Button>
               <HrefButton href={`/api/downloads/invites/${event.id}?access_token=${props.accessToken}`} mr={0.4}>Download Event Data</HrefButton>
-              <SendEmail eventId={event.id} caption="Send Email to all atendees" />
+              <SendEmail
+                eventId={event.id}
+                caption="Send Email to all atendees"
+                events={[event]}
+                contacts={contacts} />
               {/* Modal */}
               {  props.modal &&
                 <EventEditor

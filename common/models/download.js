@@ -32,16 +32,16 @@ module.exports = function(Download) {
       const contactGroup = item.contact().contactGroup() || {name: ''};
       const contactGroupName = contactGroup.name;
       return {
-        full_name: item.contact().title + ' ' +
-                  item.contact().firstName + ' ' + 
-                  item.contact().lastName,
+        title: item.contact().title, 
+        first_name: item.contact().firstName, 
+        last_name: item.contact().lastName, 
         email: item.contact().email,
         status: item.status,
         group_name: contactGroupName,
       }
     })
     const eventName = event.name;
-    const csv = json2csv({ data, fields: ['full_name', 'email', 'status', 'group_name'] });
+    const csv = json2csv({ data, fields: ['title', 'first_name', 'last_name', 'email', 'status', 'group_name'] });
     return {csv, name: `${eventName}-contacts`}
   }
 

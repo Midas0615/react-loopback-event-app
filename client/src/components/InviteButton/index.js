@@ -4,6 +4,11 @@ import Button from 'components/Styled/Button'
 import Fa from 'components/Fa'
 
 const InviteButton = ({ invite, contact, addCandidate, removeCandidate }) => {
+  /* 
+    Display 'Invite Button' or not.
+    1. When click 'Invite Contacts' button on the Events page.
+    2. When select 'Select Event to Invite Contacts' option on the Contacts page.
+   */
   if (!invite.ready) return null;
   const hasSubscription = invite.invitees.indexOf(contact.id) !== -1
   const candidate = invite.candidates.indexOf(contact.id) !== -1

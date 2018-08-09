@@ -18,38 +18,40 @@ import InviteButton from 'components/InviteButton'
 import EventList from 'components/EventList'
 
 const Row = ({ resource: contact, toggleModal }) =>
-<tr>
-  <td>
-    <Link to={`/contacts/${contact.id}`}>{contact.firstName} {contact.lastName}</Link> <br/>
-    <small>Organization: {contact.organization || 'N/A'}</small>
-  </td>
-  <td>
-    <Fa gray icon='ion-person-stalker' mr={0.5}/>
-    {
-      contact.contactGroupId
-      ? contact.contactGroup.name
-      : 'N / A'
-    }
-  </td>
-  <td><Fa gray icon='ion-ios-location'/> {contact.address1 || 'No address'} <br/>
-  <small><Fa gray icon='ion-ios-telephone'/> {contact.phone || 'No phone'}</small>
-  </td>
-  {
-    contact.deleted
-    ?  <td><Label danger><Fa icon='ion-alert-circled'/> DELETED</Label></td>
-    : <td>
-      <Flex itemsCenter>
-        <Flex mr={0.5}>
-          <Button sm mr={0.5} onClick={() => toggleModal(contact)}><Fa icon='ion-edit'/> Edit</Button>
-          <InviteButton contact={contact} />
-        </Flex>
-      </Flex>
+  <tr>
+    <td>
+      <Link to={`/contacts/${contact.id}`}>{contact.firstName} {contact.lastName}</Link> <br/>
+      <small>Organization: {contact.organization || 'N/A'}</small>
     </td>
-  }
-
-</tr>
+    <td>
+      <Fa gray icon='ion-person-stalker' mr={0.5}/>
+      {
+        contact.contactGroupId
+        ? contact.contactGroup.name
+        : 'N / A'
+      }
+    </td>
+    <td>{contact.email || ''}</td>
+    {/* <td><Fa gray icon='ion-ios-location'/> {contact.address1 || 'No address'} <br/>
+    <small><Fa gray icon='ion-ios-telephone'/> {contact.phone || 'No phone'}</small>
+    </td> */}
+    {
+      contact.deleted
+      ?  <td><Label danger><Fa icon='ion-alert-circled'/> DELETED</Label></td>
+      : <td>
+        <Flex itemsCenter>
+          <Flex mr={0.5}>
+            <Button sm mr={0.5} onClick={() => toggleModal(contact)}><Fa icon='ion-edit'/> Edit</Button>
+            <InviteButton contact={contact} />
+          </Flex>
+        </Flex>
+      </td>
+    }
+  </tr>
 
 export default (props) =>
+{
+  return (
 <AppLayout>
   <Panel my={4}>
     <PanelHeading primary>
@@ -67,7 +69,7 @@ export default (props) =>
       {...props}
       Component={Row}
       noDataCaption="No Contacts in this table, use Create button to add some."
-      heading={['Name', 'Belongs to', 'Location', {title:'', width: 12}]}
+      heading={['Name', 'Belongs to', 'Email Address', {title:'', width: 12}]}
     />
   </Panel>
   {/* Contacts Modal */}
@@ -87,3 +89,5 @@ export default (props) =>
       />
     }
 </AppLayout>
+  )
+}

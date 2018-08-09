@@ -40,11 +40,18 @@ export const FormatStatus = ({status, eventDate}) => {
   )
 }
 
-export const Actions = ({ invite, changeStatus, eventDate }) => {
+export const Actions = ({ invite, changeStatus, eventDate, ...otherProps }) => {
   const statusTense = moment().diff(eventDate, 'minutes') > 0 ? 'Attended' : 'Attending'
   return (
     <td>
-      {invite.contact && <SendEmail inviteId={invite.id} contactId={invite.contactId} eventId={invite.eventId} disabled={!invite.contact.email} />}
+      {invite.contact &&
+        <SendEmail
+          inviteId={invite.id}
+          contactId={invite.contactId}
+          eventId={invite.eventId}
+          disabled={!invite.contact.email}
+          contacts = {[invite.contact]}
+          {...otherProps}/>}
       { invite.status === 'unconfirmed' &&
       <span>
         <Button sm ml={0.3} onClick={() => changeStatus('attending', invite.id)}>Set {statusTense}</Button>
@@ -81,6 +88,12 @@ const DataRow = ({ resource: invite, index, changeStatus }) => {
 const Contact = (props) => {
   if (!props.contact) return null;
   const contact = props.contact;
+  let events = [];
+  if (props.data) {
+    for (let invite of props.data) {
+      events.push(invite.event)
+    }
+  }
   return (
     <AppLayout>
       <Panel my={2}>
@@ -89,7 +102,10 @@ const Contact = (props) => {
           <div>
             {/* Contacts Modal */}
             <Button sm mr={0.5} onClick={() => props.toggleModal(props.contact)}><Fa icon='ion-edit'/> Edit Contact</Button>
-            <SendEmail contactId={contact.id} caption={`Send email to ${contact.firstName}`} />
+            <SendEmail
+              contactId={contact.id}
+              caption={`Send email to ${contact.firstName}`}
+              events={events} contacts={[contact]} />
             {  props.modal &&
               <ContactEditor
                 data={props.modal}

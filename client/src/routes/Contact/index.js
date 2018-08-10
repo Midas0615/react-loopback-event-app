@@ -10,6 +10,7 @@ import styled from 'styled-components'
 import theme from 'styles/theme'
 import ContactEditor from 'components/ContactEditor'
 
+import Resource from 'services/resource'
 
 import Fa from 'components/Fa'
 import { compose, withProps, pure, lifecycle, withHandlers, withState } from 'recompose'
@@ -156,12 +157,12 @@ const Contact = (props) => {
 
 export default compose(
   lifecycle({
-    async componentWillMount() {
+      async componentWillMount() {
       this.fetch()
       this.setState({ refetchContact: this.fetch.bind(this) })
     },
     async fetch() {
-      const contact = await API().get(`/contacts/${this.props.match.params.contactId}`)
+      const contact = await Resource(`/contacts/${this.props.match.params.contactId}`, {include: 'contactGroup' })
       this.setState({ contact })
     }
   }),

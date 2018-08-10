@@ -25,8 +25,11 @@ const getTitles = async(input) => {
   const filter = JSON.stringify({ where: {title: {ilike: `%${input}%`} }})
   const allOptions = await API().get('/contacts', {params: {filter}})
   // remove duplicated titles using lodash.
-  const options = _.uniqBy(allOptions, 'title');
+  let options = _.uniqBy(allOptions, 'title');
   // const options = _.take(_.uniqBy(allOptions, 'title'), 7);
+  options = options.map(option => {
+    return {name: option.title}
+  });
   return {options}
 }
 
@@ -49,7 +52,7 @@ const Form = ({ handleSubmit, close, isSaving, isError, onDelete, data })  =>
               label="Title:"
               loadOptions={getTitles}
               component={AsyncSelect}
-              labelKey='title'
+              labelKey='name'
             />
           </Col>
           <Col sm={5}>

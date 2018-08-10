@@ -25,7 +25,6 @@ export default compose(
         phone: form.phone
       }
       if (form.contactGroup) {
-        console.log(form.contactGroup)
         data.contactGroupId = form.contactGroup.id;
       } else {
         data.contactGroupId = null;

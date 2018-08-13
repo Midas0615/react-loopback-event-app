@@ -1,6 +1,6 @@
 # Event Application
 
-Setup:
+### Setup:
 
 - `yarn install` -- Server (terminal 1)
 - `node .`
@@ -10,3 +10,6 @@ Setup:
 Frontend runs on http://localhost:3000
 
 API explorer: http://localhost.3000/explorer
+
+### ScreenShot
+![react-loopback-event-app](https://github.com/dreamweaver220/react-loopback-event-app/tree/master/client/public/screenshot.png)

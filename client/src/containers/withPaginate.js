@@ -80,6 +80,18 @@ export default function(WrappedComponent) {
       const newParams = { ...this.params, offset: this.params.limit + this.params.offset };
       this.setState({ isFetching: true, isError: false })
       try {
+
+        // //--- db arrange
+        // const newContacts = await Resource(`/contacts`);
+        // const newContactGroups = await Resource(`/contact-groups`);
+        // var tempData = _.map(newContacts, (contact) => {
+        //   contactID = _.filter(newContactGroups, { 'name': 'Archbishop Gianfranco Ravasi & The Rt Rev Paul Tighe'});
+        //   console.log(contactID);
+        // });
+        // const inviteId = 1;
+        // result = await API().patch(`/contacts/${inviteId}`,{ contactgroupid: 1 });        
+        // console.log(result);
+        
         let canLoadMore = true;
         if (this.resource === 'contacts-event') {
           let from = this.params.limit + this.params.offset;

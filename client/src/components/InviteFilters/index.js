@@ -57,12 +57,17 @@ var filterType = [
   { value: 'zip', name: 'Postal Code' },
   { value: 'city', name: 'City' },
   { value: 'phone', name: 'Phone' }, 
-  { value: 'event', name: 'Event' }  
+];
+
+var statusType = [
+  { value: 'attending', name: 'Attending' },
+  { value: 'not-attending', name: 'Not Attending' },
+  { value: 'unconfirmed', name: 'Unconfirmed' },
 ];
 
 const Filter =  ({ fetch, handleSubmit, type }) =>
 <form onSubmit={handleSubmit}>
-  <InputGroup mr={FILTER_MARGIN} width={10}>
+  <InputGroup mr={FILTER_MARGIN} width={7}>
     <Field
       name="filterType"
       placeholder='Filter Type'
@@ -70,12 +75,20 @@ const Filter =  ({ fetch, handleSubmit, type }) =>
       options={filterType}
     />
   </InputGroup>
-  <InputGroup mr={FILTER_MARGIN}>
+  <InputGroup mr={FILTER_MARGIN} width={6}>
     <Field
       name="filterValue"
       placeholder=''
       component={Input}
       disabled={!type}
+    />
+  </InputGroup>
+  <InputGroup mr={FILTER_MARGIN} width={7}>
+    <Field
+      name="status"
+      placeholder='Status'
+      component={Select}
+      options={statusType}
     />
   </InputGroup>
   <InputGroup mr={FILTER_MARGIN} width={10}>
@@ -103,7 +116,7 @@ const Filter =  ({ fetch, handleSubmit, type }) =>
       component={Input}
     />
   </InputGroup>
-  <InputGroup mr={FILTER_MARGIN} width={11}>
+  <InputGroup mr={FILTER_MARGIN} width={10}>
     <Field
       name="deleted"
       placeholder='Deleted Contacts'
@@ -114,35 +127,46 @@ const Filter =  ({ fetch, handleSubmit, type }) =>
   <Button primary sm>Apply Filter</Button>
 </form>
 
-const selector = formValueSelector('contactFilters')
+const selector = formValueSelector('inviteFilters')
 export default compose(
   connect(state => ({
     type: selector(state, 'filterType')
   })),
   withHandlers({
     onSubmit: ({ fetch }) => filter => {
-      const where = {};
-      let order = 'lastName ASC'
+      var where = {};
+      var contactFilter = {};
+      let order = 'lastName ASC' // default
       // Name
       if (filter.filterType && filter.filterValue) {
-        if (filter.filterType.value === 'event')
-          where['name'] = {ilike: `%${filter.filterValue}%`}
-        else 
-          where[filter.filterType.value] = {ilike: `%${filter.filterValue}%`}
+        contactFilter.filterType = filter.filterType.value;
+        contactFilter.filterValue = filter.filterValue;
       }
-      
-      if (filter.contactGroup) where.contactGroupId = filter.contactGroup.id
-      where.deleted = filter.deleted ? true : false;
-      if (filter.orderBy) order = filter.orderBy.value      
-      
-      if (filter.filterType && filter.filterType.value === 'event') {
-        const params = { limit: parseInt(filter.limit) || 10, order: order, data: { where, include: {'contacts': 'contactGroup'}} }
-        fetch('event-contacts', params)
-      } else {
-        const params = { limit: parseInt(filter.limit) || 10, order: order, where, include: 'contactGroup' }
-        fetch('contacts', params)
+      if (filter.contactGroup) {
+        contactFilter.contactGroupId = filter.contactGroup.id
       }
+      contactFilter.deleted = filter.deleted ? true : false;
+      if (filter.orderBy) {
+        order = filter.orderBy.value      
+      }
+      if (filter.status) {
+        where.status = filter.status.value;
+      }
+
+      // const params = { 
+      //   where: { eventId: 3 }, 
+      //   include: {
+      //     relation: 'contact',
+      //     scope: {
+      //       where,
+      //       include: { relation: 'contactGroup' }
+      //     }
+      //   }
+      // }
+
+      const params = { limit: parseInt(filter.limit) || 10, order: order, contactFilter, data: { where, include: {'contact': 'contactGroup'}} }
+      fetch('invite-contacts', params)
     }
   }),
-  reduxForm({ form: 'contactFilters' }),
+  reduxForm({ form: 'inviteFilters' }),
 )(Filter)

@@ -8,6 +8,7 @@ import { Field, reduxForm } from 'redux-form'
 import { Flex } from 'components/Styled/Flex'
 import { Row, Col } from 'react-styled-flexboxgrid'
 
+import { FormGroup } from 'components/Styled/Form'
 import Input from 'components/Form/Input'
 import Address from 'components/Form/Address'
 import Calendar from 'components/Form/Calendar'
@@ -15,9 +16,7 @@ import Textarea from 'components/Form/Textarea'
 import Select from 'components/Form/Select'
 import AsyncSelect from 'components/Form/AsyncSelect'
 
-import { FormGroup } from 'components/Styled/Form'
 import API from 'services/api'
-
 import _ from 'lodash'
 
 const getTitles = async(input) => {
@@ -27,9 +26,15 @@ const getTitles = async(input) => {
   // remove duplicated titles using lodash.
   let options = _.uniqBy(allOptions, 'title');
   // const options = _.take(_.uniqBy(allOptions, 'title'), 7);
-  options = options.map(option => {
-    return {name: option.title}
-  });
+  if (options.length === 0) {
+    // if there is no title match with inputed text, allow user to register the title.
+    options = [{ name: input }];
+  } else {
+    options = options.map(option => {
+      return {name: option.title}
+    });
+  }
+
   return {options}
 }
 
@@ -61,7 +66,7 @@ const Form = ({ handleSubmit, close, isSaving, isError, onDelete, data })  =>
               type="text"
               label="First Name:"
               component={Input}
-              required
+              // required
             />
           </Col>
           <Col sm={5}>
@@ -161,6 +166,14 @@ const Form = ({ handleSubmit, close, isSaving, isError, onDelete, data })  =>
           </Col>
         </Row>
       </FormGroup>
+      <FormGroup>
+        <Field
+          name="comment"
+          type="text"
+          label="Notes:"
+          component={Textarea}
+        />
+    </FormGroup>
     </ModalBody>
     <ModalFooter>
       <Flex space>

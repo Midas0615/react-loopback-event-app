@@ -1,6 +1,7 @@
 import React from 'react'
 import withPaginate from 'containers/withPaginate'
 import DataTable from 'components/DataTable'
+import InviteFilters from 'components/InviteFilters'
 import SendEmail from 'components/SendEmail'
 import AppLayout from 'layout/AppLayout'
 import API from 'services/api'
@@ -22,8 +23,9 @@ import { Grid } from 'react-styled-flexboxgrid'
 import { FormatStatus, Actions } from 'routes/Contact'
 import { Link } from 'react-router-dom'
 
-const Row = ({ resource: invite, index, changeStatus, event }) => {
+const Row = ({ resource: invite, index, changeStatus, event, removeInvitation }) => {
   const contact = invite.contact || {};
+
   if (!event) return null;
   return (
     <tr>
@@ -37,7 +39,7 @@ const Row = ({ resource: invite, index, changeStatus, event }) => {
       <td>
         <FormatStatus status={invite.status} eventDate={event.eventDate} />
       </td>
-      <Actions invite={invite} changeStatus={changeStatus} events={[event]}/>
+      <Actions invite={invite} changeStatus={changeStatus} events={[event]} removeInvitation={removeInvitation} />
     </tr>
   )
 }
@@ -51,6 +53,7 @@ const Event = (props) => {
       contacts.push(invite.contact)
     }
   }
+
   return (
     <AppLayout>
       <Panel mt={5}>
@@ -78,11 +81,14 @@ const Event = (props) => {
                 /> }
             </Flex>
         </PanelHeading>
+        <PanelHeading>
+          <InviteFilters fetch={props.fetch} />
+        </PanelHeading>
         <DataTable
           {...props}
            noDataCaption={`${event.name} has no invitees.`}
            Component={Row}
-           heading={['', 'Name', 'Status', {width: 22, title: ''}]}
+           heading={['', 'Name', 'Status', {width: 28, title: ''}]}
          />
       </Panel>
     </AppLayout>

@@ -94,7 +94,7 @@ export default compose(
       if (filter.from_date) where.eventDate = {gte: moment(filter.from_date).format() }
       if (filter.to_date) where.eventDate = {lte: moment(filter.to_date).format() }
       if (filter.from_date && filter.to_date) where.eventDate = {between: [moment(filter.from_date).format(), moment(filter.to_date).format()]}
-      if (!filter.from_date && !filter.to_date) where.eventDate = {gte: moment().format()}
+      // if (!filter.from_date && !filter.to_date) where.eventDate = {gte: moment().format()}
       if (filter.orderBy) order = filter.orderBy.value
 
       where.deleted = filter.deleted ? true : false;

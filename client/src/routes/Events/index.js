@@ -1,5 +1,6 @@
 import React from 'react'
 import withPaginate from 'containers/withPaginate'
+import withCrud from 'containers/withCrud'
 import DataTable from 'components/DataTable'
 import EventFilters from 'components/EventFilters'
 import AppLayout from 'layout/AppLayout'
@@ -17,7 +18,7 @@ import { Link } from 'react-router-dom';
 import EventEditor from 'components/EventEditor'
 import EventSelector from 'components/EventSelector'
 
-const Row = ({ resource: event, toggleModal }) => {
+const Row = ({ resource: event, toggleModal, duplicateEvent }) => {
   return (
     <tr>
       <td><Link to={`/events/${event.id}`}>{event.name}</Link></td>
@@ -31,8 +32,9 @@ const Row = ({ resource: event, toggleModal }) => {
         ? <td><Label danger>DELETED</Label></td>
         : <td>
           <span>
-            <Button sm mr={0.5}  onClick={() => toggleModal(event)}><Fa   icon='ion-edit'/> Edit</Button>
+            <Button sm mr={0.5}  onClick={() => toggleModal(event)}><Fa icon='ion-edit'/> Edit</Button>
             <EventSelector primary event={event} />
+            <Button sm mr={0.5}  onClick={() => duplicateEvent(event)}><Fa icon='ion-ios-copy'/> Duplicate</Button>
           </span>
         </td>
       }
@@ -72,8 +74,10 @@ export default compose(
   withState('modal', 'toggleModal', null),
   withProps({
     resource: 'events',
-    params: { limit: 10, include: 'account', where: { eventDate: {gt: Date.now()}, deleted: false }, order: 'eventDate ASC' },
+    // params: { limit: 10, include: 'account', where: { eventDate: {gt: Date.now()}, deleted: false }, order: 'eventDate ASC' },
+    params: { limit: 10, include: 'account', where: { deleted: false }, order: 'eventDate ASC' },
   }),
   withPaginate,
+  withCrud,
   pure
 )(Events)

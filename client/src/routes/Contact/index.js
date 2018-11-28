@@ -41,7 +41,7 @@ export const FormatStatus = ({status, eventDate}) => {
   )
 }
 
-export const Actions = ({ invite, changeStatus, eventDate, ...otherProps }) => {
+export const Actions = ({ invite, changeStatus, removeInvitation, eventDate, ...otherProps }) => {
   const statusTense = moment().diff(eventDate, 'minutes') > 0 ? 'Attended' : 'Attending'
   return (
     <td>
@@ -57,15 +57,28 @@ export const Actions = ({ invite, changeStatus, eventDate, ...otherProps }) => {
       <span>
         <Button sm ml={0.3} onClick={() => changeStatus('attending', invite.id)}>Set {statusTense}</Button>
         <Button sm ml={0.3} onClick={() => changeStatus('not-attending', invite.id)}>Set Not {statusTense}</Button>
+        <Button sm ml={0.3} onClick={() => removeInvitation(invite.id)} danger>Remove</Button>
       </span>
        }
-      { invite.status ==='not-attending' && <Button sm ml={0.3} onClick={() => changeStatus('attending', invite.id)}>Set {statusTense}</Button> }
-      { invite.status ==='attending' && <Button sm ml={0.3} onClick={() => changeStatus('not-attending', invite.id)}>Set Not {statusTense}</Button> }
+      { invite.status === 'not-attending' &&
+      <span>
+        <Button sm ml={0.3} onClick={() => changeStatus('attending', invite.id)}>Set {statusTense}</Button>
+        <Button sm ml={0.3} onClick={() => changeStatus('unconfirmed', invite.id)}>Unconfirmed</Button>
+        <Button sm ml={0.3} onClick={() => removeInvitation(invite.id)} danger>Remove</Button>
+      </span>
+      }
+      { invite.status === 'attending' &&
+      <span>
+        <Button sm ml={0.3} onClick={() => changeStatus('not-attending', invite.id)}>Set Not {statusTense}</Button>
+        <Button sm ml={0.3} onClick={() => changeStatus('unconfirmed', invite.id)}>Unconfirmed</Button>
+        <Button sm ml={0.3} onClick={() => removeInvitation(invite.id)} danger>Remove</Button>
+      </span>
+      }
     </td>
   )
 }
 
-const DataRow = ({ resource: invite, index, changeStatus }) => {
+const DataRow = ({ resource: invite, index, changeStatus, removeInvitation }) => {
   const event = invite.event || {};
   return (
     <tr>
@@ -79,7 +92,7 @@ const DataRow = ({ resource: invite, index, changeStatus }) => {
       <td>
         <FormatStatus status={invite.status} eventDate={event.eventDate} changeStatus={changeStatus} />
       </td>
-      <Actions invite={invite} eventDate={invite.event.eventDate} changeStatus={changeStatus} />
+      <Actions invite={invite} eventDate={invite.event.eventDate} changeStatus={changeStatus} removeInvitation={removeInvitation} />
     </tr>
   )
 }
@@ -167,7 +180,6 @@ export default compose(
     }
   }),
   withState('modal', 'toggleModal', null),
-  withCrud,
   withProps(({ match, contact, fetch }) => {
     return {
       resource: 'invites',
@@ -180,6 +192,7 @@ export default compose(
     }
   }),
   withPaginate,
+  withCrud,
   withHandlers({
     changeStatus:  ({ refetch, upsert }) => async (status, id) => {
       await upsert('invites', { status }, id)

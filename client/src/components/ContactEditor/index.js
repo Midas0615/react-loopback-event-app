@@ -22,7 +22,8 @@ export default compose(
         address3: form.address3,
         zip: form.zip,
         city: form.city,
-        phone: form.phone
+        phone: form.phone, 
+        comment: form.comment
       }
       if (form.contactGroup) {
         data.contactGroupId = form.contactGroup.id;

@@ -1,8 +1,8 @@
 {
   "db": {
     "port": "5432",
-    "database": "event_app",
-    "username": "postgres",
+    "database": "event",
+    "username": "dream",
     "password": "",
     "name": "db",
     "connector": "postgresql",

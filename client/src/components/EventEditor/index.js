@@ -17,7 +17,6 @@ export default compose(
         comment: form.comment
       }
       if (moment(form.eventDate).isValid()) data.eventDate = moment(form.eventDate).format()
-      console.log(data)
       upsert('events', data, form.id);
     },
     onDelete: () => remove(`events`, data.id)

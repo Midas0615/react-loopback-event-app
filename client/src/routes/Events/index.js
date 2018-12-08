@@ -56,7 +56,7 @@ const Events = (props) =>
     <DataTable
       {...props}
        Component={Row}
-       heading={['Event', 'Date', { title: 'Location', width: 15}, { title: '', width: 20 }]}
+       heading={['Event', 'Date', { title: 'Location', width: 15}, { title: '', width: 25 }]}
      />
   </Panel>
   {/* Modal */}

@@ -53,7 +53,7 @@ const seed = (app, next) => ds.automigrate('Account', async (err) => {
       password: '123456',
     },
     {
-      email: 'dreamweaver995@gmail.com',
+      email: 'dreamweaver@gmail.com',
       firstName: 'Dream',
       lastName: 'Weaver',
       realm: 'admin',

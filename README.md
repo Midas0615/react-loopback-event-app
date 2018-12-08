@@ -11,5 +11,9 @@ Frontend runs on http://localhost:3000
 
 API explorer: http://localhost.3000/explorer
 
+
+### [Live site](https://react-loopback-postgres-app.herokuapp.com/)
+
 ### ScreenShot
 ![react-loopback-event-app](/client/public/screenshot.png)
+

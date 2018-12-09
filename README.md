@@ -14,6 +14,5 @@ API explorer: http://localhost.3000/explorer
 
 ### [Live site](https://react-loopback-postgres-app.herokuapp.com/)
 
-### ScreenShot
-![react-loopback-event-app](/client/public/screenshot.png)
-
+### Screen Video
+https://www.dropbox.com/s/o1wb6j9lzhxd9yt/EventManagementApp.mov?dl=0

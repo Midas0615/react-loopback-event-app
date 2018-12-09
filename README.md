@@ -2,6 +2,7 @@
 
 ### Getting Started:
 First, clone the repo via git:
+
 `git clone https://github.com/dreamweaver220/react-loopback-event-app.git`
 
 And then install the dependencies with npm.
@@ -20,10 +21,13 @@ API explorer: http://localhost.3000/explorer
 
 ### ScreenShot
 Events page
+
 ![events-page](/client/public/screenshots/events-page.png)
 
 Contacts page
+
 ![contacts-page](/client/public/screenshots/contacts-page.png)
 
 Settings page
+
 ![settings-page](/client/public/screenshots/settings-page.png)
